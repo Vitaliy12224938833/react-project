@@ -1,34 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import getData from "./API/get-data-from-api";
+import generateURL from "./API/generate-url";
 
-function App() {
-  const [count, setCount] = useState(0)
+const ChangePage = ({ changePage, children }) => {
+  return <button onClick={changePage}>{children}</button>;
+};
 
+const Items = ({ children }) => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <ul>
+      {children.map((item) => (
+        <li>{item.title}</li>
+      ))}
+    </ul>
+  );
+};
 
-export default App
+const App = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+
+  const url = generateURL("popular", "en", page);
+
+  const nextPage = () => setPage((currPage) => currPage + 1);
+  const prevPage = () =>
+    setPage((currPage) => {
+      if (page === 1) return currPage;
+      return currPage - 1;
+    });
+
+  useEffect(() => {
+    (async () => {
+      const items = await getData(url);
+      setItems(items);
+      setIsLoaded(true);
+    })();
+  });
+
+  if (page < 1) return;
+  if (!isLoaded) {
+    return <div>Загрузка...</div>;
+  } else {
+    return (
+      <div>
+        <h1>{page}</h1>
+        <ChangePage changePage={prevPage}>Prev Page</ChangePage>
+        <Items>{items}</Items>
+        {/* <ShowTitle show={getTitel} /> */}
+
+        <ChangePage changePage={nextPage}>Next Page</ChangePage>
+      </div>
+    );
+  }
+};
+
+export default App;
