@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,24 @@
 
 .read-the-docs {
   color: #888;
+} */
+.movies-conteiner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+.movies-list img {
+  width: 300px;
+  height: 450px;
+}
+.movies-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  width: 100%;
+  margin-top: 3rem;
+  padding: 0 1rem;
+}
+.marker {
+  background-color: blue;
 }

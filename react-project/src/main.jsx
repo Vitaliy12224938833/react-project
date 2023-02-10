@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
+// import Movies from "./Movies-list";
+import App from "./components/App";
 
-ReactDOM.createRoot(document.getElementById("main")).render(
+ReactDOM.createRoot(document.getElementById("body")).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>

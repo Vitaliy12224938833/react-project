@@ -7,24 +7,34 @@ const ChangePage = ({ changePage, children }) => {
   return <button onClick={changePage}>{children}</button>;
 };
 
-const Items = ({ children }) => {
+const Item = ({ item }) => {
   return (
-    <ul>
+    <li className="item" key={item.id}>
+      <img src={`https://image.tmdb.org/t/p/w400${item.poster_path}`} />
+      <h2>{item.title}</h2>
+    </li>
+  );
+};
+
+const List = ({ children }) => {
+  return (
+    <ul className="movies-list">
       {children.map((item) => (
-        <li>{item.title}</li>
+        <Item item={item} />
       ))}
     </ul>
   );
 };
 
-const App = () => {
+const Movies = ({ listType, language, startPage }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(startPage);
 
-  const url = generateURL("popular", "en", page);
+  const url = generateURL(listType, language, page);
 
   const nextPage = () => setPage((currPage) => currPage + 1);
+
   const prevPage = () =>
     setPage((currPage) => {
       if (page === 1) return currPage;
@@ -39,7 +49,6 @@ const App = () => {
     })();
   });
 
-  if (page < 1) return;
   if (!isLoaded) {
     return <div>Загрузка...</div>;
   } else {
@@ -47,13 +56,11 @@ const App = () => {
       <div>
         <h1>{page}</h1>
         <ChangePage changePage={prevPage}>Prev Page</ChangePage>
-        <Items>{items}</Items>
-        {/* <ShowTitle show={getTitel} /> */}
-
         <ChangePage changePage={nextPage}>Next Page</ChangePage>
+        <List>{items}</List>
       </div>
     );
   }
 };
 
-export default App;
+export default Movies;
