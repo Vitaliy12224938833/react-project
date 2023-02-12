@@ -12,21 +12,36 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --dark-green: #014040;
+  --green: #02735e;
+  --lite-green: #03a678;
+  --orange: #f27405;
+  --dark-read: #731702;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--orange);
+  transition: all 0.3s;
 }
 
 * {
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+}
+body {
+  background: linear-gradient(
+    320deg,
+    var(--orange) 0%,
+    var(--dark-green) 90%,
+
+    var(--dark-green) 100%
+  );
 }
 
 li {
@@ -39,17 +54,17 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 3px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 20px;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--dark-read);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.3s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--orange);
 }
 button:focus,
 button:focus-visible {
@@ -61,9 +76,9 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
+  /* a:hover {
+    color: var(--orange);
+  } */
   button {
     background-color: #f9f9f9;
   }

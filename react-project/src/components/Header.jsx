@@ -1,8 +1,8 @@
-const Header = ({ click, id, children, className, type }) => {
+const Header = ({ children, className }) => {
   return (
-    <li key={id} className={className} onClick={() => click(type)}>
-      {children}
-    </li>
+    <header className={className}>
+      <nav>{children}</nav>
+    </header>
   );
 };
 
