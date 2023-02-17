@@ -7,13 +7,12 @@ import { generateURL } from '../../API/generate-url';
 export const Singlepage = () => {
   const { id, content } = useParams();
   const [contentData, setContentData] = useState(null);
-
   const url = generateURL(content, id, 'ru', 1);
 
   useEffect(() => {
     (async () => setContentData(await getData(url)))();
   }, []);
-  console.log(contentData);
+
   return (
     <div>
       {contentData && (
