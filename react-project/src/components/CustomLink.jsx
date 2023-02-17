@@ -1,4 +1,4 @@
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch } from 'react-router-dom';
 
 const CustomLink = ({ children, to, ...props }) => {
   const match = useMatch({
@@ -7,7 +7,7 @@ const CustomLink = ({ children, to, ...props }) => {
   });
 
   return (
-    <Link to={to} style={{ backgroundColor: match ? "read" : "" }} {...props}>
+    <Link to={to} className={match ? 'marker' : ''} {...props}>
       {children}
     </Link>
   );
