@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
-// import Movies from "./Movies-list";
-import App from "./App";
+import { StrictMode } from "react";
+import * as ReactDOMClient from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-ReactDOM.createRoot(document.getElementById("body")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+import App from "./App";
+
+const rootElement = document.getElementById("root");
+const root = ReactDOMClient.createRoot(rootElement);
+
+root.render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+  document.getElementById("root")
 );
