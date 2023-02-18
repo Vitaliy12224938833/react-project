@@ -20,15 +20,15 @@ export const Homepage = () => {
       {data && (
         <ul className='content-list'>
           {data.results.map((item) => {
-            const { id, title, poster_path } = item;
+            const { id, title, poster_path, name } = item;
             return (
               <li key={id}>
                 <Link to={`/${defaultContent}/${defaultCategory}/${id}`}>
                   <img
                     src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-                    alt={title}
+                    alt={title || name}
                   />
-                  <h2>{title}</h2>
+                  <h2>{title || name}</h2>
                 </Link>
               </li>
             );
