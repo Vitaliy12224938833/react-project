@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { CustomLink } from './CustomLink';
 import { categoriesData } from '../data';
-import '../App.css';
 
 export const Layout = () => {
   const contentTypes = Object.keys(categoriesData);
