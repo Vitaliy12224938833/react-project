@@ -10,7 +10,7 @@ export const Homepage = () => {
   const [moviesList, setMoviesList] = useState([]);
   const [page, setPage] = useState(1);
   const changePage = () => setPage(page + 1);
-
+  console.log(categori);
   const url = generateURL(
     content ? content : 'movie',
     categori ? categori : 'popular',

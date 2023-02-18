@@ -1,24 +1,28 @@
 import { CustomLink } from './CustomLink';
-import { categoris } from '../data';
+import { categoriesData } from '../data';
 import { Outlet, useParams } from 'react-router-dom';
 
-export const Categoris = () => {
+export const Categoris = ({ children }) => {
   const { content } = useParams();
-  console.log({ content });
+  const currContent = content ? content : 'movie';
+  const categoreis = categoriesData[currContent].categories;
   return (
     <>
       <div>
         <ul>
-          {categoris[content].map((categori, index) => (
-            <li key={index}>
-              <CustomLink to={`/${content}/${categori}`}>{categori}</CustomLink>
-            </li>
-          ))}
+          {categoreis.map((item) => {
+            const { id, name, category } = item;
+            return (
+              <li key={id}>
+                <CustomLink to={`/${currContent}/${category}`}>
+                  {name}
+                </CustomLink>
+              </li>
+            );
+          })}
         </ul>
       </div>
-      <div>
-        <Outlet />
-      </div>
+      <div>{children ? children : <Outlet />}</div>
     </>
   );
 };

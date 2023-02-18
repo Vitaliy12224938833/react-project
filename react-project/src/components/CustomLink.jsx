@@ -5,7 +5,6 @@ export const CustomLink = ({ children, to, ...props }) => {
     path: to,
     end: to.length === 1,
   });
-
   return (
     <Link to={to} style={{ backgroundColor: match ? 'read' : '' }} {...props}>
       {children}
