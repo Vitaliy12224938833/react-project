@@ -4,7 +4,7 @@ export const CustomLink = ({ children, to, ...props }) => {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) => (isActive ? 'active' : '')}
+      className={({ isActive }) => (isActive ? 'category active' : 'category')}
       {...props}
     >
       {children}

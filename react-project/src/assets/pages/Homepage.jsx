@@ -25,7 +25,7 @@ export const Homepage = () => {
               <li key={id}>
                 <Link to={`/${defaultContent}/${defaultCategory}/${id}`}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                    src={`https://image.tmdb.org/t/p/w300${poster_path}`}
                     alt={title}
                   />
                   <h2>{title}</h2>

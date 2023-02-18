@@ -7,7 +7,7 @@ export const Layout = () => {
   return (
     <>
       <header>
-        <ul>
+        <ul className='categories'>
           {contentTypes.map((type) => {
             const { name, id } = categoriesData[type];
             return (

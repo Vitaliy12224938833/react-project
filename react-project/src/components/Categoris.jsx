@@ -4,20 +4,17 @@ import { Outlet, useParams } from 'react-router-dom';
 
 export const Categoris = ({ children }) => {
   const { content } = useParams();
-  const currContent = content ? content : 'movie';
-  console.log(currContent);
-  const categoreis = categoriesData[currContent].categories;
-  console.log(categoreis);
+  const defaultContent = content ? content : 'movie';
+  const categoreis = categoriesData[defaultContent].categories;
   return (
     <>
       <div>
-        <ul>
+        <ul className='categories'>
           {categoreis.map((item) => {
             const { id, name, category } = item;
-            console.log(item);
             return (
               <li key={id}>
-                <CustomLink to={`/${currContent}/${category}`}>
+                <CustomLink to={`/${defaultContent}/${category}`}>
                   {name}
                 </CustomLink>
               </li>
@@ -25,6 +22,7 @@ export const Categoris = ({ children }) => {
           })}
         </ul>
       </div>
+      <div className='gradient-line'></div>
       <div>{children ? children : <Outlet />}</div>
     </>
   );
