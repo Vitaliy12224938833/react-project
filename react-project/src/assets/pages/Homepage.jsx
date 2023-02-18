@@ -5,6 +5,7 @@ import { generateURL } from '../../API/generate-url';
 import { useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import '../../App.css';
+
 export const Homepage = () => {
   console.log([useParams()]);
   const { content } = useParams();
@@ -22,17 +23,20 @@ export const Homepage = () => {
   return (
     <div className='conteiner'>
       <ul className='content-list'>
-        {moviesList.map((item) => (
-          <li key={item.id}>
-            <Link key={item.key} to={`/${content}/${item.id}`}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                alt={item.title}
-              />
-              <h2>{item.name}</h2>
-            </Link>
-          </li>
-        ))}
+        {moviesList.map((item) => {
+          const { id, title, poster_path } = item;
+          return (
+            <li key={id}>
+              <Link to={`/${content}/${category}/${id}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                  alt={title}
+                />
+                <h2>{title}</h2>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -1,20 +1,22 @@
 import { Outlet } from 'react-router-dom';
-import CustomLink from './CustomLink';
+import { CustomLink } from './CustomLink';
+import { categoriesData } from '../data';
 import '../App.css';
-const Layout = () => {
+
+export const Layout = () => {
+  const contentTypes = Object.keys(categoriesData);
   return (
     <>
       <header>
         <ul>
-          <li>
-            <CustomLink to='/movie'>Movies</CustomLink>
-          </li>
-          <li>
-            <CustomLink to='/tv'>TV</CustomLink>
-          </li>
-          <li>
-            <CustomLink to='/person'>Persons</CustomLink>
-          </li>
+          {contentTypes.map((type) => {
+            const { name, id } = categoriesData[type];
+            return (
+              <li key={id}>
+                <CustomLink to={type}>{name}</CustomLink>
+              </li>
+            );
+          })}
         </ul>
       </header>
       <main>
@@ -24,5 +26,3 @@ const Layout = () => {
     </>
   );
 };
-
-export default Layout;

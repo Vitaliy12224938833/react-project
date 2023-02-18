@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Layout from './components/Layout';
+import { Layout } from './components/Layout';
 import { AuthProvider } from './hoc/AuthProvider';
 import { Homepage } from './assets/pages/Homepage';
 import { Singlepage } from './assets/pages/Singlepage';
