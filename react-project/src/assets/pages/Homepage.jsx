@@ -23,8 +23,8 @@ export const Homepage = () => {
       setMoviesList(await getData(url).then((res) => res.results)))();
   }, [url, content, category]);
   return (
-    <div>
-      <ul>
+    <div className='conteiner'>
+      <ul className='content-list'>
         {moviesList.map((item) => {
           const { id, title, poster_path } = item;
           return (

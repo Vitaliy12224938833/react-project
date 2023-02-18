@@ -6,7 +6,7 @@ export const CustomLink = ({ children, to, ...props }) => {
     end: to.length === 1,
   });
   return (
-    <Link to={to} style={{ backgroundColor: match ? 'read' : '' }} {...props}>
+    <Link to={to} className={match ? 'marker' : ''} {...props}>
       {children}
     </Link>
   );
