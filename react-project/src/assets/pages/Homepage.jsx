@@ -1,46 +1,40 @@
-import { useEffect } from 'react';
 import { useState } from 'react';
-import { getData } from '../../API/get-data-from-api';
 import { generateURL } from '../../API/generate-url';
-
+import { useGetRequest } from '../../HOOK/useGetRequest';
 import { Link, useParams } from 'react-router-dom';
 import '../../App.css';
 
 export const Homepage = () => {
   const { content, category } = useParams();
-  const [moviesList, setMoviesList] = useState([]);
   const [page, setPage] = useState(1);
-  const changePage = () => setPage(page + 1);
+  // const changePage = () => setPage(page + 1);
+  const defaultContent = content ? content : 'movie';
+  const defaultCategory = category ? category : 'popular';
+  const url = generateURL(defaultContent, defaultCategory, 'ru', page);
 
-  const url = generateURL(
-    content ? content : 'movie',
-    category ? category : 'popular',
-    'ru',
-    page
-  );
-  console.log(moviesList);
-  useEffect(() => {
-    (async () =>
-      setMoviesList(await getData(url).then((res) => res.results)))();
-  }, [url, content, category]);
+  const [data, setData] = useGetRequest();
+  setData(url);
+
   return (
     <div className='conteiner'>
-      <ul className='content-list'>
-        {moviesList.map((item) => {
-          const { id, title, poster_path } = item;
-          return (
-            <li key={id}>
-              <Link to={`/${content}/${category}/${id}`}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                  alt={title}
-                />
-                <h2>{title}</h2>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      {data && (
+        <ul className='content-list'>
+          {data.results.map((item) => {
+            const { id, title, poster_path } = item;
+            return (
+              <li key={id}>
+                <Link to={`/${defaultContent}/${defaultCategory}/${id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                    alt={title}
+                  />
+                  <h2>{title}</h2>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 };

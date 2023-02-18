@@ -1,24 +1,17 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getData } from '../../API/get-data-from-api';
 import { generateURL } from '../../API/generate-url';
+import { useGetRequest } from '../../HOOK/useGetRequest';
 
 export const Singlepage = () => {
   const { id, content } = useParams();
-  const [contentData, setContentData] = useState(null);
+  const [data, setData] = useGetRequest();
   const url = generateURL(content, id, 'ru', 1);
-
-  useEffect(() => {
-    (async () => setContentData(await getData(url)))();
-  }, []);
+  setData(url);
 
   return (
     <div>
-      {contentData && (
-        <img
-          src={`https://image.tmdb.org/t/p/original${contentData.backdrop_path}`}
-        />
+      {data && (
+        <img src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`} />
       )}
     </div>
   );
