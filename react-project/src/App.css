@@ -64,7 +64,10 @@ header ul {
   left: 15px;
   top: 20px;
 }
-header li {
+header {
+  padding-top: 80px;
+}
+header a {
   font-size: 30px;
   padding: 5px 16px;
   margin: 10px;
@@ -89,7 +92,7 @@ header li {
 }
 .content-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   grid-gap: 1rem;
   width: 100%;
   margin-top: 3rem;
@@ -107,10 +110,9 @@ header li {
   background: var(--dark-red);
   border-radius: 10px;
   border: solid 3px transparent;
-  color: var(--whit);
 }
 .marker:hover {
-  /* color: var(--whit); */
+  color: var(--whit);
   border: solid 3px var(--orange);
   transition: border 0.3s;
 }

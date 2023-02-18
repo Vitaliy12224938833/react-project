@@ -4,6 +4,7 @@ import { getData } from '../../API/get-data-from-api';
 import { generateURL } from '../../API/generate-url';
 
 import { Link, useParams } from 'react-router-dom';
+import '../../App.css';
 
 export const Homepage = () => {
   const { content, category } = useParams();
