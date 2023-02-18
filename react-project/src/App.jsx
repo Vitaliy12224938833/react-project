@@ -13,8 +13,8 @@ const App = () => {
           <Route index element={<Categoris children={<Homepage />} />} />
           <Route path=':content' element={<Categoris />}>
             <Route index element={<Homepage />} />
-            <Route path='/:content/:categori' element={<Homepage />} />
-            <Route path='/:content/:categori/:id' element={<Singlepage />} />
+            <Route path='/:content/:category' element={<Homepage />} />
+            <Route path='/:content/:category/:id' element={<Singlepage />} />
           </Route>
         </Route>
       </Routes>

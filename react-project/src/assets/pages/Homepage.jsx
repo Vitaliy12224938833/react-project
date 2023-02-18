@@ -6,40 +6,39 @@ import { generateURL } from '../../API/generate-url';
 import { Link, useParams } from 'react-router-dom';
 
 export const Homepage = () => {
-  const { content, categori } = useParams();
+  const { content, category } = useParams();
   const [moviesList, setMoviesList] = useState([]);
   const [page, setPage] = useState(1);
   const changePage = () => setPage(page + 1);
-  console.log(categori);
+
   const url = generateURL(
     content ? content : 'movie',
-    categori ? categori : 'popular',
+    category ? category : 'popular',
     'ru',
     page
   );
-
+  console.log(moviesList);
   useEffect(() => {
     (async () =>
       setMoviesList(await getData(url).then((res) => res.results)))();
-  }, [url]);
+  }, [url, content, category]);
   return (
     <div>
       <ul>
-        {moviesList.map((item) => (
-          <li key={item.id}>
-            <Link
-              data={item}
-              key={item.key}
-              to={`/${content}/${categori}/${item.id}`}
-            >
-              <img
-                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                alt={item.title}
-              />
-              <h2>{item.titel}</h2>
-            </Link>
-          </li>
-        ))}
+        {moviesList.map((item) => {
+          const { id, title, poster_path } = item;
+          return (
+            <li key={id}>
+              <Link to={`/${content}/${category}/${id}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                  alt={title}
+                />
+                <h2>{title}</h2>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
