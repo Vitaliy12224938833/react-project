@@ -5,7 +5,7 @@ export const categoriesData = {
     categories: [
       {
         category: 'popular',
-        name: 'Poplar',
+        name: 'Popular',
         id: '1a',
       },
       {

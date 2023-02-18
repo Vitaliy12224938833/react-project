@@ -106,12 +106,13 @@ header a {
   box-shadow: 20px var(--whit);
   transition: all 0.3s;
 }
-.marker {
+.active {
   background: var(--dark-red);
   border-radius: 10px;
   border: solid 3px transparent;
+  /* padding:10px; */
 }
-.marker:hover {
+.active:hover {
   color: var(--whit);
   border: solid 3px var(--orange);
   transition: border 0.3s;
