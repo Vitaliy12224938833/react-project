@@ -11,7 +11,7 @@ export const Homepage = () => {
   const defaultContent = content ? content : 'movie';
   const defaultCategory = category ? category : 'popular';
 
-  const url = generateURL(defaultContent, defaultCategory, 'ru', page);
+  const url = generateURL(defaultContent, defaultCategory, 'en-US', page);
 
   const [list, loader] = useInfinityList(url, page, setPage, content, category);
 
