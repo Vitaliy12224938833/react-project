@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { generateURL } from '../../API/generate-url';
-import { useGetRequest } from '../../HOOK/useGetRequest';
+import { useGetRequest } from '../../HOOKs/useGetRequest';
 
 export const Singlepage = () => {
   const { id, content } = useParams();
