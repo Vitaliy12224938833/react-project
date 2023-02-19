@@ -5,7 +5,7 @@ import { Homepage } from './assets/pages/Homepage';
 import { Singlepage } from './assets/pages/Singlepage';
 import { Categoris } from './components/Categoris';
 
-const App = () => {
+export const App = () => {
   return (
     <AuthProvider>
       <Routes>
@@ -21,4 +21,3 @@ const App = () => {
     </AuthProvider>
   );
 };
-export default App;

@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
-import { generateURL } from '../../API/generate-url';
 import { Link, useParams } from 'react-router-dom';
+import { generateURL } from '../../API/generate-url';
 import { getData } from '../../API/get-data-from-api';
 import '../../App.css';
 
 export const Homepage = () => {
   const { content, category } = useParams();
+
   const [page, setPage] = useState(1);
-  const defaultContent = content ? content : 'movie';
-  const defaultCategory = category ? category : 'popular';
   const [data, setData] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [isStatList, setStartlist] = useState(true);
+  const [loader, setLoader] = useState(false);
+
+  const defaultContent = content ? content : 'movie';
+  const defaultCategory = category ? category : 'popular';
+
+  const url = generateURL(defaultContent, defaultCategory, 'ru', page);
 
   useEffect(() => {
     setPage(1);
@@ -19,14 +24,14 @@ export const Homepage = () => {
     setStartlist(true);
   }, [content, category]);
 
-  const url = generateURL(defaultContent, defaultCategory, 'ru', page);
-
   useEffect(() => {
     if (fetching) {
+      setLoader(true);
       getData(url)
         .then((res) => {
           if (!isStatList) {
             setData([...data, ...res.results]);
+            setLoader(false);
           } else {
             setData(res.results);
           }
@@ -77,6 +82,7 @@ export const Homepage = () => {
           })}
         </ul>
       )}
+      {loader && <div className='loader'>Loading....</div>}
     </div>
   );
 };
