@@ -1,6 +1,5 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { generateURL } from '../../API/generate-url';
-import { useGetRequest } from '../../HOOKs/useGetRequest';
 import { Link, useParams } from 'react-router-dom';
 import { getData } from '../../API/get-data-from-api';
 import '../../App.css';
@@ -28,11 +27,10 @@ export const Homepage = () => {
         .then((res) => {
           if (!isStatList) {
             setData([...data, ...res.results]);
-            setPage(page + 1);
           } else {
             setData(res.results);
-            setPage(page + 1);
           }
+          setPage(page + 1);
         })
         .finally(() => {
           setStartlist(false);
