@@ -34,6 +34,10 @@
 .sliderStyles {
   position: relative;
   height: 100%;
+  border-bottom: solid 45px transparent;
+}
+.sliderStyles:hover {
+  border-bottom: solid 0px transparent;
 }
 
 .dotsContainerStyles {
@@ -59,4 +63,5 @@
 .sliderStyles:hover .leftArrowStyles,
 .sliderStyles:hover .dotStyle {
   display: block;
+  /* border-bottom: solid 00px transparent; */
 }

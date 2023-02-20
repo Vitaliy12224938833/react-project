@@ -2,6 +2,7 @@ import { useGetRequest } from '../../HOOKs/useGetRequest';
 import { generateURL } from '../../API/generate-url';
 import { useParams } from 'react-router-dom';
 import { TrailersSlider } from '../../components/TrailersSlider';
+import { Desciprion } from '../../components/Description';
 import '../../styles/Singlepage.css';
 
 export const Singlepage = () => {
@@ -12,10 +13,12 @@ export const Singlepage = () => {
   const [videosData] = useGetRequest(
     `https://api.themoviedb.org/3/${content}/${id}/videos?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US`
   );
+  console.log(pageData);
 
   return (
     <div className='conteiner'>
       <TrailersSlider data={videosData} />
+      {pageData && <Desciprion data={pageData} />}
     </div>
   );
 };
