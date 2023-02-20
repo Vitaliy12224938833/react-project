@@ -21,6 +21,9 @@ export const Layout = () => {
       <main>
         <Outlet />
       </main>
+      <footer>
+        <div className='footer'></div>
+      </footer>
     </>
   );
 };
