@@ -1,7 +1,7 @@
 import YouTube from 'react-youtube';
 import '../styles/Slider.css';
 
-export const Video = ({ data, className }) => {
+export const VideoTrailler = ({ data, className }) => {
   const { key } = data;
   const opts = {
     playerVars: {
@@ -9,6 +9,7 @@ export const Video = ({ data, className }) => {
       fs: 0,
       iv_load_policy: 3,
       loop: 1,
+      controls: 0,
       modestbranding: 1,
     },
   };

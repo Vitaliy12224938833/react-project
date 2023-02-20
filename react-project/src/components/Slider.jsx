@@ -1,19 +1,17 @@
 import { useState } from 'react';
-import { Video } from './YouTobeVideo';
+// import { Video } from './YouTobeVideo';
 import '.././styles/Slider.css';
 
-export const Slider = ({ data }) => {
-  const traillerList = data.filter((item) => item.type === 'Trailer');
+export const Slider = ({ data, children }) => {
+  if (!data.length) return;
   const [currIdx, setCurrIdx] = useState(0);
 
   const prevSlide = () => {
-    currIdx >= 1
-      ? setCurrIdx(currIdx - 1)
-      : setCurrIdx(traillerList.length - 1);
+    currIdx >= 1 ? setCurrIdx(currIdx - 1) : setCurrIdx(data.length - 1);
   };
 
   const nextSlide = () => {
-    currIdx < traillerList.length - 1 ? setCurrIdx(currIdx + 1) : setCurrIdx(0);
+    currIdx < data.length - 1 ? setCurrIdx(currIdx + 1) : setCurrIdx(0);
   };
 
   const goToSlide = (idx) => setCurrIdx(idx);
@@ -29,11 +27,9 @@ export const Slider = ({ data }) => {
       <div className='rightArrowStyles' onClick={() => nextSlide()}>
         ❱
       </div>
-      <div className='slideStyles'>
-        <Video className={'slideStyles'} data={traillerList[currIdx]} />
-      </div>
+      {children(data[currIdx], 'slideStyles')}
       <div className='dotsContainerStyles'>
-        {traillerList.map((item, idx) => (
+        {data.map((item, idx) => (
           <div
             className={isActiveDot(idx)}
             key={idx}
