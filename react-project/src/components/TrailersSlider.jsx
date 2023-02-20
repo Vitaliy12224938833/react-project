@@ -1,6 +1,5 @@
 import { Slider } from './Slider';
 import { VideoTrailler } from './YouTobeVideo';
-
 export const TrailersSlider = ({ data }) => {
   return (
     <>
