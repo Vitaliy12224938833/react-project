@@ -1,3 +1,4 @@
+import '../styles/Description.css';
 export const Desciprion = ({ data }) => {
   const {
     original_title,
@@ -21,32 +22,112 @@ export const Desciprion = ({ data }) => {
     return `${hours} hours ${lastMin} min`;
   };
 
+  const makeMoney = (n) =>
+    parseFloat(n)
+      .toFixed(2)
+      .replace(/(\d)(?=(\d{3})+\.)/g, '$1 ') + ' $';
+
   return (
-    <div className='description'>
-      <div>
+    <div className='description-conteiner'>
+      <div className='description'>
         <img
-          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+          className='poster'
+          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
           alt={title}
         />
-        <div>
-          <div className='description-title'>
-            <h2>{title}</h2>
-            <p>Runtime: {runTime(runtime)}</p>
-          </div>
-          <div>
-            <p>Contry: {production_companies[0].origin_country}</p>
-            <p>{release_date}</p>
-            <p>{status}</p>
-            <p>Rating: {vote_average}</p>
-            <p>Budget: {budget}</p>
-            <p>Revenue: {revenue}</p>
-            <div>
-              Genres:
-              {genres.map((item, idx) => (
-                <p key={idx}>{item.name}</p>
-              ))}
-            </div>
-          </div>
+        <div className='table-wrap'>
+          <h2 className='description-title'>{title}</h2>
+          <table>
+            <tbody>
+              {runtime && (
+                <tr>
+                  <th>
+                    <b>Runtime:</b>
+                  </th>
+                  <th>
+                    <span>{runTime(runtime)}</span>
+                  </th>
+                </tr>
+              )}
+              {production_companies[0].origin_country && (
+                <tr>
+                  <th>
+                    <b>Contry:</b>
+                  </th>
+                  <th>
+                    <span>{production_companies[0].origin_country}</span>
+                  </th>
+                </tr>
+              )}
+              {release_date && (
+                <tr>
+                  <th>
+                    <b>Relis:</b>
+                  </th>
+                  <th>
+                    <span>{release_date}</span>
+                  </th>
+                </tr>
+              )}
+              {status && (
+                <tr>
+                  <th>
+                    <b>Status</b>
+                  </th>
+                  <th>
+                    <span>{status}</span>
+                  </th>
+                </tr>
+              )}
+              {vote_average && (
+                <tr>
+                  <th>
+                    <b>Rating:</b>
+                  </th>
+                  <th>
+                    <span>{vote_average}</span>
+                  </th>
+                </tr>
+              )}
+              {budget && (
+                <tr>
+                  <th>
+                    <b>Budget:</b>
+                  </th>
+                  <th>
+                    <span>{makeMoney(budget)}</span>
+                  </th>
+                </tr>
+              )}
+              {revenue && (
+                <tr>
+                  <th>
+                    <b>Revenue:</b>
+                  </th>
+                  <th>
+                    <span>{makeMoney(revenue)}</span>
+                  </th>
+                </tr>
+              )}
+              {genres.length && (
+                <tr>
+                  <th>
+                    <b>Genres:</b>
+                  </th>
+                  <th>
+                    <span className='table-list'>
+                      {genres.map((item, idx) => (
+                        <span key={idx}>
+                          {item.name}
+                          <span> </span>
+                        </span>
+                      ))}
+                    </span>
+                  </th>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
       <p className='description-overview'>{overview}</p>

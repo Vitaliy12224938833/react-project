@@ -3,11 +3,9 @@ import { generateURL } from '../../API/generate-url';
 import { useParams } from 'react-router-dom';
 import { TrailersSlider } from '../../components/TrailersSlider';
 import { Desciprion } from '../../components/Description';
-import '../../styles/Singlepage.css';
 
 export const Singlepage = () => {
   const { id, content } = useParams();
-
   const url = generateURL(content, id, 'en-US', 1);
   const [pageData] = useGetRequest(url);
   const [videosData] = useGetRequest(

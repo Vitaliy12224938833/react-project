@@ -50,13 +50,14 @@
   cursor: pointer;
   font-size: 30px;
   display: none;
+  color: silver;
 }
 .dotStyle:hover {
   color: #fff;
   transition: all 0.2s;
 }
 .activeDot {
-  color: white;
+  color: #fefefe;
 }
 
 .sliderStyles:hover .rightArrowStyles,
