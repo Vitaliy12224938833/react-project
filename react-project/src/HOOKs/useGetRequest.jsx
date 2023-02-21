@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getData } from '../API/get-data-from-api';
 
-export const useGetRequest = (url) => {
-  const [fetching, setFetching] = useState(true);
+export const useGetRequest = () => {
+  const [currUrl, setCurrUrl] = useState('');
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    if (fetching)
-      getData(url)
-        .then((res) => setState(res))
-        .finally(() => setFetching(false));
-  }, []);
+    getData(currUrl).then((res) => setState(res));
+  }, [currUrl]);
 
-  return [state];
+  return [state, setCurrUrl];
 };

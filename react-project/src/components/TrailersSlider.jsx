@@ -4,7 +4,7 @@ export const TrailersSlider = ({ data }) => {
   return (
     <>
       {data && (
-        <Slider data={data.results.filter((item) => item.official)}>
+        <Slider data={data.filter((item) => item.official)}>
           {(data, className) => (
             <VideoTrailler data={data} className={className} />
           )}
