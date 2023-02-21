@@ -39,7 +39,7 @@ export const Desciprion = ({ data }) => {
           <h2 className='description-title'>{title}</h2>
           <table>
             <tbody>
-              {runtime && (
+              {runtime !== undefined && (
                 <tr>
                   <th>
                     <b>Runtime:</b>
@@ -49,7 +49,7 @@ export const Desciprion = ({ data }) => {
                   </th>
                 </tr>
               )}
-              {production_companies[0].origin_country && (
+              {production_companies.length > 0 && (
                 <tr>
                   <th>
                     <b>Contry:</b>
@@ -59,7 +59,7 @@ export const Desciprion = ({ data }) => {
                   </th>
                 </tr>
               )}
-              {release_date && (
+              {release_date !== undefined && (
                 <tr>
                   <th>
                     <b>Relis:</b>
@@ -69,7 +69,7 @@ export const Desciprion = ({ data }) => {
                   </th>
                 </tr>
               )}
-              {status && (
+              {status !== undefined && (
                 <tr>
                   <th>
                     <b>Status</b>
@@ -79,7 +79,7 @@ export const Desciprion = ({ data }) => {
                   </th>
                 </tr>
               )}
-              {vote_average && (
+              {vote_average !== undefined && (
                 <tr>
                   <th>
                     <b>Rating:</b>
@@ -89,7 +89,7 @@ export const Desciprion = ({ data }) => {
                   </th>
                 </tr>
               )}
-              {budget && (
+              {budget !== undefined && (
                 <tr>
                   <th>
                     <b>Budget:</b>
@@ -99,7 +99,7 @@ export const Desciprion = ({ data }) => {
                   </th>
                 </tr>
               )}
-              {revenue && (
+              {revenue !== undefined && (
                 <tr>
                   <th>
                     <b>Revenue:</b>
@@ -109,7 +109,7 @@ export const Desciprion = ({ data }) => {
                   </th>
                 </tr>
               )}
-              {genres.length && (
+              {genres.length > 0 && (
                 <tr>
                   <th>
                     <b>Genres:</b>

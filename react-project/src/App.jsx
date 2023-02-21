@@ -14,7 +14,10 @@ export const App = () => {
           <Route path=':content' element={<Categoris />}>
             <Route index element={<Homepage />} />
             <Route path='/:content/:category' element={<Homepage />} />
-            <Route path='/:content/:category/:id' element={<Singlepage />} />
+            <Route
+              path='/:content/:category/:name/:id'
+              element={<Singlepage />}
+            />
           </Route>
         </Route>
       </Routes>
