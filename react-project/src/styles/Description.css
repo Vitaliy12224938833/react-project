@@ -1,0 +1,21 @@
+.description {
+  display: flex;
+  margin-bottom: 40px;
+}
+.description-title {
+  font-size: 60px;
+}
+.table-wrap {
+  width: 100%;
+  margin-left: 130px;
+}
+
+table {
+  width: 150%;
+  text-align: left;
+  height: 10px;
+  font-size: 30px;
+}
+table th {
+  padding: 10px;
+}

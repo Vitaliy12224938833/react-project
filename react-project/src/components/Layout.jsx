@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { CustomLink } from './CustomLink';
 import { categoriesData } from '../data';
-
+import { Link } from 'react-router-dom';
 export const Layout = () => {
   const contentTypes = Object.keys(categoriesData);
   return (
@@ -16,6 +16,9 @@ export const Layout = () => {
               </li>
             );
           })}
+          <li>
+            <Link to='/home'>Home</Link>
+          </li>
         </ul>
       </header>
       <main>
