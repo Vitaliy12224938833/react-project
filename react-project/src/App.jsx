@@ -4,7 +4,7 @@ import { AuthProvider } from './hoc/AuthProvider';
 import { Homepage } from './assets/pages/Homepage';
 import { Singlepage } from './assets/pages/Singlepage';
 import { Categoris } from './components/Categoris';
-
+import { Personpage } from './assets/pages/Personpage';
 export const App = () => {
   return (
     <AuthProvider>
@@ -19,6 +19,7 @@ export const App = () => {
               element={<Singlepage />}
             />
           </Route>
+          <Route path='/person/:category/:name/:id' element={<Personpage />} />
         </Route>
       </Routes>
     </AuthProvider>

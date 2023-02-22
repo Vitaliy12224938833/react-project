@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-
-import { ListItem } from '../ListItem/ListItem';
 import './HorizontalList.css';
-import { List } from '../List/List';
-export const HorizontalList = ({ data, title, content, category }) => {
+
+export const HorizontalList = ({ data, title, children }) => {
   const [isMoved, setIsMoved] = useState(false);
   const listRef = useRef();
-  const filtredData = data.filter((item) => item.poster_path);
+  const filtredData = data.filter(
+    (item) => item.poster_path || item.profile_path
+  );
 
   useEffect(() => {
     listRef.current.style.transform = `translateX(0px)`;
@@ -46,22 +46,7 @@ export const HorizontalList = ({ data, title, content, category }) => {
             >
               ❰
             </div>
-            <List
-              className='horizontal-list'
-              data={filtredData}
-              listRef={listRef}
-            >
-              {(id, title, poster_path, name) => (
-                <ListItem
-                  key={id}
-                  className={'horizontal-list-item'}
-                  id={id}
-                  img={poster_path}
-                  name={title || name}
-                  categories={[content, category]}
-                />
-              )}
-            </List>
+            {children(filtredData, listRef, 'horizontal-list')}
             <div
               className='horizont-list-button right'
               onClick={!isMoved ? () => handleClick('right') : () => {}}

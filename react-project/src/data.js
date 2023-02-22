@@ -41,4 +41,15 @@ export const categoriesData = {
       },
     ],
   },
+  person: {
+    id: '3',
+    name: 'Actors',
+    categories: [
+      {
+        category: 'popular',
+        name: 'Popular',
+        id: '1c',
+      },
+    ],
+  },
 };
