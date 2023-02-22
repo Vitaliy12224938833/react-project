@@ -1,15 +1,16 @@
 import YouTube from 'react-youtube';
-import '../styles/Slider.css';
+import './Video.css';
 
-export const VideoTrailler = ({ data, className }) => {
+export const VideoTrailler = ({ data, className, autoplay }) => {
+  if (!data) return;
   const { key } = data;
   const opts = {
     playerVars: {
-      autoplay: 1,
-      fs: 0,
+      autoplay: autoplay === 0 ? 0 : 1,
+      fs: 1,
       iv_load_policy: 3,
       loop: 1,
-      controls: 0,
+      controls: 1,
       modestbranding: 1,
     },
   };
