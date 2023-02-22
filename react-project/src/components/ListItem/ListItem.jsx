@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { useLayoutEffect } from 'react';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export const ListItem = ({ id, img, name, categories }) => {

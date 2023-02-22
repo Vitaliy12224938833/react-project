@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { generateURL } from '../../API/generate-url';
 import { useInfinityList } from '../../HOOKs/useInfinityList';
 import { ListItem } from '../../components/ListItem/ListItem';
+import { List } from '../../components/List/List';
 import '../../App.css';
 
 export const Homepage = () => {
@@ -19,20 +20,17 @@ export const Homepage = () => {
   return (
     <div className='conteiner'>
       {list && (
-        <ul className='content-list'>
-          {list.map((item) => {
-            const { id, title, poster_path, name } = item;
-            return (
-              <ListItem
-                key={id}
-                id={id}
-                name={title || name}
-                img={poster_path}
-                categories={[defaultContent, defaultCategory]}
-              />
-            );
-          })}
-        </ul>
+        <List data={list} className={'content-list'}>
+          {(id, title, poster_path, name) => (
+            <ListItem
+              key={id}
+              id={id}
+              name={title || name}
+              img={poster_path}
+              categories={[defaultContent, defaultCategory]}
+            />
+          )}
+        </List>
       )}
       {loader && <div className='loader'>Loading....</div>}
     </div>

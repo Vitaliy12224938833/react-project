@@ -38,6 +38,7 @@ export const Singlepage = () => {
       {similarData && (
         <HorizontalList
           data={similarData}
+          title='Similar'
           content={content}
           category={category}
         />
