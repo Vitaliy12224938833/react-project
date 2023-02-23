@@ -12,47 +12,47 @@ import axios from 'axios';
 export const Singlepage = () => {
   const { id, content, category } = useParams();
 
-  const [pageData, setPageData] = useState(null);
-  const [videosData, setVideoData] = useState(null);
-  const [similarData, setSimilarData] = useState(null);
-  const [castData, setCastData] = useState(null);
+  const [pageList, setPageList] = useState(null);
+  const [videosList, setVideosList] = useState(null);
+  const [similarList, setSimilarList] = useState(null);
+  const [castList, setCastList] = useState(null);
 
   useEffect(() => {
     axios
       .get(
         `https://api.themoviedb.org/3/${content}/${id}?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US`
       )
-      .then((res) => setPageData(res.data));
+      .then((res) => setPageList(res.data));
     axios
       .get(
         `https://api.themoviedb.org/3/${content}/${id}/videos?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US`
       )
-      .then((res) => setVideoData(res.data.results));
+      .then((res) => setVideosList(res.data.results));
     axios
       .get(
         `https://api.themoviedb.org/3/${content}/${id}/similar?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US&page=1`
       )
-      .then((res) => setSimilarData(res.data.results));
+      .then((res) => setSimilarList(res.data.results));
     axios
       .get(
         `https://api.themoviedb.org/3/${content}/${id}/credits?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US`
       )
-      .then((res) => setCastData(res.data.cast));
+      .then((res) => setCastList(res.data.cast));
   }, [id]);
 
   return (
     <div className='conteiner'>
-      {videosData && (
+      {videosList && (
         <VideoTrailler
-          data={videosData
+          data={videosList
             .filter((item) => item.type === 'Trailer' && item.official)
             .pop()}
           className='trailer'
         />
       )}
-      {pageData && <Desciprion data={pageData} />}
-      {similarData && (
-        <HorizontalList data={similarData} title='Similar'>
+      {pageList && <Desciprion data={pageList} />}
+      {similarList && (
+        <HorizontalList data={similarList} title='Similar'>
           {(data, listRef, className) => (
             <List className={className} data={data} listRef={listRef}>
               {(id, title, poster_path, name) => (
@@ -69,8 +69,8 @@ export const Singlepage = () => {
           )}
         </HorizontalList>
       )}
-      {castData && (
-        <HorizontalList data={castData} title='Cast'>
+      {castList && (
+        <HorizontalList data={castList} title='Cast'>
           {(data, listRef, className) => (
             <List className={className} data={data} listRef={listRef}>
               {(id, title, poster_path, name) => (
