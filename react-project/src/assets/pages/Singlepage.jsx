@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { List } from '../../components/List/List';
 import { ListItem } from '../../components/ListItem/ListItem';
+import { VideoTrailler } from '../../components/Video/YouTobeVideo';
 import axios from 'axios';
 
 export const Singlepage = () => {
@@ -41,7 +42,14 @@ export const Singlepage = () => {
 
   return (
     <div className='conteiner'>
-      {videosData && <TrailersSlider data={videosData} />}
+      {videosData && (
+        <VideoTrailler
+          data={videosData
+            .filter((item) => item.type === 'Trailer' && item.official)
+            .pop()}
+          className='trailer'
+        />
+      )}
       {pageData && <Desciprion data={pageData} />}
       {similarData && (
         <HorizontalList data={similarData} title='Similar'>

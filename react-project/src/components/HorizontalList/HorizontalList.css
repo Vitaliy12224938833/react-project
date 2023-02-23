@@ -3,23 +3,28 @@
 }
 .horizontal-list {
   display: flex;
-  width: max-content;
   padding: 0;
-  transition: transform 0.5s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  scroll-behavior: smooth;
 }
 .title {
-  font-size: 50px;
-  margin: 10rem 0 0 0;
+  font-weight: 500;
+  font-size: 40px;
+  margin: 5rem 0 0 0;
 }
 .horizontal-list-wrap {
   position: relative;
   margin: 1rem 0;
 }
 .horizontal-list li {
-  margin: 13px;
+  margin: 0 15px;
   margin-left: 0;
   height: 100%;
   max-height: 450px;
+}
+.horizontal-list li:last-child {
+  margin-right: 0;
 }
 .horizontal-list img {
   border-radius: 0.5rem;
