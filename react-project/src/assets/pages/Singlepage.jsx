@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { TrailersSlider } from '../../components/TrailersSlider';
 import { Desciprion } from '../../components/Description';
 import { HorizontalList } from '../../components/HorizontalList/HorizontalList';
 import { useEffect } from 'react';
@@ -7,37 +6,46 @@ import { useState } from 'react';
 import { List } from '../../components/List/List';
 import { ListItem } from '../../components/ListItem/ListItem';
 import { VideoTrailler } from '../../components/Video/YouTobeVideo';
+import { AllVidoeContent } from '../../components/AllVidoeContent';
 import axios from 'axios';
+
+const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
 
 export const Singlepage = () => {
   const { id, content, category } = useParams();
 
   const [pageList, setPageList] = useState(null);
-  const [videosList, setVideosList] = useState(null);
-  const [similarList, setSimilarList] = useState(null);
-  const [castList, setCastList] = useState(null);
+  const [videosList, setVideosList] = useState([]);
+  const [similarList, setSimilarList] = useState([]);
+  const [castList, setCastList] = useState([]);
+  const [recommendations, setRecommendationsList] = useState([]);
 
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US`
+        `https://api.themoviedb.org/3/${content}/${id}?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setPageList(res.data));
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}/videos?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US`
+        `https://api.themoviedb.org/3/${content}/${id}/videos?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setVideosList(res.data.results));
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}/similar?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US&page=1`
+        `https://api.themoviedb.org/3/${content}/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`
       )
       .then((res) => setSimilarList(res.data.results));
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}/credits?api_key=1f63914a91cb95d33f7d8d413f4c28ca&language=en-US`
+        `https://api.themoviedb.org/3/${content}/${id}/credits?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setCastList(res.data.cast));
+    axios
+      .get(
+        `https://api.themoviedb.org/3/${content}/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`
+      )
+      .then((res) => setRecommendationsList(res.data.results));
   }, [id]);
 
   return (
@@ -51,8 +59,27 @@ export const Singlepage = () => {
         />
       )}
       {pageList && <Desciprion data={pageList} />}
-      {similarList && (
-        <HorizontalList data={similarList} title='Similar'>
+      {castList && (
+        <HorizontalList data={castList} title='Cast'>
+          {(data, listRef, className) => (
+            <List className={className} data={data} listRef={listRef}>
+              {(id, title, poster_path, name) => (
+                <ListItem
+                  key={id}
+                  className={'horizontal-list-item'}
+                  id={id}
+                  img={poster_path}
+                  name={title || name}
+                  categories={['person', category]}
+                />
+              )}
+            </List>
+          )}
+        </HorizontalList>
+      )}
+      {videosList && <AllVidoeContent data={videosList} />}
+      {recommendations && (
+        <HorizontalList data={recommendations} title='Recommendations'>
           {(data, listRef, className) => (
             <List className={className} data={data} listRef={listRef}>
               {(id, title, poster_path, name) => (
@@ -69,8 +96,8 @@ export const Singlepage = () => {
           )}
         </HorizontalList>
       )}
-      {castList && (
-        <HorizontalList data={castList} title='Cast'>
+      {similarList && (
+        <HorizontalList data={similarList} title='Similar'>
           {(data, listRef, className) => (
             <List className={className} data={data} listRef={listRef}>
               {(id, title, poster_path, name) => (
@@ -80,7 +107,7 @@ export const Singlepage = () => {
                   id={id}
                   img={poster_path}
                   name={title || name}
-                  categories={['person', category]}
+                  categories={[content, category]}
                 />
               )}
             </List>
