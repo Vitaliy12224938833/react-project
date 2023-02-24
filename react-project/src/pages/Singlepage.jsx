@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { Desciprion } from '../../components/Description';
-import { HorizontalList } from '../../components/HorizontalList/HorizontalList';
+import { Desciprion } from '../components/Descriptions/Description';
+import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { List } from '../../components/List/List';
-import { ListItem } from '../../components/ListItem/ListItem';
-import { VideoTrailler } from '../../components/Video/YouTobeVideo';
-import { AllVidoeContent } from '../../components/AllVidoeContent';
+import { List } from '../components/List/List';
+import { ListItem } from '../components/ListItem/ListItem';
+import { VideoTrailler } from '../components/Video/YouTobeVideo';
+import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import axios from 'axios';
 
 const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
@@ -77,7 +77,7 @@ export const Singlepage = () => {
           )}
         </HorizontalList>
       )}
-      {videosList && <AllVidoeContent data={videosList} />}
+      {videosList && <AllVidoeClips data={videosList} />}
       {recommendations && (
         <HorizontalList data={recommendations} title='Recommendations'>
           {(data, listRef, className) => (

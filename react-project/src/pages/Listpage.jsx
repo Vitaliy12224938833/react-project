@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { generateURL } from '../../API/generate-url';
-import { useInfinityList } from '../../HOOKs/useInfinityList';
-import { ListItem } from '../../components/ListItem/ListItem';
-import { List } from '../../components/List/List';
-import '../../App.css';
+import { generateURL } from '../API/generate-url';
+import { useInfinityList } from '../HOOKs/useInfinityList';
+import { ListItem } from '../components/ListItem/ListItem';
+import { List } from '../components/List/List';
+import '../App.css';
 
 export const Listpage = () => {
   const { content, category } = useParams();
@@ -18,7 +18,7 @@ export const Listpage = () => {
   const [list, loader] = useInfinityList(url, page, setPage, content, category);
 
   return (
-    <div className='conteiner'>
+    <div className='list-conteiner'>
       {list && (
         <List data={list} className={'content-list'}>
           {(id, title, poster_path, name) => (

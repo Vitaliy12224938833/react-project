@@ -1,4 +1,4 @@
-import '../styles/Description.css';
+import './Description.css';
 export const Desciprion = ({ data }) => {
   const {
     original_title,

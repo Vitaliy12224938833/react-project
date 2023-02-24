@@ -1,3 +1,7 @@
+.description-conteiner {
+  margin: 0 100px;
+}
+
 .description {
   display: flex;
   margin-bottom: 40px;

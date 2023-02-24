@@ -1,8 +1,13 @@
 .horizontal-list-conteiner {
   width: 100%;
-  margin: 5rem 0;
+  margin-top: 50px;
+  padding: 0 100px;
+}
+.list-conteiner {
+  margin: 0;
 }
 .horizontal-list {
+  height: 100%;
   display: flex;
   padding: 0;
   white-space: nowrap;
@@ -18,23 +23,9 @@
   position: relative;
   margin: 1rem 0;
 }
-.horizontal-list li {
-  margin: 0 15px;
-  margin-left: 0;
-  height: 100%;
-  max-height: 450px;
-}
-.horizontal-list li:last-child {
-  margin-right: 0;
-}
-.horizontal-list img {
-  border-radius: 0.5rem;
-  background-size: cover;
-  width: 300px;
-  height: 450px;
-}
 
-.horizont-list-button {
+.scroll-list-button {
+  color: var(--white);
   display: flex;
   position: absolute;
   z-index: 10;
@@ -47,6 +38,11 @@
   font-size: 50px;
   opacity: 0;
   cursor: pointer;
+  border: none;
+}
+.scroll-list-button:focus {
+  outline: none;
+  color: var(--orange);
 }
 .right {
   top: 0;
@@ -57,7 +53,7 @@
   left: 0;
 }
 
-.horizontal-list-wrap:hover .horizont-list-button {
+.horizontal-list-wrap:hover .scroll-list-button {
   opacity: 1;
   transition: all 0.5s ease;
 }

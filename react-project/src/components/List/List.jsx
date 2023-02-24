@@ -1,3 +1,4 @@
+import './List.css';
 export const List = ({ data, className, children, listRef }) => {
   return (
     <ul className={className} ref={listRef}>

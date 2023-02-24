@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import { AnimatePresence, motion } from 'framer-motion';
 
-import '.././styles/Slider.css';
+import './Slider.css';
 
 export const Slider = ({ data, children }) => {
   if (!data.length) return;

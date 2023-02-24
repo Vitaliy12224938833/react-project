@@ -37,19 +37,19 @@ export const HorizontalList = ({ data, title, children }) => {
         <div className='horizontal-list-conteiner'>
           <h3 className='title'>{title}</h3>
           <div className='horizontal-list-wrap'>
-            <div
-              className='horizont-list-button left'
+            <button
+              className='scroll-list-button left'
               onClick={() => handleClickLeft()}
             >
               ❰
-            </div>
+            </button>
             {children(filtredData, listRef, 'horizontal-list')}
-            <div
-              className='horizont-list-button right'
+            <button
+              className='scroll-list-button right'
               onClick={() => handleClickRight()}
             >
               ❱
-            </div>
+            </button>
           </div>
         </div>
       )}

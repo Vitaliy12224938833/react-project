@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from './components/Layout';
+import { Layout } from './components/Layout/Layout';
 import { AuthProvider } from './hoc/AuthProvider';
-import { Homepage } from './assets/pages/Homepage';
-import { Listpage } from './assets/pages/Listpage';
-import { Singlepage } from './assets/pages/Singlepage';
-import { Categoris } from './components/Categoris';
-import { Personpage } from './assets/pages/Personpage';
+import { Homepage } from './pages/Homepage';
+import { Listpage } from './pages/Listpage';
+import { Singlepage } from './pages/Singlepage';
+import { Categoris } from './components/Layout/Categoris';
+import { Personpage } from './pages/Personpage';
+
 export const App = () => {
   return (
     <AuthProvider>
