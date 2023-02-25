@@ -1,5 +1,10 @@
 export const PersonDerscription = ({ data }) => {
-  if (!data) return <h1>Somthing wrong... tray again late</h1>;
+  if (!data)
+    return (
+      <h1 style={{ textAlign: 'center', margin: ' 300px auto' }}>
+        Something wrong... try again later
+      </h1>
+    );
   const {
     name,
     birthday,
