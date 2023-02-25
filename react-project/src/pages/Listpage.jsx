@@ -4,7 +4,6 @@ import { generateURL } from '../API/generate-url';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { ListItem } from '../components/ListItem/ListItem';
 import { List } from '../components/List/List';
-import '../App.css';
 
 export const Listpage = () => {
   const { content, category } = useParams();
