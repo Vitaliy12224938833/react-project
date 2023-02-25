@@ -7,7 +7,7 @@
   margin-bottom: 40px;
 }
 .description-title {
-  font-size: 60px;
+  font-size: 50px;
 }
 .table-wrap {
   width: 100%;
@@ -18,8 +18,11 @@ table {
   width: 100%;
   text-align: left;
   height: 10px;
-  font-size: 30px;
+  font-size: 25px;
 }
 table th {
   padding: 10px;
+}
+th {
+  max-width: 400px;
 }

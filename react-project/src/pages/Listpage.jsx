@@ -20,11 +20,11 @@ export const Listpage = () => {
     <div className='list-conteiner'>
       {list && (
         <List data={list} className={'content-list'}>
-          {(id, title, poster_path, name) => (
+          {(id, title, poster_path) => (
             <ListItem
               key={id}
               id={id}
-              name={title || name}
+              title={title}
               img={poster_path}
               categories={[defaultContent, defaultCategory]}
             />
