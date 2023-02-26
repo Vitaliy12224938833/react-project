@@ -63,13 +63,14 @@ export const Singlepage = () => {
         <HorizontalList data={castList} title='Cast'>
           {(data, listRef, className) => (
             <List className={className} data={data} listRef={listRef}>
-              {(id, title, poster_path, name) => (
+              {(id, character, poster_path, name) => (
                 <ListItem
                   key={id}
                   className={'horizontal-list-item'}
                   id={id}
                   img={poster_path}
-                  name={title || name}
+                  name={name}
+                  character={character}
                   categories={['person', category]}
                 />
               )}

@@ -24,7 +24,7 @@ export const Listpage = () => {
             <ListItem
               key={id}
               id={id}
-              name={title || name}
+              // name={title}
               img={poster_path}
               categories={[defaultContent, defaultCategory]}
             />
