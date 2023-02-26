@@ -18,18 +18,11 @@ export const Homepage = ({}) => {
       )
       .then((res) => setPupularList(res.data.results.slice(0, 6)));
   }, []);
-  // console.log(popularList);
+
   return (
     <div className='conteiner'>
       <Slider data={popularList}>
-        {(data, className) => (
-          <Slide
-            className={className}
-            data={data}
-            category='now_playing'
-            content='movie'
-          />
-        )}
+        {(data) => <Slide data={data} category='now_playing' content='movie' />}
       </Slider>
     </div>
   );

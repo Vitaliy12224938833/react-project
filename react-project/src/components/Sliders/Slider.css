@@ -73,7 +73,7 @@
   transition: all 0.2s;
 }
 .activeDot {
-  color: #fefefe;
+  color: var(--black);
 }
 
 .sliderStyles:hover .rightArrowStyles,

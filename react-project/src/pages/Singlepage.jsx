@@ -55,7 +55,7 @@ export const Singlepage = () => {
           data={videosList
             .filter((item) => item.type === 'Trailer' && item.official)
             .pop()}
-          className='trailer'
+          // className='trailer'
         />
       )}
       {pageList && <Desciprion data={pageList} />}
