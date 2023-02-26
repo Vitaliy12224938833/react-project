@@ -25,6 +25,7 @@
   padding: 15% 3%;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
+  border: none;
 }
 
 .leftArrowStyles {
@@ -41,6 +42,12 @@
   opacity: 0;
   border-radius: 1rem;
   background-color: rgba(0, 0, 0, 0.3);
+  border: none;
+}
+.leftArrowStyles:focus,
+.rightArrowStyles:focus {
+  color: var(--orange);
+  outline: none;
 }
 
 .sliderStyles {

@@ -1,10 +1,11 @@
+import { circIn } from 'framer-motion';
 import { useState } from 'react';
 // import { AnimatePresence, motion } from 'framer-motion';
 
 import './Slider.css';
 
 export const Slider = ({ data, children }) => {
-  if (!data.length) return;
+  if (!data) return;
 
   //   const variants = {
   //     initial: (direction) => {
@@ -57,12 +58,12 @@ export const Slider = ({ data, children }) => {
 
   return (
     <div className='sliderStyles'>
-      <div className='leftArrowStyles' onClick={() => prevSlide()}>
+      <button className='leftArrowStyles' onClick={() => prevSlide()}>
         ❰
-      </div>
-      <div className='rightArrowStyles' onClick={() => nextSlide()}>
+      </button>
+      <button className='rightArrowStyles' onClick={() => nextSlide()}>
         ❱
-      </div>
+      </button>
       {/* <AnimatePresence initial={false} custom={direction}> */}
       {children(
         data[currIdx],
