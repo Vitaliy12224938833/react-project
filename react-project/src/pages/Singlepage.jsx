@@ -7,6 +7,7 @@ import { List } from '../components/List/List';
 import { ListItem } from '../components/ListItem/ListItem';
 import { VideoTrailler } from '../components/Video/YouTobeVideo';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
+import { Reviews } from '../components/Rewievs/Reviews';
 import axios from 'axios';
 
 const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
@@ -115,6 +116,7 @@ export const Singlepage = () => {
           )}
         </HorizontalList>
       )}
+      <Reviews id={id} content={content} />
     </div>
   );
 };

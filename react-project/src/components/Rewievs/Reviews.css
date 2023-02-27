@@ -1,0 +1,22 @@
+.review-avatar {
+  width: 100px;
+  margin-right: 30px;
+}
+.reviews-conteiner {
+  margin: 100px;
+}
+.review {
+  display: flex;
+  margin: 50px 0;
+}
+.review p {
+  margin: 10px 0;
+}
+.username {
+  font-size: 30px;
+  margin: 0;
+}
+.review-date {
+  font-size: 20px;
+  color: var(--orange);
+}
