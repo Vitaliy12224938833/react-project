@@ -1,5 +1,5 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { getData } from '../API/get-data-from-api';
 
 export const useInfinityList = (url, page, setPage, content, category) => {
   const [list, setList] = useState([]);
@@ -16,13 +16,14 @@ export const useInfinityList = (url, page, setPage, content, category) => {
   useEffect(() => {
     if (fetching) {
       setLoader(true);
-      getData(url)
+      axios
+        .get(url)
         .then((res) => {
           if (!isStatList) {
-            setList([...list, ...res.results]);
+            setList([...list, ...res.data.results]);
             setLoader(false);
           } else {
-            setList(res.results);
+            setList(res.data.results);
           }
           setPage(page + 1);
         })
@@ -31,7 +32,7 @@ export const useInfinityList = (url, page, setPage, content, category) => {
           setFetching(false);
         });
     }
-  }, [fetching]);
+  }, [fetching, url]);
 
   const scrollHandler = (e) => {
     if (

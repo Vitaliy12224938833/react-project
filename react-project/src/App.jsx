@@ -7,6 +7,7 @@ import { Singlepage } from './pages/Singlepage';
 import { Categoris } from './components/Layout/Categoris';
 import { Personpage } from './pages/Personpage';
 import { Searchpage } from './pages/Searchpage';
+
 export const App = () => {
   return (
     <AuthProvider>

@@ -14,7 +14,7 @@ export const Search = ({ content }) => {
   return (
     <div>
       <input type='text' onChange={handelChange}></input>
-      <Link to={`/search/${content}/${query}`}>Seach</Link>
+      {query && <Link to={`/search/${content}/${query}`}>Seach</Link>}
     </div>
   );
 };

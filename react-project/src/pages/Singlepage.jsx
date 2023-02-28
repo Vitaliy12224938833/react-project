@@ -8,9 +8,10 @@ import { ListItem } from '../components/ListItem/ListItem';
 import { VideoTrailler } from '../components/Video/YouTobeVideo';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Rewievs/Reviews';
+import { API_KEY } from '../data';
 import axios from 'axios';
 
-const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
+
 
 export const Singlepage = () => {
   const { id, content} = useParams();
