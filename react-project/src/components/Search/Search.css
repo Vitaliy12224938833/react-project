@@ -1,0 +1,19 @@
+.search-conteiner {
+  margin: 0 130px;
+}
+.search {
+  display: flex;
+  justify-content: right;
+  padding: 0;
+}
+.search input {
+  padding: 5px;
+  text-align: right;
+  border-radius: 5px;
+}
+.search a {
+  margin: 0 10px;
+}
+.search a:hover {
+  color: var(--orange);
+}

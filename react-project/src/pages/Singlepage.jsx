@@ -11,10 +11,8 @@ import { Reviews } from '../components/Rewievs/Reviews';
 import { API_KEY } from '../data';
 import axios from 'axios';
 
-
-
 export const Singlepage = () => {
-  const { id, content} = useParams();
+  const { id, content } = useParams();
 
   const [pageList, setPageList] = useState(null);
   const [videosList, setVideosList] = useState([]);

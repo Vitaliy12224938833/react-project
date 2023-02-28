@@ -1,9 +1,17 @@
 import { Link } from 'react-router-dom';
 import './ListItem.css';
-export const ListItem = ({ id, img, name, categories, character, title }) => {
+export const ListItem = ({
+  id,
+  img,
+  name,
+  categories,
+  character,
+  title,
+  className,
+}) => {
   const [content] = categories;
   return (
-    <li className='list-item' key={id}>
+    <li className={className} key={id}>
       {
         <>
           <Link to={`/${content}/${name || title}/${id}`}>
