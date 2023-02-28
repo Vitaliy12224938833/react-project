@@ -1,10 +1,13 @@
 import { CustomLink } from '../Links/CustomLink';
 import { categoriesData } from '../../data';
 import { Outlet, useParams } from 'react-router-dom';
+
 export const Categoris = ({ children }) => {
   const { content } = useParams();
   const defaultContent = content ? content : 'movie';
+  console.log(content);
   const categoreis = categoriesData[defaultContent].categories;
+
   return (
     <>
       <div>

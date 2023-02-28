@@ -4,6 +4,7 @@ import { generateURL } from '../API/generate-url';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { ListItem } from '../components/ListItem/ListItem';
 import { List } from '../components/List/List';
+import { Search } from '../components/Search/Search';
 
 export const Listpage = () => {
   const { content, category } = useParams();
@@ -17,21 +18,25 @@ export const Listpage = () => {
   const [list, loader] = useInfinityList(url, page, setPage, content, category);
 
   return (
-    <div className='list-conteiner'>
-      {list && (
-        <List data={list} className={'content-list'}>
-          {(id, title, poster_path) => (
-            <ListItem
-              key={id}
-              id={id}
-              title={title}
-              img={poster_path}
-              categories={[defaultContent, defaultCategory]}
-            />
-          )}
-        </List>
-      )}
-      {loader && <div className='loader'>Loading....</div>}
-    </div>
+    <>
+      <Search content={content} />
+      <div className='list-conteiner'>
+        {list && (
+          <List data={list} className={'content-list'}>
+            {(id, title, poster_path, name) => (
+              <ListItem
+                key={id}
+                id={id}
+                title={title}
+                name={name}
+                img={poster_path}
+                categories={[defaultContent, defaultCategory]}
+              />
+            )}
+          </List>
+        )}
+        {loader && <div className='loader'>Loading....</div>}
+      </div>
+    </>
   );
 };

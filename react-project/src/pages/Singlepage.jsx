@@ -13,7 +13,7 @@ import axios from 'axios';
 const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
 
 export const Singlepage = () => {
-  const { id, content, category } = useParams();
+  const { id, content} = useParams();
 
   const [pageList, setPageList] = useState(null);
   const [videosList, setVideosList] = useState([]);
@@ -72,7 +72,7 @@ export const Singlepage = () => {
                   img={poster_path}
                   name={name}
                   character={character}
-                  categories={['person', category]}
+                  categories={['person']}
                 />
               )}
             </List>
@@ -91,7 +91,7 @@ export const Singlepage = () => {
                   id={id}
                   img={poster_path}
                   title={title}
-                  categories={[content, category]}
+                  categories={[content]}
                 />
               )}
             </List>
@@ -109,7 +109,7 @@ export const Singlepage = () => {
                   id={id}
                   img={poster_path}
                   title={title}
-                  categories={[content, category]}
+                  categories={[content]}
                 />
               )}
             </List>

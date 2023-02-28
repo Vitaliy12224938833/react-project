@@ -6,7 +6,7 @@ import { Listpage } from './pages/Listpage';
 import { Singlepage } from './pages/Singlepage';
 import { Categoris } from './components/Layout/Categoris';
 import { Personpage } from './pages/Personpage';
-
+import { Searchpage } from './pages/Searchpage';
 export const App = () => {
   return (
     <AuthProvider>
@@ -14,15 +14,13 @@ export const App = () => {
         <Route path='/' element={<Layout />}>
           <Route index element={<Homepage />} />
           <Route path='home' element={<Homepage />} />
-          <Route path=':content' element={<Categoris />}>
+          <Route path='/:content' element={<Categoris />}>
             <Route index element={<Listpage />} />
             <Route path='/:content/:category' element={<Listpage />} />
-            <Route
-              path='/:content/:category/:name/:id'
-              element={<Singlepage />}
-            />
+            <Route path='/:content/:name/:id' element={<Singlepage />} />
           </Route>
-          <Route path='/person/:category/:name/:id' element={<Personpage />} />
+          <Route path='/person/:name/:id' element={<Personpage />} />
+          <Route path='/search/:content/:query' element={<Searchpage />} />
         </Route>
       </Routes>
     </AuthProvider>
