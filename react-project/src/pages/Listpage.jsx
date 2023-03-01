@@ -9,7 +9,6 @@ import { API_KEY } from '../data';
 export const Listpage = () => {
   const { content, category } = useParams();
   const [page, setPage] = useState(1);
-
   const defaultContent = content ? content : 'movie';
   const defaultCategory = category ? category : 'popular';
 
