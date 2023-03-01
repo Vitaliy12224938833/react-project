@@ -10,6 +10,7 @@ export const ListItem = ({
   className,
 }) => {
   const [content] = categories;
+
   return (
     <li className={className} key={id}>
       {
