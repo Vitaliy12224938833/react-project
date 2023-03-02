@@ -9,6 +9,7 @@
 .list-item-img {
   border-radius: 8px;
   background-size: cover;
+  object-fit: cover;
   height: 300px;
   width: 200px;
 }

@@ -1,6 +1,8 @@
 .review-avatar {
   width: 100px;
+  height: 100px;
   margin-right: 30px;
+  object-fit: cover;
 }
 .reviews-conteiner {
   margin: 100px;
