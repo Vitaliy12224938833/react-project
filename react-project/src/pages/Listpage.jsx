@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { ListItem } from '../components/ListItem/ListItem';
 import { List } from '../components/List/List';
-import { Search } from '../components/Search/Search';
 import { API_KEY } from '../data';
 
 export const Listpage = () => {
@@ -23,24 +22,22 @@ export const Listpage = () => {
   );
 
   return (
-    <>
-      <div className='list-conteiner'>
-        {list && (
-          <List data={list} className={'content-list'}>
-            {(id, title, poster_path, name) => (
-              <ListItem
-                key={id}
-                id={id}
-                title={title}
-                name={name}
-                img={poster_path}
-                mediaType={defaultMediaType}
-              />
-            )}
-          </List>
-        )}
-        {loader && <div className='loader'>Loading....</div>}
-      </div>
-    </>
+    <div className='list-conteiner'>
+      {list && (
+        <List data={list} className={'content-list'}>
+          {(id, title, poster_path, name) => (
+            <ListItem
+              key={id}
+              id={id}
+              title={title}
+              name={name}
+              img={poster_path}
+              mediaType={defaultMediaType}
+            />
+          )}
+        </List>
+      )}
+      {loader && <div className='loader'>Loading....</div>}
+    </div>
   );
 };

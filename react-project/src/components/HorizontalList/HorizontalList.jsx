@@ -21,7 +21,7 @@ export const HorizontalList = ({
       )
       .then((res) => setListData(res.data.cast || res.data.results));
   }, [id]);
-
+  console.log(listData);
   let scrollAmount = 0;
   let scrollParClick = 1000;
 

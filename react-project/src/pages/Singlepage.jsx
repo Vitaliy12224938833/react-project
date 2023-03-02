@@ -13,7 +13,7 @@ import axios from 'axios';
 
 export const Singlepage = () => {
   const { id, mediaType } = useParams();
-  console.log(useParams());
+
   const [pageList, setPageList] = useState(null);
   const [videosList, setVideosList] = useState([]);
 
@@ -72,7 +72,7 @@ export const Singlepage = () => {
       >
         {(data, listRef, className) => (
           <List className={className} data={data} listRef={listRef}>
-            {(id, title, poster_path) => (
+            {(id, title, poster_path, name, mediaType) => (
               <ListItem
                 key={id}
                 className={'horizontal-list-item'}
@@ -93,7 +93,7 @@ export const Singlepage = () => {
       >
         {(data, listRef, className) => (
           <List className={className} data={data} listRef={listRef}>
-            {(id, title, poster_path) => (
+            {(id, title, poster_path, name, mediaType) => (
               <ListItem
                 key={id}
                 className={'horizontal-list-item'}

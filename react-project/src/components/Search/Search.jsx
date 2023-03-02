@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BsSearch } from 'react-icons/bs';
 import './Search.css';
 
 export const Search = () => {
@@ -7,13 +8,17 @@ export const Search = () => {
   const handelChange = (e) => {
     setQuery(e.target.value);
   };
-
   return (
     <div className='search-conteiner'>
-      <div className='search'>
-        {query && <Link to={`/search/multi/${query}`}>Seach</Link>}
+      <form className='search' action={query ? `/search/multi/${query}` : null}>
         <input type='text' onChange={handelChange} placeholder='search' />
-      </div>
+        <Link
+          className={`search-link ${query ? 'active' : ''}`}
+          to={query ? `/search/multi/${query}` : null}
+        >
+          <BsSearch className='search-icon' />
+        </Link>
+      </form>
     </div>
   );
 };

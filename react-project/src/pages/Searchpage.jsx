@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { List } from '../components/List/List';
 import { ListItem } from '../components/ListItem/ListItem';
-import { Search } from '../components/Search/Search';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { API_KEY } from '../data';
 
@@ -12,7 +11,6 @@ export const Searchpage = () => {
 
   const url = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
   const [list, loader] = useInfinityList(url, page, setPage, query);
-  console.log(list);
   return (
     <>
       {list && (

@@ -9,9 +9,14 @@
   text-align: right;
   border-radius: 5px;
 }
-.search a {
-  margin: 0 10px;
+.search-link {
+  margin-left: 10px;
 }
+.search-icon {
+  width: 100%;
+  height: 100%;
+}
+
 .search a:hover {
   color: var(--orange);
 }
