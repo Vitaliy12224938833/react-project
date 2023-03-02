@@ -9,6 +9,8 @@
 .list-item-img {
   border-radius: 8px;
   background-size: cover;
+  height: 300px;
+  width: 200px;
 }
 .horizontal-list-item:last-child {
   margin-right: 0;

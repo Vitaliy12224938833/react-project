@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { API_KEY } from '../../data';
-import './HorizontalList.css';
 import axios from 'axios';
+import './HorizontalList.css';
 
-export const HorizontalList = ({ id, content, category, title, children }) => {
+export const HorizontalList = ({
+  id,
+  mediaType,
+  category,
+  title,
+  children,
+}) => {
   const [listData, setListData] = useState([]);
   const listRef = useRef();
 
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}/${category}?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${id}/${category}?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setListData(res.data.cast || res.data.results));
   }, [id]);

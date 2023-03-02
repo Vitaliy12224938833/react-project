@@ -7,18 +7,23 @@ import { Search } from '../components/Search/Search';
 import { API_KEY } from '../data';
 
 export const Listpage = () => {
-  const { content, category } = useParams();
+  const { mediaType, category } = useParams();
   const [page, setPage] = useState(1);
-  const defaultContent = content ? content : 'movie';
+  const defaultMediaType = mediaType ? mediaType : 'movie';
   const defaultCategory = category ? category : 'popular';
 
-  const url = `https://api.themoviedb.org/3/${defaultContent}/${defaultCategory}?api_key=${API_KEY}&language=en-US&page=${page}`;
+  const url = `https://api.themoviedb.org/3/${defaultMediaType}/${defaultCategory}?api_key=${API_KEY}&language=en-US&page=${page}`;
 
-  const [list, loader] = useInfinityList(url, page, setPage, content, category);
+  const [list, loader] = useInfinityList(
+    url,
+    page,
+    setPage,
+    mediaType,
+    category
+  );
 
   return (
     <>
-      <Search content={content} />
       <div className='list-conteiner'>
         {list && (
           <List data={list} className={'content-list'}>
@@ -29,7 +34,7 @@ export const Listpage = () => {
                 title={title}
                 name={name}
                 img={poster_path}
-                categories={[defaultContent, defaultCategory]}
+                mediaType={defaultMediaType}
               />
             )}
           </List>

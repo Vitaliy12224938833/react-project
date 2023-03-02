@@ -1,10 +1,8 @@
-.search-conteiner {
-  margin: 0 130px;
-}
 .search {
   display: flex;
   justify-content: right;
   padding: 0;
+  margin-left: 100px;
 }
 .search input {
   padding: 5px;

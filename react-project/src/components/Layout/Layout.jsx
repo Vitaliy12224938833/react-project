@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { CustomLink } from '../Links/CustomLink';
 import { categoriesData } from '../../data';
 import { Link } from 'react-router-dom';
+import { Search } from '../Search/Search';
 import './Layout.css';
 
 export const Layout = () => {
@@ -22,6 +23,9 @@ export const Layout = () => {
             })}
             <li>
               <Link to='/home'>Home</Link>
+            </li>
+            <li>
+              <Search />
             </li>
           </ul>
         </header>

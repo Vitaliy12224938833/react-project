@@ -4,18 +4,16 @@ export const ListItem = ({
   id,
   img,
   name,
-  categories,
   character,
   title,
   className,
+  mediaType,
 }) => {
-  const [content] = categories;
-
   return (
     <li className={className} key={id}>
       {
         <>
-          <Link to={`/${content}/${name || title}/${id}`}>
+          <Link to={`/${mediaType}/${name || title}/${id}`}>
             <img
               className='list-item-img'
               src={`https://image.tmdb.org/t/p/w200${img}`}

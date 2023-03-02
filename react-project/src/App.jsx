@@ -15,13 +15,13 @@ export const App = () => {
         <Route path='/' element={<Layout />}>
           <Route index element={<Homepage />} />
           <Route path='home' element={<Homepage />} />
-          <Route path='/:content' element={<Categoris />}>
+          <Route path='/:mediaType' element={<Categoris />}>
             <Route index element={<Listpage />} />
-            <Route path='/:content/:category' element={<Listpage />} />
-            <Route path='/:content/:name/:id' element={<Singlepage />} />
+            <Route path='/:mediaType/:category' element={<Listpage />} />
+            <Route path='/:mediaType/:name/:id' element={<Singlepage />} />
           </Route>
           <Route path='/person/:name/:id' element={<Personpage />} />
-          <Route path='/search/:content/:query' element={<Searchpage />} />
+          <Route path='/search/:mediaType/:query' element={<Searchpage />} />
         </Route>
       </Routes>
     </AuthProvider>

@@ -12,20 +12,20 @@ import { API_KEY } from '../data';
 import axios from 'axios';
 
 export const Singlepage = () => {
-  const { id, content } = useParams();
-
+  const { id, mediaType } = useParams();
+  console.log(useParams());
   const [pageList, setPageList] = useState(null);
   const [videosList, setVideosList] = useState([]);
 
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setPageList(res.data));
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}/videos?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setVideosList(res.data.results));
   }, [id]);
@@ -43,7 +43,7 @@ export const Singlepage = () => {
       {pageList && <Desciprion data={pageList} />}
       <HorizontalList
         id={id}
-        content={content}
+        mediaType={mediaType}
         category={'credits'}
         title='Cast'
       >
@@ -57,7 +57,7 @@ export const Singlepage = () => {
                 img={poster_path}
                 name={name}
                 character={character}
-                categories={['person']}
+                mediaType={'person'}
               />
             )}
           </List>
@@ -66,7 +66,7 @@ export const Singlepage = () => {
       {videosList && <AllVidoeClips data={videosList} />}
       <HorizontalList
         id={id}
-        content={content}
+        mediaType={mediaType}
         category={'recommendations'}
         title='Recommendations'
       >
@@ -79,7 +79,7 @@ export const Singlepage = () => {
                 id={id}
                 img={poster_path}
                 title={title}
-                categories={[content]}
+                mediaType={mediaType}
               />
             )}
           </List>
@@ -87,7 +87,7 @@ export const Singlepage = () => {
       </HorizontalList>
       <HorizontalList
         id={id}
-        content={content}
+        mediaType={mediaType}
         category={'similar'}
         title='Similar'
       >
@@ -100,13 +100,13 @@ export const Singlepage = () => {
                 id={id}
                 img={poster_path}
                 title={title}
-                categories={[content]}
+                mediaType={mediaType}
               />
             )}
           </List>
         )}
       </HorizontalList>
-      <Reviews id={id} content={content} />
+      <Reviews id={id} mediaType={mediaType} />
     </div>
   );
 };
