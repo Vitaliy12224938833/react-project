@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { API_KEY } from '../../data';
+import { List } from '../List/List';
+import { ListItem } from '../ListItem/ListItem';
 import axios from 'axios';
 import './HorizontalList.css';
 
@@ -9,7 +11,7 @@ export const HorizontalList = ({
   mediaType,
   category,
   title,
-  children,
+  madiaTypeForLink,
 }) => {
   const [listData, setListData] = useState([]);
   const listRef = useRef();
@@ -56,7 +58,22 @@ export const HorizontalList = ({
             >
               ❰
             </button>
-            {children(listData, listRef, 'horizontal-list')}
+            <List
+              className={'horizontal-list'}
+              data={listData}
+              listRef={listRef}
+            >
+              {(id, title, poster_path) => (
+                <ListItem
+                  key={id}
+                  className={'horizontal-list-item'}
+                  id={id}
+                  img={poster_path}
+                  title={title}
+                  mediaType={madiaTypeForLink}
+                />
+              )}
+            </List>
             <button
               className='scroll-list-button right'
               onClick={() => handleClickRight()}

@@ -3,8 +3,6 @@ import { Desciprion } from '../components/Descriptions/Description';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { List } from '../components/List/List';
-import { ListItem } from '../components/ListItem/ListItem';
 import { VideoTrailler } from '../components/Video/YouTobeVideo';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Rewievs/Reviews';
@@ -46,66 +44,23 @@ export const Singlepage = () => {
         mediaType={mediaType}
         category={'credits'}
         title='Cast'
-      >
-        {(data, listRef, className) => (
-          <List className={className} data={data} listRef={listRef}>
-            {(id, character, poster_path, name) => (
-              <ListItem
-                key={id}
-                className={'horizontal-list-item'}
-                id={id}
-                img={poster_path}
-                name={name}
-                character={character}
-                mediaType={'person'}
-              />
-            )}
-          </List>
-        )}
-      </HorizontalList>
+        madiaTypeForLink='person'
+      />
       {videosList && <AllVidoeClips data={videosList} />}
       <HorizontalList
         id={id}
         mediaType={mediaType}
         category={'recommendations'}
         title='Recommendations'
-      >
-        {(data, listRef, className) => (
-          <List className={className} data={data} listRef={listRef}>
-            {(id, title, poster_path, name, mediaType) => (
-              <ListItem
-                key={id}
-                className={'horizontal-list-item'}
-                id={id}
-                img={poster_path}
-                title={title}
-                mediaType={mediaType}
-              />
-            )}
-          </List>
-        )}
-      </HorizontalList>
+        madiaTypeForLink={mediaType}
+      />
       <HorizontalList
         id={id}
         mediaType={mediaType}
         category={'similar'}
         title='Similar'
-      >
-        {(data, listRef, className) => (
-          <List className={className} data={data} listRef={listRef}>
-            {(id, title, poster_path, name, mediaType) => (
-              <ListItem
-                key={id}
-                className={'horizontal-list-item'}
-                id={id}
-                img={poster_path}
-                title={title}
-                mediaType={mediaType}
-              />
-            )}
-          </List>
-        )}
-      </HorizontalList>
+        madiaTypeForLink={mediaType}
+      />
       <Reviews id={id} mediaType={mediaType} />
     </div>
   );
