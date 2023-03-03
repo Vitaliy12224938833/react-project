@@ -44,7 +44,7 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   return (
     <>
       {listData.length > 0 && (
-        <div className='horizontal-list-conteiner'>
+        <>
           <h3 className='title'>{title}</h3>
           <div className='horizontal-list-wrap'>
             <button
@@ -67,7 +67,7 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
               ❱
             </button>
           </div>
-        </div>
+        </>
       )}
     </>
   );

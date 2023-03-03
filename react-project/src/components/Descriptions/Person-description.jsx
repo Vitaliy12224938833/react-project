@@ -16,7 +16,7 @@ export const PersonDerscription = ({ data }) => {
   } = data;
   console.log(data);
   return (
-    <div className='description-conteiner'>
+    <>
       <div className='description'>
         <img
           className='poster'
@@ -72,6 +72,6 @@ export const PersonDerscription = ({ data }) => {
         </div>
       </div>
       <p className='description-overview'>{biography}</p>
-    </div>
+    </>
   );
 };

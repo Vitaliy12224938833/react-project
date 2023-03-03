@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { PersonDerscription } from '../components/Descriptions/Person-description';
 import { API_KEY } from '../data';
-
+import { Container } from '@mui/material';
 export const Personpage = () => {
   const { id } = useParams();
   const [personData, setPersonData] = useState(null);
@@ -17,8 +17,8 @@ export const Personpage = () => {
   }, [id]);
 
   return (
-    <div>
+    <Container maxWidth='xl'>
       <PersonDerscription data={personData} />
-    </div>
+    </Container>
   );
 };

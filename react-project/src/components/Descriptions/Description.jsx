@@ -28,7 +28,8 @@ export const Desciprion = ({ data }) => {
       .replace(/(\d)(?=(\d{3})+\.)/g, '$1 ') + ' $';
 
   return (
-    <div className='description-conteiner'>
+    <>
+      {' '}
       <div className='description'>
         <img
           className='poster'
@@ -131,6 +132,6 @@ export const Desciprion = ({ data }) => {
         </div>
       </div>
       <p className='description-overview'>{overview}</p>
-    </div>
+    </>
   );
 };

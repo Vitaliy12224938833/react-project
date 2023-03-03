@@ -5,6 +5,8 @@ import { ItemClassNameContext } from '../Context/Context';
 import { List } from '../components/List/List';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
+import { Container } from '@mui/material';
+
 export const Listpage = () => {
   const { mediaType, category } = useParams();
   const [page, setPage] = useState(1);
@@ -22,13 +24,13 @@ export const Listpage = () => {
   );
 
   return (
-    <div className='list-conteiner'>
+    <Container maxWidth='xl'>
       <MediaTypeForLinkContext.Provider value={defaultMediaType}>
         <ItemClassNameContext.Provider value='list-item'>
           {list && <List data={list} className={'content-list'}></List>}
         </ItemClassNameContext.Provider>
       </MediaTypeForLinkContext.Provider>
       {loader && <div className='loader'>Loading....</div>}
-    </div>
+    </Container>
   );
 };

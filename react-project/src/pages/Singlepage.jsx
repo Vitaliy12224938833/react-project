@@ -8,6 +8,7 @@ import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
+import { Container } from '@mui/material';
 import axios from 'axios';
 
 export const Singlepage = () => {
@@ -30,7 +31,7 @@ export const Singlepage = () => {
   }, [id]);
 
   return (
-    <div className='conteiner'>
+    <>
       {videosList && (
         <VideoTrailler
           data={videosList
@@ -39,33 +40,37 @@ export const Singlepage = () => {
           className='trailer'
         />
       )}
-      {pageList && <Desciprion data={pageList} />}
-      <MediaTypeForLinkContext.Provider value='person'>
-        <HorizontalList
-          id={id}
-          mediaType={mediaType}
-          category={'credits'}
-          title='Cast'
-        />
-      </MediaTypeForLinkContext.Provider>
+      <Container maxWidth='xl'>
+        {pageList && <Desciprion data={pageList} />}
+        <MediaTypeForLinkContext.Provider value='person'>
+          <HorizontalList
+            id={id}
+            mediaType={mediaType}
+            category={'credits'}
+            title='Cast'
+          />
+        </MediaTypeForLinkContext.Provider>
+      </Container>
       {videosList && <AllVidoeClips data={videosList} />}
-      <MediaTypeForLinkContext.Provider value={mediaType}>
-        <HorizontalList
-          id={id}
-          mediaType={mediaType}
-          category={'recommendations'}
-          title='Recommendations'
-        />
-      </MediaTypeForLinkContext.Provider>
-      <MediaTypeForLinkContext.Provider value={mediaType}>
-        <HorizontalList
-          id={id}
-          mediaType={mediaType}
-          category={'similar'}
-          title='Similar'
-        />
-      </MediaTypeForLinkContext.Provider>
-      <Reviews id={id} mediaType={mediaType} />
-    </div>
+      <Container maxWidth='xl'>
+        <MediaTypeForLinkContext.Provider value={mediaType}>
+          <HorizontalList
+            id={id}
+            mediaType={mediaType}
+            category={'recommendations'}
+            title='Recommendations'
+          />
+        </MediaTypeForLinkContext.Provider>
+        <MediaTypeForLinkContext.Provider value={mediaType}>
+          <HorizontalList
+            id={id}
+            mediaType={mediaType}
+            category={'similar'}
+            title='Similar'
+          />
+        </MediaTypeForLinkContext.Provider>
+        <Reviews id={id} mediaType={mediaType} />
+      </Container>
+    </>
   );
 };

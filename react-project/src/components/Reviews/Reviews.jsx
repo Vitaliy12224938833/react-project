@@ -15,7 +15,7 @@ export const Reviews = ({ id, mediaType }) => {
   }, [id]);
   console.log(reviewsData);
   return (
-    <div className='reviews-conteiner'>
+    <>
       <h3 className='title'>Reviews</h3>
       {reviewsData && <span>Loading...</span> && (
         <div className='reviews'>
@@ -24,6 +24,6 @@ export const Reviews = ({ id, mediaType }) => {
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
