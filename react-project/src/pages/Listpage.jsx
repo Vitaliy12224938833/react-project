@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInfinityList } from '../HOOKs/useInfinityList';
-import { ListItem } from '../components/ListItem/ListItem';
+import { ItemClassNameContext } from '../Context/Context';
 import { List } from '../components/List/List';
 import { API_KEY } from '../data';
-
+import { MediaTypeForLinkContext } from '../Context/Context';
 export const Listpage = () => {
   const { mediaType, category } = useParams();
   const [page, setPage] = useState(1);
@@ -23,20 +23,11 @@ export const Listpage = () => {
 
   return (
     <div className='list-conteiner'>
-      {list && (
-        <List data={list} className={'content-list'}>
-          {(id, title, poster_path, name) => (
-            <ListItem
-              key={id}
-              id={id}
-              title={title}
-              name={name}
-              img={poster_path}
-              mediaType={defaultMediaType}
-            />
-          )}
-        </List>
-      )}
+      <MediaTypeForLinkContext.Provider value={defaultMediaType}>
+        <ItemClassNameContext.Provider value='list-item'>
+          {list && <List data={list} className={'content-list'}></List>}
+        </ItemClassNameContext.Provider>
+      </MediaTypeForLinkContext.Provider>
       {loader && <div className='loader'>Loading....</div>}
     </div>
   );

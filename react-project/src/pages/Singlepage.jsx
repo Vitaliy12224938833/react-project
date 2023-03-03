@@ -7,6 +7,7 @@ import { VideoTrailler } from '../components/Video/YouTobeVideo';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Rewievs/Reviews';
 import { API_KEY } from '../data';
+import { MediaTypeForLinkContext } from '../Context/Context';
 import axios from 'axios';
 
 export const Singlepage = () => {
@@ -39,28 +40,31 @@ export const Singlepage = () => {
         />
       )}
       {pageList && <Desciprion data={pageList} />}
-      <HorizontalList
-        id={id}
-        mediaType={mediaType}
-        category={'credits'}
-        title='Cast'
-        madiaTypeForLink='person'
-      />
+      <MediaTypeForLinkContext.Provider value='person'>
+        <HorizontalList
+          id={id}
+          mediaType={mediaType}
+          category={'credits'}
+          title='Cast'
+        />
+      </MediaTypeForLinkContext.Provider>
       {videosList && <AllVidoeClips data={videosList} />}
-      <HorizontalList
-        id={id}
-        mediaType={mediaType}
-        category={'recommendations'}
-        title='Recommendations'
-        madiaTypeForLink={mediaType}
-      />
-      <HorizontalList
-        id={id}
-        mediaType={mediaType}
-        category={'similar'}
-        title='Similar'
-        madiaTypeForLink={mediaType}
-      />
+      <MediaTypeForLinkContext.Provider value={mediaType}>
+        <HorizontalList
+          id={id}
+          mediaType={mediaType}
+          category={'recommendations'}
+          title='Recommendations'
+        />
+      </MediaTypeForLinkContext.Provider>
+      <MediaTypeForLinkContext.Provider value={mediaType}>
+        <HorizontalList
+          id={id}
+          mediaType={mediaType}
+          category={'similar'}
+          title='Similar'
+        />
+      </MediaTypeForLinkContext.Provider>
       <Reviews id={id} mediaType={mediaType} />
     </div>
   );

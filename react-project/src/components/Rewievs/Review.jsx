@@ -8,7 +8,7 @@ export const Review = ({ data }) => {
   const { updated_at, content, author_details } = data;
   const { avatar_path, username } = author_details;
 
-  const avatar = (url) => {
+  const buildAvatar = (url) => {
     console.log(url);
     if (url === null) return setIsDefaulsAvatar(true);
     if (url.slice(0, 6) === '/https') return url.slice(1);
@@ -23,7 +23,7 @@ export const Review = ({ data }) => {
         {isDefaultAvatar ? (
           <BsFillPersonFill className='review-avatar' />
         ) : (
-          <img className='review-avatar' src={avatar(avatar_path)} />
+          <img className='review-avatar' src={buildAvatar(avatar_path)} />
         )}
       </div>
       <div>

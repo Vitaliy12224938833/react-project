@@ -2,28 +2,14 @@ import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { API_KEY } from '../../data';
 import { List } from '../List/List';
-import { ListItem } from '../ListItem/ListItem';
+import { ItemClassNameContext } from '../../Context/Context';
 import axios from 'axios';
 import './HorizontalList.css';
 
-export const HorizontalList = ({
-  id,
-  mediaType,
-  category,
-  title,
-  madiaTypeForLink,
-}) => {
+export const HorizontalList = ({ id, mediaType, category, title }) => {
   const [listData, setListData] = useState([]);
   const listRef = useRef();
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/${mediaType}/${id}/${category}?api_key=${API_KEY}&language=en-US`
-      )
-      .then((res) => setListData(res.data.cast || res.data.results));
-  }, [id]);
-  console.log(listData);
   let scrollAmount = 0;
   let scrollParClick = 1000;
 
@@ -46,6 +32,15 @@ export const HorizontalList = ({
       });
     }
   };
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/${mediaType}/${id}/${category}?api_key=${API_KEY}&language=en-US`
+      )
+      .then((res) => setListData(res.data.cast || res.data.results));
+  }, [id]);
+
   return (
     <>
       {listData.length > 0 && (
@@ -54,29 +49,20 @@ export const HorizontalList = ({
           <div className='horizontal-list-wrap'>
             <button
               className='scroll-list-button left'
-              onClick={() => handleClickLeft()}
+              onClick={handleClickLeft}
             >
               ❰
             </button>
-            <List
-              className={'horizontal-list'}
-              data={listData}
-              listRef={listRef}
-            >
-              {(id, title, poster_path) => (
-                <ListItem
-                  key={id}
-                  className={'horizontal-list-item'}
-                  id={id}
-                  img={poster_path}
-                  title={title}
-                  mediaType={madiaTypeForLink}
-                />
-              )}
-            </List>
+            <ItemClassNameContext.Provider value='horizontal-list-item'>
+              <List
+                className={'horizontal-list'}
+                data={listData}
+                listRef={listRef}
+              ></List>
+            </ItemClassNameContext.Provider>
             <button
               className='scroll-list-button right'
-              onClick={() => handleClickRight()}
+              onClick={handleClickRight}
             >
               ❱
             </button>
