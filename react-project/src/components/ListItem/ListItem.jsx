@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
 import './ListItem.css';
-export const ListItem = ({ id, img, name, categories, character, title }) => {
-  const [content, category] = categories;
+export const ListItem = ({
+  id,
+  img,
+  name,
+  character,
+  title,
+  className,
+  mediaType,
+}) => {
   return (
-    <li className='list-item' key={id}>
+    <li className={className} key={id}>
       {
         <>
-          <Link to={`/${content}/${category}/${name || title}/${id}`}>
+          <Link to={`/${mediaType}/${name || title}/${id}`}>
             <img
               className='list-item-img'
               src={`https://image.tmdb.org/t/p/w200${img}`}

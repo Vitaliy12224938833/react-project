@@ -1,4 +1,5 @@
-.list-item {
+.list-item,
+.horizontal-list-item {
   margin: 0 10px;
   height: 100%;
   height: 300px;
@@ -8,11 +9,14 @@
 .list-item-img {
   border-radius: 8px;
   background-size: cover;
+  object-fit: cover;
+  height: 300px;
+  width: 200px;
 }
-.list-item:last-child {
+.horizontal-list-item:last-child {
   margin-right: 0;
 }
-.list-item:first-child {
+.horizontal-list-item:first-child {
   margin-left: 0;
 }
 

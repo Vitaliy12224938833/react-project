@@ -8,45 +8,26 @@ import { ListItem } from '../components/ListItem/ListItem';
 import { VideoTrailler } from '../components/Video/YouTobeVideo';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Rewievs/Reviews';
+import { API_KEY } from '../data';
 import axios from 'axios';
 
-const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
-
 export const Singlepage = () => {
-  const { id, content, category } = useParams();
+  const { id, mediaType } = useParams();
 
   const [pageList, setPageList] = useState(null);
   const [videosList, setVideosList] = useState([]);
-  const [similarList, setSimilarList] = useState([]);
-  const [castList, setCastList] = useState([]);
-  const [recommendations, setRecommendationsList] = useState([]);
 
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setPageList(res.data));
     axios
       .get(
-        `https://api.themoviedb.org/3/${content}/${id}/videos?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setVideosList(res.data.results));
-    axios
-      .get(
-        `https://api.themoviedb.org/3/${content}/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`
-      )
-      .then((res) => setSimilarList(res.data.results));
-    axios
-      .get(
-        `https://api.themoviedb.org/3/${content}/${id}/credits?api_key=${API_KEY}&language=en-US`
-      )
-      .then((res) => setCastList(res.data.cast));
-    axios
-      .get(
-        `https://api.themoviedb.org/3/${content}/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`
-      )
-      .then((res) => setRecommendationsList(res.data.results));
   }, [id]);
 
   return (
@@ -60,63 +41,72 @@ export const Singlepage = () => {
         />
       )}
       {pageList && <Desciprion data={pageList} />}
-      {castList && (
-        <HorizontalList data={castList} title='Cast'>
-          {(data, listRef, className) => (
-            <List className={className} data={data} listRef={listRef}>
-              {(id, character, poster_path, name) => (
-                <ListItem
-                  key={id}
-                  className={'horizontal-list-item'}
-                  id={id}
-                  img={poster_path}
-                  name={name}
-                  character={character}
-                  categories={['person', category]}
-                />
-              )}
-            </List>
-          )}
-        </HorizontalList>
-      )}
+      <HorizontalList
+        id={id}
+        mediaType={mediaType}
+        category={'credits'}
+        title='Cast'
+      >
+        {(data, listRef, className) => (
+          <List className={className} data={data} listRef={listRef}>
+            {(id, character, poster_path, name) => (
+              <ListItem
+                key={id}
+                className={'horizontal-list-item'}
+                id={id}
+                img={poster_path}
+                name={name}
+                character={character}
+                mediaType={'person'}
+              />
+            )}
+          </List>
+        )}
+      </HorizontalList>
       {videosList && <AllVidoeClips data={videosList} />}
-      {recommendations && (
-        <HorizontalList data={recommendations} title='Recommendations'>
-          {(data, listRef, className) => (
-            <List className={className} data={data} listRef={listRef}>
-              {(id, title, poster_path) => (
-                <ListItem
-                  key={id}
-                  className={'horizontal-list-item'}
-                  id={id}
-                  img={poster_path}
-                  title={title}
-                  categories={[content, category]}
-                />
-              )}
-            </List>
-          )}
-        </HorizontalList>
-      )}
-      {similarList && (
-        <HorizontalList data={similarList} title='Similar'>
-          {(data, listRef, className) => (
-            <List className={className} data={data} listRef={listRef}>
-              {(id, title, poster_path) => (
-                <ListItem
-                  key={id}
-                  className={'horizontal-list-item'}
-                  id={id}
-                  img={poster_path}
-                  title={title}
-                  categories={[content, category]}
-                />
-              )}
-            </List>
-          )}
-        </HorizontalList>
-      )}
-      <Reviews id={id} content={content} />
+      <HorizontalList
+        id={id}
+        mediaType={mediaType}
+        category={'recommendations'}
+        title='Recommendations'
+      >
+        {(data, listRef, className) => (
+          <List className={className} data={data} listRef={listRef}>
+            {(id, title, poster_path, name, mediaType) => (
+              <ListItem
+                key={id}
+                className={'horizontal-list-item'}
+                id={id}
+                img={poster_path}
+                title={title}
+                mediaType={mediaType}
+              />
+            )}
+          </List>
+        )}
+      </HorizontalList>
+      <HorizontalList
+        id={id}
+        mediaType={mediaType}
+        category={'similar'}
+        title='Similar'
+      >
+        {(data, listRef, className) => (
+          <List className={className} data={data} listRef={listRef}>
+            {(id, title, poster_path, name, mediaType) => (
+              <ListItem
+                key={id}
+                className={'horizontal-list-item'}
+                id={id}
+                img={poster_path}
+                title={title}
+                mediaType={mediaType}
+              />
+            )}
+          </List>
+        )}
+      </HorizontalList>
+      <Reviews id={id} mediaType={mediaType} />
     </div>
   );
 };

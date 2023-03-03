@@ -1,12 +1,16 @@
+import { useState } from 'react';
+import { BsFillPersonFill } from 'react-icons/bs';
 import './Reviews.css';
+
 export const Review = ({ data }) => {
-  const {
-    updated_at,
-    content,
-    author_details: { avatar_path, name, rating, username },
-  } = data;
+  const [isDefaultAvatar, setIsDefaulsAvatar] = useState(false);
+
+  const { updated_at, content, author_details } = data;
+  const { avatar_path, username } = author_details;
+
   const avatar = (url) => {
-    if (url === null) return '../../../Public/DefaultAvatar.svg';
+    console.log(url);
+    if (url === null) return setIsDefaulsAvatar(true);
     if (url.slice(0, 6) === '/https') return url.slice(1);
     return `https://image.tmdb.org/t/p/w185${url}`;
   };
@@ -16,7 +20,11 @@ export const Review = ({ data }) => {
   return (
     <div className='review'>
       <div>
-        <img className='review-avatar' src={avatar(avatar_path)} />
+        {isDefaultAvatar ? (
+          <BsFillPersonFill className='review-avatar' />
+        ) : (
+          <img className='review-avatar' src={avatar(avatar_path)} />
+        )}
       </div>
       <div>
         <h4 className='username'>{username}</h4>

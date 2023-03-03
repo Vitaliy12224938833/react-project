@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { PersonDerscription } from '../components/Descriptions/Person-description';
-const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
+import { API_KEY } from '../data';
 
 export const Personpage = () => {
   const { id } = useParams();

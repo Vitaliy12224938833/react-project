@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  justify-content: right;
+  padding: 0;
+  margin-left: 100px;
+}
+.search input {
+  padding: 5px;
+  text-align: right;
+  border-radius: 5px;
+}
+.search-link {
+  margin-left: 10px;
+}
+.search-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.search a:hover {
+  color: var(--orange);
+}
