@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { VideoTrailler } from '../components/Video/YouTobeVideo';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
-import { Reviews } from '../components/Rewievs/Reviews';
+import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import axios from 'axios';

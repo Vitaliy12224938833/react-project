@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BsFillPersonFill } from 'react-icons/bs';
+
 import './Reviews.css';
 
 export const Review = ({ data }) => {
@@ -20,9 +20,7 @@ export const Review = ({ data }) => {
   return (
     <div className='review'>
       <div>
-        {isDefaultAvatar ? (
-          <BsFillPersonFill className='review-avatar' />
-        ) : (
+        {isDefaultAvatar ? null : (
           <img className='review-avatar' src={buildAvatar(avatar_path)} />
         )}
       </div>

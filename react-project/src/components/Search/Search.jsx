@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BsSearch } from 'react-icons/bs';
 import './Search.css';
 
 export const Search = () => {
@@ -16,7 +15,7 @@ export const Search = () => {
           className={`search-link ${query ? 'active' : ''}`}
           to={query ? `/search/multi/${query}` : null}
         >
-          <BsSearch className='search-icon' />
+          search
         </Link>
       </form>
     </div>
