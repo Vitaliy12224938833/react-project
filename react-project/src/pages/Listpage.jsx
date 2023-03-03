@@ -25,11 +25,7 @@ export const Listpage = () => {
 
   return (
     <Container maxWidth='xl'>
-      <MediaTypeForLinkContext.Provider value={defaultMediaType}>
-        <ItemClassNameContext.Provider value='list-item'>
-          {list && <List data={list} className={'content-list'}></List>}
-        </ItemClassNameContext.Provider>
-      </MediaTypeForLinkContext.Provider>
+      {list && <List data={list} defaultMediaType={defaultMediaType}></List>}
       {loader && <div className='loader'>Loading....</div>}
     </Container>
   );
