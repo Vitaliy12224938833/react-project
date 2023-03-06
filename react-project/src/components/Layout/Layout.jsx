@@ -1,13 +1,21 @@
 import { Outlet } from 'react-router-dom';
-import { categoriesData } from '../../data';
-import './Layout.css';
 import { NavBar } from '../NavBar/NavBar';
+import { Box } from '@mui/material';
+
+const globalConteinerStyle = {
+  width: '100vh',
+  maxWidth: '1600px',
+  width: '100%',
+  margin: ' 0 auto',
+  overflow: 'hidden',
+  background: '#fefefe',
+  boxShadow: 10,
+};
 
 export const Layout = () => {
-  const contentTypes = Object.keys(categoriesData);
   return (
     <>
-      <div className='conteiner'>
+      <Box sx={globalConteinerStyle}>
         <header>
           <NavBar />
         </header>
@@ -15,7 +23,7 @@ export const Layout = () => {
           <Outlet />
         </main>
         <footer></footer>
-      </div>
+      </Box>
     </>
   );
 };
