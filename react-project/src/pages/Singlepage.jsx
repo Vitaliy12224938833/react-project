@@ -9,6 +9,7 @@ import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Container } from '@mui/material';
+
 import axios from 'axios';
 
 export const Singlepage = () => {

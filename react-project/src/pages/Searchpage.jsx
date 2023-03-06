@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import { List } from '../components/List/List';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { API_KEY } from '../data';
+import { Container } from '@mui/material';
+
+import { LinearLoadr } from '../components/Linear-loader/LinearLoader';
 
 export const Searchpage = () => {
   const { query } = useParams();
@@ -13,8 +16,10 @@ export const Searchpage = () => {
 
   return (
     <>
-      {list && <List data={list} className={'content-list'}></List>}
-      {loader && <div className='loader'>Loading....</div>}
+      <LinearLoadr loader={loader} />
+      <Container maxWidth='xl'>
+        {list && <List data={list} className={'content-list'} />}
+      </Container>
     </>
   );
 };

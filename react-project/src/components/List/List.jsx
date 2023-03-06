@@ -7,7 +7,7 @@ export const List = ({ data, defaultMediaType }) => {
   const idArray = [];
 
   return (
-    <ImageList gap={55} cols={6}>
+    <ImageList gap={0} cols={6}>
       {data.map((item, idx) => {
         const { id, title, poster_path, name, profile_path } = item;
         if (idx >= 1) idArray.push(data[idx - 1].id);
