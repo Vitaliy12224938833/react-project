@@ -1,22 +1,15 @@
 import './Description.css';
-export const Desciprion = ({ data }) => {
-  const {
-    original_title,
-    overview,
-    poster_path,
-    release_date,
-    status,
-    budget,
-    belongs_to_collection,
-    vote_average,
-    title,
-    genres,
-    revenue,
-    runtime,
-    production_companies,
-  } = data;
+import { Tab, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-  const runTime = (min) => {
+export const Desciprion = ({ data }) => {
+  const getRuntime = (min) => {
     const hours = Math.floor(min / 60);
     const lastMin = min - hours * 60;
     return `${hours} hours ${lastMin} min`;
@@ -27,111 +20,60 @@ export const Desciprion = ({ data }) => {
       .toFixed(2)
       .replace(/(\d)(?=(\d{3})+\.)/g, '$1 ') + ' $';
 
+  const createStrFromObj = (list) => {
+    let StrList = '';
+    list.forEach((item) => (StrList += item.name + ', '));
+    return StrList.slice(0, -2);
+  };
+
+  const cahangeDate = (date) => date.split('-').reverse().join(' ');
+
+  const dataArray = [
+    { description: getRuntime(data.runtime), caption: 'Runetime:' },
+    {
+      description: createStrFromObj(data.production_countries),
+      caption: 'Contry:',
+    },
+    { description: cahangeDate(data.release_date), caption: 'Relis:' },
+    { description: data.status, caption: 'Status:' },
+    { description: data.vote_average, caption: 'Rating:' },
+    { description: makeMoney(data.budget), caption: 'Budget:' },
+    { description: data.revenue, caption: 'Revenue:' },
+    { description: createStrFromObj(data.genres), caption: 'Genres:' },
+  ];
+
   return (
     <>
-      {' '}
-      <div className='description'>
+      <Box sx={{ display: 'flex' }}>
         <img
           className='poster'
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-          alt={title}
+          src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+          alt={data.title}
         />
-        <div className='table-wrap'>
-          <h2 className='description-title'>{title}</h2>
-          <table>
-            <tbody>
-              {runtime !== undefined && (
-                <tr>
-                  <th>
-                    <b>Runtime:</b>
-                  </th>
-                  <th>
-                    <span>{runTime(runtime)}</span>
-                  </th>
-                </tr>
-              )}
-              {production_companies.length > 0 && (
-                <tr>
-                  <th>
-                    <b>Contry:</b>
-                  </th>
-                  <th>
-                    <span>{production_companies[0].origin_country}</span>
-                  </th>
-                </tr>
-              )}
-              {release_date !== undefined && (
-                <tr>
-                  <th>
-                    <b>Relis:</b>
-                  </th>
-                  <th>
-                    <span>{release_date}</span>
-                  </th>
-                </tr>
-              )}
-              {status !== undefined && (
-                <tr>
-                  <th>
-                    <b>Status</b>
-                  </th>
-                  <th>
-                    <span>{status}</span>
-                  </th>
-                </tr>
-              )}
-              {vote_average !== undefined && (
-                <tr>
-                  <th>
-                    <b>Rating:</b>
-                  </th>
-                  <th>
-                    <span>{vote_average}</span>
-                  </th>
-                </tr>
-              )}
-              {budget !== undefined && (
-                <tr>
-                  <th>
-                    <b>Budget:</b>
-                  </th>
-                  <th>
-                    <span>{makeMoney(budget)}</span>
-                  </th>
-                </tr>
-              )}
-              {revenue !== undefined && (
-                <tr>
-                  <th>
-                    <b>Revenue:</b>
-                  </th>
-                  <th>
-                    <span>{makeMoney(revenue)}</span>
-                  </th>
-                </tr>
-              )}
-              {genres.length > 0 && (
-                <tr>
-                  <th>
-                    <b>Genres:</b>
-                  </th>
-                  <th>
-                    <span className='table-list'>
-                      {genres.map((item, idx) => (
-                        <span key={idx}>
-                          {item.name}
-                          <span> </span>
-                        </span>
-                      ))}
-                    </span>
-                  </th>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <p className='description-overview'>{overview}</p>
+        <Box sx={{ marginLeft: 20 }}>
+          <Typography variant='h3' sx={{ marginBottom: 10 }}>
+            {data.title}
+          </Typography>
+          <TableContainer>
+            <Table>
+              <TableBody>
+                {dataArray.map((item) => (
+                  <TableRow>
+                    <TableCell>{item.caption}</TableCell>
+                    <TableCell>{item.description}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Box>
+      <Paper
+        sx={{ padding: 5, marginTop: 5, marginBottom: 5 }}
+        variant='elevation'
+      >
+        <Typography variant='body1'>{data.overview}</Typography>
+      </Paper>
     </>
   );
 };
