@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Movie } from '@mui/icons-material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,18 +57,64 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const pages = ['home', 'movie', 'tv', 'person'];
-
 export const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [movie, setMovie] = useState(null);
+  const [tv, setTv] = useState(null);
+  const [actors, setActors] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
   };
+
+  const handleOpenCategoryMenu = (event, callback) => {
+    callback(event.currentTarget);
+  };
+
+  const handleCloseCategoryMenu = (e, callback) => {
+    callback(null);
+  };
+
+  const pages = [
+    {
+      route: 'home',
+      alert: 'Home',
+      categories: [],
+    },
+    {
+      route: 'movie',
+      alert: 'Movies',
+      state: movie,
+      setState: setMovie,
+      categories: [
+        { route: 'popular', alert: 'Popular' },
+        { route: 'top_rated', alert: 'TOP' },
+        { route: 'now_playing', alert: 'Now Playing' },
+        { route: 'upcoming', alert: 'soon' },
+      ],
+    },
+    {
+      route: 'tv',
+      alert: 'Serials',
+      state: tv,
+      setState: setTv,
+      categories: [
+        { route: 'popular', alert: 'Popular' },
+        { route: 'top_rated', alert: 'TOP' },
+      ],
+    },
+    {
+      route: 'person',
+      alert: 'Actors',
+      state: actors,
+      setState: setActors,
+      categories: [{ route: 'popular', alert: 'Popular' }],
+    },
+  ];
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -95,6 +142,7 @@ export const NavBar = () => {
               transformOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
+                handleCloseNavMenu,
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -102,18 +150,18 @@ export const NavBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page, idx) => (
                 <MenuItem
                   sx={{ color: 'black' }}
-                  key={page}
+                  key={idx}
                   onClick={handleCloseNavMenu}
                 >
                   <Typography textAlign='center'>
-                    <Link to={`/${page}`}>
-                      <Typography sx={{ color: 'black' }} textAlign='center'>
-                        {page}
-                      </Typography>
-                    </Link>
+                    {page.alert}
+                    <Typography
+                      color={'primary'}
+                      textAlign='center'
+                    ></Typography>
                   </Typography>
                 </MenuItem>
               ))}
@@ -125,18 +173,62 @@ export const NavBar = () => {
               display: { xs: 'none', md: 'flex' },
             }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <Link to={`/${page}`}>
-                  <Typography sx={{ color: 'white' }} textAlign='center'>
-                    {page}
-                  </Typography>
-                </Link>
-              </Button>
+            {pages.map((page, i) => (
+              <Box>
+                <Button
+                  key={i}
+                  onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {(page.route === 'home' && (
+                    <Link to={`/${page.route}`}>
+                      <Typography sx={{ color: 'white' }} textAlign='center'>
+                        {page.alert}
+                      </Typography>
+                    </Link>
+                  )) || (
+                    <Typography sx={{ color: 'white' }} textAlign='center'>
+                      {page.alert}
+                    </Typography>
+                  )}
+                </Button>
+
+                <Menu
+                  id='menu-appbar'
+                  anchorEl={page.state}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                    handleCloseCategoryMenu,
+                  }}
+                  open={Boolean(page.state)}
+                  onClose={(e) => handleCloseCategoryMenu(e, page.setState)}
+                  sx={{
+                    display: { xs: 'block' },
+                  }}
+                >
+                  {page.categories.map((item, j) => (
+                    <MenuItem
+                      sx={{ color: 'black' }}
+                      key={j}
+                      onClick={(e) => handleCloseCategoryMenu(e, page.setState)}
+                    >
+                      <Typography textAlign='center'>
+                        <Link to={`/${page.route}/${item.route}`}>
+                          <Typography color={'primary'} textAlign='center'>
+                            {item.alert}
+                          </Typography>
+                        </Link>
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
             ))}
           </Box>
           <Search>

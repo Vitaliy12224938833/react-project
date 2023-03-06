@@ -11,6 +11,7 @@ export const useInfinityList = (url, page, setPage, content, category) => {
     setPage(1);
     setFetching(true);
     setStartlist(true);
+    setLoader(true);
     axios.get(url).then((res) => setTotalPage(res.data.total_pages));
   }, [content, category]);
 
