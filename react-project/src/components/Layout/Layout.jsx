@@ -4,15 +4,15 @@ import { categoriesData } from '../../data';
 import { Link } from 'react-router-dom';
 import { Search } from '../Search/Search';
 import './Layout.css';
+import { NavBar } from '../NavBar/NavBar';
 
 export const Layout = () => {
   const contentTypes = Object.keys(categoriesData);
   return (
     <>
       <div className='conteiner'>
-        {' '}
         <header>
-          <ul className='categories'>
+          {/* <ul className='categories'>
             {contentTypes.map((type) => {
               const { name, id } = categoriesData[type];
               return (
@@ -27,7 +27,8 @@ export const Layout = () => {
             <li>
               <Search />
             </li>
-          </ul>
+          </ul> */}
+          <NavBar />
         </header>
         <main>
           <Outlet />
