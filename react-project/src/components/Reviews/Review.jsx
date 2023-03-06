@@ -32,11 +32,11 @@ export const Review = ({ data }) => {
       </Box>
       <Box>
         <Rating name='customized-10' value={rating} max={10} readOnly />
-        <Typography variant='h5'>{username}</Typography>{' '}
+        <Typography variant='h6'>{username}</Typography>{' '}
         <Typography variant='subtitle2' color='primary'>
           {transformDate(updated_at)}
         </Typography>
-        <Typography variatn='body2'>{content}</Typography>
+        <Typography variant='body2'>{content}</Typography>
       </Box>
     </Box>
   );

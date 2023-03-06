@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Review } from './Review';
+import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
 import axios from 'axios';
 const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
 
@@ -13,16 +15,16 @@ export const Reviews = ({ id, mediaType }) => {
       )
       .then((res) => setReviewsData(res.data));
   }, [id]);
-  console.log(reviewsData);
+
   return (
     <>
-      <h3 className='title'>Reviews</h3>
-      {reviewsData && <span>Loading...</span> && (
-        <div className='reviews'>
+      <Typography variant='h5'>Reviews</Typography>
+      {reviewsData && (
+        <Box>
           {reviewsData.results.map((item) => (
             <Review key={item.id} data={item} />
           ))}
-        </div>
+        </Box>
       )}
     </>
   );
