@@ -94,7 +94,7 @@ export const NavBar = () => {
         { route: 'popular', alert: 'Popular' },
         { route: 'top_rated', alert: 'TOP' },
         { route: 'now_playing', alert: 'Now Playing' },
-        { route: 'upcoming', alert: 'soon' },
+        { route: 'upcoming', alert: 'Soon' },
       ],
     },
     {
@@ -105,6 +105,8 @@ export const NavBar = () => {
       categories: [
         { route: 'popular', alert: 'Popular' },
         { route: 'top_rated', alert: 'TOP' },
+        { route: 'airing_today', alert: 'Airingtoday' },
+        { route: 'on_the_air', alert: 'On the air' },
       ],
     },
     {
@@ -117,7 +119,15 @@ export const NavBar = () => {
   ];
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        position: 'fixed',
+        width: '100%',
+        maxWidth: '1600px',
+        zIndex: '999',
+      }}
+    >
       <AppBar position='static'>
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -174,9 +184,8 @@ export const NavBar = () => {
             }}
           >
             {pages.map((page, i) => (
-              <Box>
+              <Box key={i}>
                 <Button
-                  key={i}
                   onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
@@ -192,7 +201,6 @@ export const NavBar = () => {
                     </Typography>
                   )}
                 </Button>
-
                 <Menu
                   id='menu-appbar'
                   anchorEl={page.state}

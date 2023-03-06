@@ -7,6 +7,7 @@ export const useInfinityList = (url, page, setPage, content, category) => {
   const [isStatList, setStartlist] = useState(true);
   const [loader, setLoader] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
+
   useEffect(() => {
     setPage(1);
     setFetching(true);

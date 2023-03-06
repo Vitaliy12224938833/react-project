@@ -17,7 +17,7 @@ export const Personpage = () => {
   }, [id]);
 
   return (
-    <Container maxWidth='xl'>
+    <Container maxWidth='xl' sx={{ marginTop: '150px' }}>
       <PersonDerscription data={personData} />
     </Container>
   );

@@ -3,7 +3,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import './List.css';
 
-export const List = ({ data, defaultMediaType }) => {
+export const List = ({ data, mediaType }) => {
   const idArray = [];
 
   return (
@@ -14,7 +14,7 @@ export const List = ({ data, defaultMediaType }) => {
         if ((poster_path || profile_path) && !idArray.includes(id))
           return (
             <ImageListItem sx={{ width: 200, height: 300 }}>
-              <Link to={`/${defaultMediaType}/${name || title}/${id}`}>
+              <Link to={`/${mediaType}/${name || title}/${id}`}>
                 <img
                   className='list-item-img'
                   src={`https://image.tmdb.org/t/p/w200${

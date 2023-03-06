@@ -4,7 +4,6 @@ import { AuthProvider } from './hoc/AuthProvider';
 import { Homepage } from './pages/Homepage';
 import { Listpage } from './pages/Listpage';
 import { Singlepage } from './pages/Singlepage';
-import { Categoris } from './components/Layout/Categoris';
 import { Personpage } from './pages/Personpage';
 import { Searchpage } from './pages/Searchpage';
 import { ThemeProvider } from '@mui/material/styles';
@@ -18,11 +17,9 @@ export const App = () => {
           <Route path='/' element={<Layout />}>
             <Route index element={<Homepage />} />
             <Route path='home' element={<Homepage />} />
-            <Route path='/:mediaType' element={<Categoris />}>
-              <Route index element={<Listpage />} />
-              <Route path='/:mediaType/:category' element={<Listpage />} />
-              <Route path='/:mediaType/:name/:id' element={<Singlepage />} />
-            </Route>
+            <Route index element={<Listpage />} />
+            <Route path='/:mediaType/:category' element={<Listpage />} />
+            <Route path='/:mediaType/:name/:id' element={<Singlepage />} />
             <Route path='/person/:name/:id' element={<Personpage />} />
             <Route path='/search/:mediaType/:query' element={<Searchpage />} />
           </Route>

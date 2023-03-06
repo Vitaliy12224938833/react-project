@@ -9,7 +9,7 @@ import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Container } from '@mui/material';
-
+import { Box } from '@mui/system';
 import axios from 'axios';
 
 export const Singlepage = () => {
@@ -32,7 +32,7 @@ export const Singlepage = () => {
   }, [id]);
 
   return (
-    <>
+    <Box sx={{ marginTop: '30px' }}>
       {videosList && (
         <VideoTrailler
           data={videosList
@@ -72,6 +72,6 @@ export const Singlepage = () => {
         </MediaTypeForLinkContext.Provider>
         <Reviews id={id} mediaType={mediaType} />
       </Container>
-    </>
+    </Box>
   );
 };

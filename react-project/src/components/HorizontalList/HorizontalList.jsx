@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useRef } from 'react';
 import { API_KEY } from '../../data';
 import { ImageList } from '@mui/material';
 import { ImageListItem } from '@mui/material';
 import { ItemClassNameContext } from '../../Context/Context';
 import { Link } from 'react-router-dom';
+import { MediaTypeForLinkContext } from '../../Context/Context';
 import axios from 'axios';
 import './HorizontalList.css';
 
 export const HorizontalList = ({ id, mediaType, category, title }) => {
+  const linkMediaType = useContext(MediaTypeForLinkContext);
   const [listData, setListData] = useState([]);
   const listRef = useRef();
 
@@ -56,13 +58,13 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
               ❰
             </button>
             <ItemClassNameContext.Provider value='horizontal-list-item'>
-              <ImageList gap={10}>
+              <ImageList>
                 {listData.map((item) => {
                   const { id, title, poster_path, name, profile_path } = item;
                   if (poster_path || profile_path)
                     return (
                       <ImageListItem sx={{ width: 200, height: 300 }}>
-                        <Link to={`/${mediaType}/${name || title}/${id}`}>
+                        <Link to={`/${linkMediaType}/${name || title}/${id}`}>
                           <img
                             className='list-item-img'
                             src={`https://image.tmdb.org/t/p/w200${

@@ -6,6 +6,7 @@ import { API_KEY } from '../data';
 import { Container } from '@mui/material';
 
 import { LinearLoadr } from '../components/Linear-loader/LinearLoader';
+import { Margin } from '@mui/icons-material';
 
 export const Searchpage = () => {
   const { query } = useParams();
@@ -17,7 +18,7 @@ export const Searchpage = () => {
   return (
     <>
       <LinearLoadr loader={loader} />
-      <Container maxWidth='xl'>
+      <Container sx={{ marginTop: '40px' }} maxWidth='xl'>
         {list && <List data={list} className={'content-list'} />}
       </Container>
     </>
