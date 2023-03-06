@@ -1,12 +1,16 @@
 import { useState } from 'react';
-
-import './Reviews.css';
+import { Avatar, Typography } from '@mui/material';
+import { Rating } from '@mui/material';
+import { Box } from '@mui/system';
+import PersonIcon from '@mui/icons-material/Person';
 
 export const Review = ({ data }) => {
   const [isDefaultAvatar, setIsDefaulsAvatar] = useState(false);
 
   const { updated_at, content, author_details } = data;
-  const { avatar_path, username } = author_details;
+  const { avatar_path, username, rating } = author_details;
+
+  const avatarStyle = { width: 100, height: 100, marginRight: 5 };
 
   const buildAvatar = (url) => {
     console.log(url);
@@ -18,17 +22,22 @@ export const Review = ({ data }) => {
     date.slice(0, 10).split('-').reverse().join(' ');
 
   return (
-    <div className='review'>
-      <div>
-        {isDefaultAvatar ? null : (
-          <img className='review-avatar' src={buildAvatar(avatar_path)} />
+    <Box sx={{ display: 'flex', marginTop: 5, marginBottom: 5 }}>
+      <Box>
+        {isDefaultAvatar ? (
+          <PersonIcon sx={avatarStyle} />
+        ) : (
+          <Avatar sx={avatarStyle} src={buildAvatar(avatar_path)} />
         )}
-      </div>
-      <div>
-        <h4 className='username'>{username}</h4>
-        <span className='review-date'>{transformDate(updated_at)}</span>
-        <p>{content}</p>
-      </div>
-    </div>
+      </Box>
+      <Box>
+        <Rating name='customized-10' value={rating} max={10} readOnly />
+        <Typography variant='h5'>{username}</Typography>{' '}
+        <Typography variant='subtitle2' color='primary'>
+          {transformDate(updated_at)}
+        </Typography>
+        <Typography variatn='body2'>{content}</Typography>
+      </Box>
+    </Box>
   );
 };
