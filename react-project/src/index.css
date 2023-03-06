@@ -20,14 +20,14 @@ body {
 }
 
 a {
-  color: var(--black);
-  font-weight: 500;
-  text-decoration: inherit;
+  color: white;
+  /* font-weight: 500;
+  text-decoration: inherit; */
 }
-a:hover {
+/* a:hover {
   color: var(--orange);
   transition: all 0.3s;
-}
+} */
 
 li {
   list-style: none;
