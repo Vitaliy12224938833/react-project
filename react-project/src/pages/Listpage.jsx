@@ -5,7 +5,8 @@ import { CustomList } from '../components/List/List';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
 import { LinearLoadr } from '../components/Loader/LinearLoader';
-
+import { Loader } from '../components/Loader/Loader';
+let i = 1;
 export const Listpage = () => {
   const { mediaType, category } = useParams();
   const [page, setPage] = useState(1);
@@ -17,6 +18,8 @@ export const Listpage = () => {
     mediaType,
     category
   );
+  console.log(list);
+  if (list.length === 0) return <Loader />;
 
   return (
     <>

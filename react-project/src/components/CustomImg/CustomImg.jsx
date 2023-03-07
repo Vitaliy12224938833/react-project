@@ -1,9 +1,9 @@
-export const CustomImg = ({ src, alt }) => (
+export const CustomImg = ({ src, alt, width }) => (
   <img
     style={{
       objectPosition: 'center',
       objectFit: 'cover',
-      width: '100%',
+      width: width || '100%',
       height: '100%',
       borderRadius: '3%',
     }}

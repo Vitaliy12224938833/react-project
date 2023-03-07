@@ -3,7 +3,6 @@ import { NavBar } from '../NavBar/NavBar';
 import { Box } from '@mui/material';
 
 const globalConteinerStyle = {
-  width: '100vh',
   maxWidth: '1600px',
   width: '100%',
   margin: ' 0 auto',

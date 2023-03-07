@@ -51,8 +51,9 @@ export const Desciprion = ({ data }) => {
   console.log(data);
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', maxHeight: 1000 }}>
         <CustomImg
+          width={'auto'}
           src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
           alt={data.title}
         />

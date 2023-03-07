@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { Loader } from '../Loader/Loader';
 import { CustomImg } from '../CustomImg/CustomImg';
 
 export const CustomList = ({ data, mediaType }) => {
-  if (!data) return <Loader />;
-
   const idArray = [];
 
   return (
