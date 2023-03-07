@@ -1,12 +1,11 @@
-import './Description.css';
-import { Tab, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Table } from '@mui/material/';
+import { TableBody } from '@mui/material/';
+import { TableCell } from '@mui/material/';
+import { TableContainer } from '@mui/material/';
+import { TableRow } from '@mui/material/';
+import { Paper } from '@mui/material/';
 
 export const Desciprion = ({ data }) => {
   const getRuntime = (min) => {
@@ -15,10 +14,14 @@ export const Desciprion = ({ data }) => {
     return `${hours} hours ${lastMin} min`;
   };
 
-  const makeMoney = (n) =>
-    parseFloat(n)
-      .toFixed(2)
-      .replace(/(\d)(?=(\d{3})+\.)/g, '$1 ') + ' $';
+  const makeMoney = (n) => {
+    if (n === 0) return null;
+    return (
+      parseFloat(n)
+        .toFixed(2)
+        .replace(/(\d)(?=(\d{3})+\.)/g, '$1 ') + ' $'
+    );
+  };
 
   const createStrFromObj = (list) => {
     let StrList = '';
@@ -38,7 +41,7 @@ export const Desciprion = ({ data }) => {
     { description: data.status, caption: 'Status:' },
     { description: data.vote_average, caption: 'Rating:' },
     { description: makeMoney(data.budget), caption: 'Budget:' },
-    { description: data.revenue, caption: 'Revenue:' },
+    { description: makeMoney(data.revenue), caption: 'Revenue:' },
     { description: createStrFromObj(data.genres), caption: 'Genres:' },
   ];
 
@@ -57,12 +60,15 @@ export const Desciprion = ({ data }) => {
           <TableContainer>
             <Table>
               <TableBody>
-                {dataArray.map((item) => (
-                  <TableRow>
-                    <TableCell>{item.caption}</TableCell>
-                    <TableCell>{item.description}</TableCell>
-                  </TableRow>
-                ))}
+                {dataArray.map(
+                  (item) =>
+                    item.description !== null && (
+                      <TableRow>
+                        <TableCell>{item.caption}</TableCell>
+                        <TableCell>{item.description}</TableCell>
+                      </TableRow>
+                    )
+                )}
               </TableBody>
             </Table>
           </TableContainer>

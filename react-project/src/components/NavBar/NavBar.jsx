@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Movie } from '@mui/icons-material';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
