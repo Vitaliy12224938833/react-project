@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { List } from '../components/List/List';
+import { CustomList } from '../components/List/List';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
@@ -18,7 +18,7 @@ export const Searchpage = () => {
   return (
     <>
       <Container sx={{ marginTop: '40px' }} maxWidth='xl'>
-        <List data={list} />
+        <CustomList data={list} />
       </Container>
       {/* <LinearLoadr loader={loader} /> */}
     </>

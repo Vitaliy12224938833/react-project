@@ -6,6 +6,7 @@ import { TableCell } from '@mui/material/';
 import { TableContainer } from '@mui/material/';
 import { TableRow } from '@mui/material/';
 import { Paper } from '@mui/material/';
+import { CustomImg } from '../CustomImg/CustomImg';
 
 export const Desciprion = ({ data }) => {
   const getRuntime = (min) => {
@@ -15,7 +16,7 @@ export const Desciprion = ({ data }) => {
   };
 
   const makeMoney = (n) => {
-    if (n === 0) return null;
+    if (!n) return null;
     return (
       parseFloat(n)
         .toFixed(2)
@@ -28,9 +29,8 @@ export const Desciprion = ({ data }) => {
     list.forEach((item) => (StrList += item.name + ', '));
     return StrList.slice(0, -2);
   };
-  console.log(data);
-  const cahangeDate = (date) =>
-    data ? date.split('-').reverse().join(' ') : null;
+
+  const cahangeDate = (date) => data && date.split('-').reverse().join(' ');
 
   const dataArray = [
     { description: getRuntime(data.runtime), caption: 'Runetime:' },
@@ -48,18 +48,17 @@ export const Desciprion = ({ data }) => {
     { description: makeMoney(data.revenue), caption: 'Revenue:' },
     { description: createStrFromObj(data.genres), caption: 'Genres:' },
   ];
-
+  console.log(data);
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <img
-          className='poster'
+        <CustomImg
           src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
           alt={data.title}
         />
         <Box sx={{ marginLeft: 20 }}>
           <Typography variant='h3' sx={{ marginBottom: 10 }}>
-            {data.title}
+            {data.title || data.name}
           </Typography>
           <TableContainer>
             <Table>

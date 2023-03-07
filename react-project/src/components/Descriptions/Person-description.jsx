@@ -7,9 +7,11 @@ import { TableContainer } from '@mui/material/';
 import { TableRow } from '@mui/material/';
 import { Paper } from '@mui/material/';
 import { Link } from '@mui/material';
+import { CustomImg } from '../CustomImg/CustomImg';
 
 export const PersonDerscription = ({ data }) => {
-  const createLink = (link) => <Link href={link}>{link}</Link>;
+  const createLink = (link) => link && <Link href={link}>{link}</Link>;
+
   const cahangeDate = (date) => date && date.split('-').reverse().join(' ');
 
   const dataArray = [
@@ -22,8 +24,7 @@ export const PersonDerscription = ({ data }) => {
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <img
-          className='poster'
+        <CustomImg
           src={`https://image.tmdb.org/t/p/w500${data.profile_path}`}
           alt={data.name}
         />

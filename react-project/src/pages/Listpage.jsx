@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInfinityList } from '../HOOKs/useInfinityList';
-import { List } from '../components/List/List';
+import { CustomList } from '../components/List/List';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
 import { LinearLoadr } from '../components/Loader/LinearLoader';
@@ -20,8 +20,8 @@ export const Listpage = () => {
 
   return (
     <>
-      <Container sx={{ marginTop: '100px' }} maxWidth='xl'>
-        <List data={list} mediaType={mediaType}></List>
+      <Container sx={{ marginTop: 20 }} maxWidth='xl'>
+        <CustomList data={list} mediaType={mediaType}></CustomList>
       </Container>
       {/* <LinearLoadr loader={loader} /> */}
     </>
