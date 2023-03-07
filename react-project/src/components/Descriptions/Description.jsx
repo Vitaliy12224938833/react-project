@@ -28,8 +28,9 @@ export const Desciprion = ({ data }) => {
     list.forEach((item) => (StrList += item.name + ', '));
     return StrList.slice(0, -2);
   };
-
-  const cahangeDate = (date) => date.split('-').reverse().join(' ');
+  console.log(data);
+  const cahangeDate = (date) =>
+    data ? date.split('-').reverse().join(' ') : null;
 
   const dataArray = [
     { description: getRuntime(data.runtime), caption: 'Runetime:' },
@@ -37,7 +38,10 @@ export const Desciprion = ({ data }) => {
       description: createStrFromObj(data.production_countries),
       caption: 'Contry:',
     },
-    { description: cahangeDate(data.release_date), caption: 'Relis:' },
+    {
+      description: cahangeDate(data.release_date || data.first_air_date),
+      caption: 'Relis:',
+    },
     { description: data.status, caption: 'Status:' },
     { description: data.vote_average, caption: 'Rating:' },
     { description: makeMoney(data.budget), caption: 'Budget:' },
@@ -62,7 +66,7 @@ export const Desciprion = ({ data }) => {
               <TableBody>
                 {dataArray.map(
                   (item) =>
-                    item.description !== null && (
+                    item.description && (
                       <TableRow>
                         <TableCell>{item.caption}</TableCell>
                         <TableCell>{item.description}</TableCell>

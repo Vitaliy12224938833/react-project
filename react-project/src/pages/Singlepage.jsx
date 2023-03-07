@@ -10,6 +10,7 @@ import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Container } from '@mui/material';
 import { Box } from '@mui/system';
+import { Loader } from '../components/Loader/Loader';
 import axios from 'axios';
 
 export const Singlepage = () => {
@@ -31,18 +32,19 @@ export const Singlepage = () => {
       .then((res) => setVideosList(res.data.results));
   }, [id]);
 
+  if (!videosList || !pageList || !videosList) return <Loader />;
+  
   return (
     <Box sx={{ marginTop: '30px' }}>
-      {videosList && (
-        <VideoTrailler
-          data={videosList
-            .filter((item) => item.type === 'Trailer' && item.official)
-            .pop()}
-          className='trailer'
-        />
-      )}
+      <VideoTrailler
+        data={videosList
+          .filter((item) => item.type === 'Trailer' && item.official)
+          .pop()}
+        className='trailer'
+      />
+
       <Container maxWidth='xl'>
-        {pageList && <Desciprion data={pageList} />}
+        <Desciprion data={pageList} />
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}
@@ -52,7 +54,7 @@ export const Singlepage = () => {
           />
         </MediaTypeForLinkContext.Provider>
       </Container>
-      {videosList && <AllVidoeClips data={videosList} />}
+      <AllVidoeClips data={videosList} />
       <Container maxWidth='xl'>
         <MediaTypeForLinkContext.Provider value={mediaType}>
           <HorizontalList

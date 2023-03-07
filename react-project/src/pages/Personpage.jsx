@@ -5,9 +5,11 @@ import { useParams } from 'react-router-dom';
 import { PersonDerscription } from '../components/Descriptions/Person-description';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
+import { Loader } from '../components/Loader/Loader';
 export const Personpage = () => {
   const { id } = useParams();
   const [personData, setPersonData] = useState(null);
+
   useEffect(() => {
     axios
       .get(
@@ -15,6 +17,8 @@ export const Personpage = () => {
       )
       .then((res) => setPersonData(res.data));
   }, [id]);
+
+  if (!personData) return <Loader />;
 
   return (
     <Container maxWidth='xl' sx={{ marginTop: '150px' }}>

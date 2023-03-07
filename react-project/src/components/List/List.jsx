@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import { Loader } from '../Loader/Loader';
 import './List.css';
 
 export const List = ({ data, mediaType }) => {
+  if (!data) return <Loader />;
+
   const idArray = [];
 
   return (

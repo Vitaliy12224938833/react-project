@@ -17,7 +17,7 @@ export const App = () => {
           <Route path='/' element={<Layout />}>
             <Route index element={<Homepage />} />
             <Route path='home' element={<Homepage />} />
-            <Route index element={<Listpage />} />
+            {/* <Route index element={<Listpage />} /> */}
             <Route path='/:mediaType/:category' element={<Listpage />} />
             <Route path='/:mediaType/:name/:id' element={<Singlepage />} />
             <Route path='/person/:name/:id' element={<Personpage />} />

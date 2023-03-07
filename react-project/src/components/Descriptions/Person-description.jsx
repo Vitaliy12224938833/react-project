@@ -7,11 +7,8 @@ import { TableContainer } from '@mui/material/';
 import { TableRow } from '@mui/material/';
 import { Paper } from '@mui/material/';
 import { Link } from '@mui/material';
-import { Loader } from '../Loader/Loader';
 
 export const PersonDerscription = ({ data }) => {
-  if (!data) return <Loader />;
-
   const createLink = (link) => <Link href={link}>{link}</Link>;
   const cahangeDate = (date) => date && date.split('-').reverse().join(' ');
 

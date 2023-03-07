@@ -5,7 +5,7 @@ import { useInfinityList } from '../HOOKs/useInfinityList';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
 
-import { LinearLoadr } from '../components/Linear-loader/LinearLoader';
+import { LinearLoadr } from '../components/Loader/LinearLoader';
 import { Margin } from '@mui/icons-material';
 
 export const Searchpage = () => {
@@ -17,10 +17,10 @@ export const Searchpage = () => {
 
   return (
     <>
-      <LinearLoadr loader={loader} />
       <Container sx={{ marginTop: '40px' }} maxWidth='xl'>
-        {list && <List data={list} className={'content-list'} />}
+        <List data={list} />
       </Container>
+      {/* <LinearLoadr loader={loader} /> */}
     </>
   );
 };

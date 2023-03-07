@@ -4,7 +4,7 @@ import { useInfinityList } from '../HOOKs/useInfinityList';
 import { List } from '../components/List/List';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
-import { LinearLoadr } from '../components/Linear-loader/LinearLoader';
+import { LinearLoadr } from '../components/Loader/LinearLoader';
 
 export const Listpage = () => {
   const { mediaType, category } = useParams();
@@ -20,10 +20,10 @@ export const Listpage = () => {
 
   return (
     <>
-      <LinearLoadr loader={loader} />
       <Container sx={{ marginTop: '100px' }} maxWidth='xl'>
-        {list && <List data={list} mediaType={mediaType}></List>}
+        <List data={list} mediaType={mediaType}></List>
       </Container>
+      {/* <LinearLoadr loader={loader} /> */}
     </>
   );
 };
