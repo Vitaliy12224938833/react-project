@@ -4,9 +4,9 @@ import { CustomList } from '../components/List/List';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
-
+import { Loader } from '../components/Loader/Loader';
 import { LinearLoadr } from '../components/Loader/LinearLoader';
-import { Margin } from '@mui/icons-material';
+import { Box } from '@mui/system';
 
 export const Searchpage = () => {
   const { query } = useParams();
@@ -14,13 +14,12 @@ export const Searchpage = () => {
   const url = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
 
   const [list, loader] = useInfinityList(url, page, setPage, query);
-
+  if (list.length === 0) return <Loader />;
   return (
-    <>
+    <Box sx={{ marginTop: 20 }}>
       <Container sx={{ marginTop: '40px' }} maxWidth='xl'>
         <CustomList data={list} />
       </Container>
-      {/* <LinearLoadr loader={loader} /> */}
-    </>
+    </Box>
   );
 };

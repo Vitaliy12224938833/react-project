@@ -5,11 +5,11 @@ import { CustomImg } from '../CustomImg/CustomImg';
 
 export const CustomList = ({ data, mediaType }) => {
   const idArray = [];
-
+  console.log(data, mediaType);
   return (
     <ImageList gap={50} variant='quilted' cols={6} sx={{ overflow: 'inherit' }}>
       {data.map((item, idx) => {
-        const { id, title, poster_path, name, profile_path } = item;
+        const { id, title, poster_path, name, profile_path, media_type } = item;
 
         if (idx >= 1) idArray.push(data[idx - 1].id);
 
@@ -25,7 +25,7 @@ export const CustomList = ({ data, mediaType }) => {
                 },
               }}
             >
-              <Link to={`/${mediaType}/${name || title}/${id}`}>
+              <Link to={`/${mediaType || media_type}/${name || title}/${id}`}>
                 <CustomImg
                   src={`https://image.tmdb.org/t/p/w200${
                     poster_path || profile_path

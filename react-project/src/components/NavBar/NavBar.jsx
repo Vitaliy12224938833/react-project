@@ -19,9 +19,14 @@ import { Link } from 'react-router-dom';
 
 export const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [searchRow, setSearchRow] = useState('');
   const [movie, setMovie] = useState(null);
   const [tv, setTv] = useState(null);
   const [actors, setActors] = useState(null);
+
+  const searhcHandlerChange = (e) => {
+    setSearchRow(e.target.value);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -201,15 +206,18 @@ export const NavBar = () => {
               </Box>
             ))}
           </Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder='Search…'
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          <form action={searchRow ? `/search/multi/${searchRow}` : null}>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                onChange={searhcHandlerChange}
+                placeholder='Search…'
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+          </form>
         </Toolbar>
       </AppBar>
     </Box>

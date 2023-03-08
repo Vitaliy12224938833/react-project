@@ -1,8 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import './Search.css';
+import { InputBase } from '@mui/material';
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,23 +42,3 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-// export const Search = () => {
-//   const [query, setQuery] = useState('');
-//   const handelChange = (e) => {
-//     setQuery(e.target.value);
-//   };
-//   return (
-//     <div className='search-conteiner'>
-//       <form className='search' action={query ? `/search/multi/${query}` : null}>
-//         <input type='text' onChange={handelChange} placeholder='search' />
-//         <Link
-//           className={`search-link ${query ? 'active' : ''}`}
-//           to={query ? `/search/multi/${query}` : null}
-//         >
-//           search
-//         </Link>
-//       </form>
-//     </div>
-//   );
-// };

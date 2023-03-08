@@ -15,6 +15,7 @@ import axios from 'axios';
 
 export const Singlepage = () => {
   const { id, mediaType } = useParams();
+  console.log(useParams());
 
   const [pageList, setPageList] = useState(null);
   const [videosList, setVideosList] = useState([]);
@@ -33,7 +34,7 @@ export const Singlepage = () => {
   }, [id]);
 
   if (!videosList || !pageList || !videosList) return <Loader />;
-  
+
   return (
     <Box sx={{ marginTop: '30px' }}>
       <VideoTrailler
