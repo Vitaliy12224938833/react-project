@@ -18,7 +18,6 @@ export const Listpage = () => {
     mediaType,
     category
   );
-  console.log(list);
   if (list.length === 0) return <Loader />;
 
   return (

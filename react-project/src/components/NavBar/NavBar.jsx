@@ -1,16 +1,15 @@
 import * as React from 'react';
-
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
+
+import { AppBar } from '@mui/material';
+import { Box } from '@mui/material';
+import { Toolbar } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { Typography } from '@mui/material';
+import { Menu } from '@mui/material';
+import { Button } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import { Search } from '../Search/Search';
 import { StyledInputBase } from '../Search/Search';
 import { SearchIconWrapper } from '../Search/Search';
@@ -125,10 +124,10 @@ export const NavBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page, idx) => (
+              {pages.map((page, i) => (
                 <MenuItem
+                  key={i}
                   sx={{ color: 'black' }}
-                  key={idx}
                   onClick={handleCloseNavMenu}
                 >
                   <Typography textAlign='center'>
@@ -186,10 +185,9 @@ export const NavBar = () => {
                   }}
                 >
                   {page.categories.map((item, j) => (
-                    <Link to={`/${page.route}/${item.route}`}>
+                    <Link key={j} to={`/${page.route}/${item.route}`}>
                       <MenuItem
                         sx={{ color: 'black' }}
-                        key={j}
                         onClick={(e) =>
                           handleCloseCategoryMenu(e, page.setState)
                         }
@@ -199,7 +197,7 @@ export const NavBar = () => {
                             {item.alert}
                           </Typography>
                         </Typography>
-                      </MenuItem>{' '}
+                      </MenuItem>
                     </Link>
                   ))}
                 </Menu>

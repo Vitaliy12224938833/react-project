@@ -51,7 +51,7 @@ export const Desciprion = ({ data }) => {
   ];
   console.log(data);
   return (
-    <>
+    <Box sx={{ marginTop: 20 }}>
       <Box sx={{ display: 'flex', maxHeight: 1000 }}>
         <CustomImg
           width={'auto'}
@@ -59,16 +59,17 @@ export const Desciprion = ({ data }) => {
           alt={data.title}
         />
         <Box sx={{ marginLeft: 20 }}>
-          <Typography variant='h3' sx={{ marginBottom: 10 }}>
+          <Typography variant='h4' sx={{ marginBottom: 10 }}>
             {data.title || data.name}
           </Typography>
           <TableContainer>
             <Table>
               <TableBody>
                 {dataArray.map(
-                  (item) =>
+                  (item, i) =>
                     item.description && (
                       <CustomDescriptionRow
+                        key={i}
                         caption={item.caption}
                         description={item.description}
                       />
@@ -85,6 +86,6 @@ export const Desciprion = ({ data }) => {
       >
         <Typography variant='body1'>{data.overview}</Typography>
       </Paper>
-    </>
+    </Box>
   );
 };

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Review } from './Review';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
+import { API_KEY } from '../../data';
 import axios from 'axios';
-const API_KEY = '1f63914a91cb95d33f7d8d413f4c28ca';
 
 export const Reviews = ({ id, mediaType }) => {
   const [reviewsData, setReviewsData] = useState(null);

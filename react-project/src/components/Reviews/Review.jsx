@@ -8,6 +8,7 @@ export const Review = ({ data }) => {
   const [isDefaultAvatar, setIsDefaulsAvatar] = useState(false);
 
   const { updated_at, content, author_details } = data;
+
   const { avatar_path, username, rating } = author_details;
 
   const avatarStyle = { width: 100, height: 100, marginRight: 5 };
