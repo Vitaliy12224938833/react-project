@@ -2,12 +2,13 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { Table } from '@mui/material/';
 import { TableBody } from '@mui/material/';
-import { TableCell } from '@mui/material/';
+
 import { TableContainer } from '@mui/material/';
-import { TableRow } from '@mui/material/';
+
 import { Paper } from '@mui/material/';
 import { Link } from '@mui/material';
 import { CustomImg } from '../CustomImg/CustomImg';
+import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
 
 export const PersonDerscription = ({ data }) => {
   const createLink = (link) => link && <Link href={link}>{link}</Link>;
@@ -39,10 +40,10 @@ export const PersonDerscription = ({ data }) => {
                 {dataArray.map(
                   (item) =>
                     item.description !== null && (
-                      <TableRow>
-                        <TableCell>{item.caption}</TableCell>
-                        <TableCell>{item.description}</TableCell>
-                      </TableRow>
+                      <CustomDescriptionRow
+                        caption={item.caption}
+                        description={item.description}
+                      />
                     )
                 )}
               </TableBody>

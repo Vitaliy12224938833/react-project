@@ -2,14 +2,14 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { Table } from '@mui/material/';
 import { TableBody } from '@mui/material/';
-import { TableCell } from '@mui/material/';
 import { TableContainer } from '@mui/material/';
-import { TableRow } from '@mui/material/';
 import { Paper } from '@mui/material/';
 import { CustomImg } from '../CustomImg/CustomImg';
+import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
 
 export const Desciprion = ({ data }) => {
   const getRuntime = (min) => {
+    if (!min) return null;
     const hours = Math.floor(min / 60);
     const lastMin = min - hours * 60;
     return `${hours} hours ${lastMin} min`;
@@ -25,6 +25,7 @@ export const Desciprion = ({ data }) => {
   };
 
   const createStrFromObj = (list) => {
+    if (list.length === 0) return null;
     let StrList = '';
     list.forEach((item) => (StrList += item.name + ', '));
     return StrList.slice(0, -2);
@@ -67,10 +68,10 @@ export const Desciprion = ({ data }) => {
                 {dataArray.map(
                   (item) =>
                     item.description && (
-                      <TableRow>
-                        <TableCell>{item.caption}</TableCell>
-                        <TableCell>{item.description}</TableCell>
-                      </TableRow>
+                      <CustomDescriptionRow
+                        caption={item.caption}
+                        description={item.description}
+                      />
                     )
                 )}
               </TableBody>
