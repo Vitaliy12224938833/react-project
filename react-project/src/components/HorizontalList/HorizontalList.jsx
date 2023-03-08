@@ -56,25 +56,27 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   };
 
   return (
-    <Box sx={{ marginTop: 10, marginBottom: 10 }}>
-      <Typography variant='h4'>{title}</Typography>
-      <Carousel
-        swipeable={false}
-        responsive={responsive}
-        infinite={true}
-        keyBoardControl={true}
-        customTransition='all .5s'
-        transitionDuration={500}
-        containerClass='carousel-container'
-        removeArrowOnDeviceType={['tablet', 'mobile']}
-        dotListClass='custom-dot-list-style'
-        itemClass='carousel-item-padding-40-px'
-      >
-        {listData.map((item) => {
-          if (item.poster_path || item.profile_path)
-            return <Item key={item.id} data={item} />;
-        })}
-      </Carousel>
-    </Box>
+    listData.length !== 0 && (
+      <Box sx={{ marginTop: 10, marginBottom: 10 }}>
+        <Typography variant='h4'>{title}</Typography>
+        <Carousel
+          swipeable={false}
+          responsive={responsive}
+          infinite={true}
+          keyBoardControl={true}
+          customTransition='all .5s'
+          transitionDuration={500}
+          containerClass='carousel-container'
+          removeArrowOnDeviceType={['tablet', 'mobile']}
+          dotListClass='custom-dot-list-style'
+          itemClass='carousel-item-padding-40-px'
+        >
+          {listData.map((item) => {
+            if (item.poster_path || item.profile_path)
+              return <Item key={item.id} data={item} />;
+          })}
+        </Carousel>
+      </Box>
+    )
   );
 };
