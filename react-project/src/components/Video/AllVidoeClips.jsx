@@ -1,15 +1,16 @@
 import { Slider } from '../Sliders/Slider';
 import { VideoTrailler } from './YouTobeVideo';
+import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
+
 export const AllVidoeClips = ({ data }) => {
   if (DataTransferItem)
     return (
-      <div>
-        <h4 className={'video-title'}>Clips</h4>
+      <Box>
+        <Typography variant='h4'>Clips</Typography>
         <Slider data={data}>
-          {(data, className) => (
-            <VideoTrailler data={data} className={className} autoplay={0} />
-          )}
+          {(item) => <VideoTrailler data={item} autoplay={0} />}
         </Slider>
-      </div>
+      </Box>
     );
 };

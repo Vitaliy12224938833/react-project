@@ -88,8 +88,8 @@ export const NavBar = () => {
         flexGrow: 1,
         position: 'fixed',
         width: '100%',
-        maxWidth: '1600px',
-        zIndex: '999',
+        maxWidth: '1601px',
+        zIndex: '999999',
       }}
     >
       <AppBar position='static'>

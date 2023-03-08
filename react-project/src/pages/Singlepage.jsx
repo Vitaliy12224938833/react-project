@@ -36,14 +36,12 @@ export const Singlepage = () => {
   if (!videosList || !pageList || !videosList) return <Loader />;
 
   return (
-    <Box sx={{ marginTop: '30px' }}>
+    <Box sx={{ marginTop: 10 }}>
       <VideoTrailler
         data={videosList
           .filter((item) => item.type === 'Trailer' && item.official)
           .pop()}
-        className='trailer'
       />
-
       <Container maxWidth='xl'>
         <Desciprion data={pageList} />
         <MediaTypeForLinkContext.Provider value='person'>
@@ -55,7 +53,9 @@ export const Singlepage = () => {
           />
         </MediaTypeForLinkContext.Provider>
       </Container>
+
       <AllVidoeClips data={videosList} />
+
       <Container maxWidth='xl'>
         <MediaTypeForLinkContext.Provider value={mediaType}>
           <HorizontalList
