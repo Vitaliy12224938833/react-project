@@ -23,10 +23,11 @@ export const PersonDerscription = ({ data }) => {
 
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', maxHeight: 1000 }}>
         <CustomImg
           src={`https://image.tmdb.org/t/p/w500${data.profile_path}`}
           alt={data.name}
+          width='auto'
         />
         <Box sx={{ marginLeft: 20 }}>
           <Typography variant='h3' sx={{ marginBottom: 10 }}>
@@ -53,7 +54,9 @@ export const PersonDerscription = ({ data }) => {
         sx={{ padding: 5, marginTop: 5, marginBottom: 5 }}
         variant='elevation'
       >
-        <Typography variant='body1'>{data.biography}</Typography>
+        <Typography variant='body1'>
+          {data.biography || `Don't have any information about ${data.name}.`}
+        </Typography>
       </Paper>
     </>
   );
