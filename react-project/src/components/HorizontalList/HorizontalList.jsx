@@ -1,36 +1,57 @@
-import { useEffect, useState } from 'react';
-import { useRef } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { API_KEY } from '../../data';
-import { List } from '../List/List';
-import { ItemClassNameContext } from '../../Context/Context';
+import { Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { MediaTypeForLinkContext } from '../../Context/Context';
+import { CustomImg } from '../CustomImg/CustomImg';
+import { Box } from '@mui/system';
+import Carousel from 'react-multi-carousel';
 import axios from 'axios';
-import './HorizontalList.css';
+
+import 'react-multi-carousel/lib/styles.css';
 
 export const HorizontalList = ({ id, mediaType, category, title }) => {
+  const linkMediaType = useContext(MediaTypeForLinkContext);
   const [listData, setListData] = useState([]);
-  const listRef = useRef();
 
-  let scrollAmount = 0;
-  let scrollParClick = 1000;
-
-  const handleClickLeft = () => {
-    listRef.current.scrollTo({
-      to: 0,
-      left: (scrollAmount -= scrollParClick),
-    });
-    if (scrollAmount < 0) scrollAmount = 0;
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 6,
+      slidesToSlide: 5, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 4,
+      slidesToSlide: 4, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 3,
+      slidesToSlide: 3, // optional, default to 1.
+    },
   };
 
-  const handleClickRight = () => {
-    if (
-      scrollAmount <=
-      listRef.current.scrollWidth - listRef.current.clientWidth
-    ) {
-      listRef.current.scrollTo({
-        to: 0,
-        left: (scrollAmount += scrollParClick),
-      });
-    }
+  const captionSx = (locatino, value) => ({
+    position: 'absolute',
+    [locatino]: value,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    width: '100%',
+    border: 'solid 2px #f27405',
+    color: 'black',
+    opacity: 0,
+  });
+
+  const boxSx = {
+    margin: 1,
+    position: 'relative',
+    '&:hover': {
+      '& .css-f2pgy-MuiTypography-root, .css-1409lhc-MuiTypography-root': {
+        opacity: 1,
+        transition: 'all 0.2s',
+      },
+    },
   };
 
   useEffect(() => {
@@ -41,34 +62,51 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
       .then((res) => setListData(res.data.cast || res.data.results));
   }, [id]);
 
+  const Item = ({ data }) => {
+    const { title, name, id, poster_path, profile_path, character } = data;
+    return (
+      <Box sx={boxSx}>
+        <Link to={`/${linkMediaType}/${name || title}/${id}`}>
+          <Typography sx={captionSx('top', '-0.5%')} variant='caption'>
+            {character}
+          </Typography>
+          <Typography sx={captionSx('bottom', '1%')} variant='caption'>
+            {name}
+          </Typography>
+          <CustomImg
+            src={`https://image.tmdb.org/t/p/w200${
+              poster_path || profile_path
+            }`}
+            alt={name || title}
+          ></CustomImg>
+        </Link>
+      </Box>
+    );
+  };
+
   return (
-    <>
-      {listData.length > 0 && (
-        <div className='horizontal-list-conteiner'>
-          <h3 className='title'>{title}</h3>
-          <div className='horizontal-list-wrap'>
-            <button
-              className='scroll-list-button left'
-              onClick={handleClickLeft}
-            >
-              ❰
-            </button>
-            <ItemClassNameContext.Provider value='horizontal-list-item'>
-              <List
-                className={'horizontal-list'}
-                data={listData}
-                listRef={listRef}
-              ></List>
-            </ItemClassNameContext.Provider>
-            <button
-              className='scroll-list-button right'
-              onClick={handleClickRight}
-            >
-              ❱
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+    listData.length !== 0 && (
+      <Box sx={{ marginTop: 10, marginBottom: 10 }}>
+        <Typography variant='h4'>{title}</Typography>
+        <Carousel
+          swipeable={false}
+          draggable={false}
+          responsive={responsive}
+          ssr={true} // means to render carousel on server-side.
+          infinite={true}
+          keyBoardControl={true}
+          customTransition='all .5s'
+          transitionDuration={500}
+          containerClass='carousel-container'
+          removeArrowOnDeviceType={['tablet', 'mobile']}
+          itemClass='carousel-item-padding-40-px'
+        >
+          {listData.map((item) => {
+            if (item.poster_path || item.profile_path)
+              return <Item key={item.id} data={item} />;
+          })}
+        </Carousel>
+      </Box>
+    )
   );
 };

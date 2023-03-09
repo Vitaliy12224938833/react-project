@@ -1,39 +1,28 @@
 import { Outlet } from 'react-router-dom';
-import { CustomLink } from '../Links/CustomLink';
-import { categoriesData } from '../../data';
-import { Link } from 'react-router-dom';
-import { Search } from '../Search/Search';
-import './Layout.css';
+import { NavBar } from '../NavBar/NavBar';
+import { Box } from '@mui/material';
+
+const globalConteinerStyle = {
+  maxWidth: '1600px',
+  width: '100%',
+  margin: ' 0 auto',
+  overflow: 'hidden',
+  background: '#fefefe',
+  boxShadow: 10,
+};
 
 export const Layout = () => {
-  const contentTypes = Object.keys(categoriesData);
   return (
     <>
-      <div className='conteiner'>
-        {' '}
+      <Box sx={globalConteinerStyle}>
         <header>
-          <ul className='categories'>
-            {contentTypes.map((type) => {
-              const { name, id } = categoriesData[type];
-              return (
-                <li key={id}>
-                  <CustomLink to={type}>{name}</CustomLink>
-                </li>
-              );
-            })}
-            <li>
-              <Link to='/home'>Home</Link>
-            </li>
-            <li>
-              <Search />
-            </li>
-          </ul>
+          <NavBar />
         </header>
         <main>
           <Outlet />
         </main>
         <footer></footer>
-      </div>
+      </Box>
     </>
   );
 };

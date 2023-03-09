@@ -1,77 +1,63 @@
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { Table } from '@mui/material/';
+import { TableBody } from '@mui/material/';
+import { TableContainer } from '@mui/material/';
+import { Paper } from '@mui/material/';
+import { Link } from '@mui/material';
+import { CustomImg } from '../CustomImg/CustomImg';
+import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
+
 export const PersonDerscription = ({ data }) => {
-  if (!data)
-    return (
-      <h1 style={{ textAlign: 'center', margin: ' 300px auto' }}>
-        Something wrong... try again later
-      </h1>
-    );
-  const {
-    name,
-    birthday,
-    biography,
-    place_of_birth,
-    profile_path,
-    deathday,
-    homepage,
-  } = data;
-  console.log(data);
+  const createLink = (link) => link && <Link href={link}>{link}</Link>;
+
+  const transformDate = (date) => date && date.split('-').reverse().join(' ');
+
+  const dataArray = [
+    { description: transformDate(data.birthday), caption: 'Birthday:' },
+    { description: transformDate(data.deathday), caption: 'Deathday:' },
+    { description: data.place_of_birth, caption: 'Place of birth:' },
+    { description: createLink(data.homepage), caption: 'Homepage:' },
+  ];
+
   return (
-    <div className='description-conteiner'>
-      <div className='description'>
-        <img
-          className='poster'
-          src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-          alt={name}
+    <Box sx={{ marginTop: 20 }}>
+      <Box sx={{ display: 'flex', maxHeight: 1000 }}>
+        <CustomImg
+          src={`https://image.tmdb.org/t/p/w500${data.profile_path}`}
+          alt={data.name}
+          width='auto'
         />
-        <div className='table-wrap'>
-          <h2 className='description-title'>{name}</h2>
-          <table>
-            <tbody>
-              {birthday && (
-                <tr>
-                  <th>
-                    <b>Birthday:</b>
-                  </th>
-                  <th>
-                    <span>{birthday}</span>
-                  </th>
-                </tr>
-              )}
-              {deathday && (
-                <tr>
-                  <th>
-                    <b>Deathday:</b>
-                  </th>
-                  <th>
-                    <span>{deathday}</span>
-                  </th>
-                </tr>
-              )}
-              {place_of_birth && (
-                <tr>
-                  <th>
-                    <b>Place of birth:</b>
-                  </th>
-                  <th>
-                    <span>{place_of_birth}</span>
-                  </th>
-                </tr>
-              )}
-              {homepage && (
-                <tr>
-                  <th>
-                    <b>Homepage:</b>
-                  </th>
-                  <th>
-                    <a href={homepage}>{homepage}</a>
-                  </th>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <p className='description-overview'>{biography}</p>
-    </div>
+        <Box sx={{ marginLeft: 20 }}>
+          <Typography variant='h4' sx={{ marginBottom: 10 }}>
+            {data.name}
+          </Typography>
+          <TableContainer>
+            <Table>
+              <TableBody>
+                {dataArray.map(
+                  (item, i) =>
+                    item.description !== null && (
+                      <CustomDescriptionRow
+                        key={i}
+                        caption={item.caption}
+                        description={item.description}
+                      />
+                    )
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Box>
+      <Paper
+        sx={{ padding: 5, marginTop: 5, marginBottom: 5 }}
+        variant='elevation'
+      >
+        <Typography variant='body1'>
+          {data.biography || `Don't have any information about ${data.name}.`}
+        </Typography>
+      </Paper>
+    </Box>
   );
 };

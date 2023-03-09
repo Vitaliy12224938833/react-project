@@ -7,14 +7,14 @@ export const useInfinityList = (url, page, setPage, content, category) => {
   const [isStatList, setStartlist] = useState(true);
   const [loader, setLoader] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
+
   useEffect(() => {
     setPage(1);
     setFetching(true);
     setStartlist(true);
+    setLoader(true);
     axios.get(url).then((res) => setTotalPage(res.data.total_pages));
   }, [content, category]);
-
-  console.log(totalPage);
 
   useEffect(() => {
     if (fetching && page <= totalPage) {
