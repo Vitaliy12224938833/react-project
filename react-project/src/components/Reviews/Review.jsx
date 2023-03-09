@@ -18,6 +18,7 @@ export const Review = ({ data }) => {
     if (url.slice(0, 6) === '/https') return url.slice(1);
     return `https://image.tmdb.org/t/p/w185${url}`;
   };
+
   const transformDate = (date) =>
     date.slice(0, 10).split('-').reverse().join(' ');
 

@@ -42,6 +42,7 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
     color: 'black',
     opacity: 0,
   });
+
   const boxSx = {
     margin: 1,
     position: 'relative',
@@ -52,6 +53,7 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
       },
     },
   };
+
   useEffect(() => {
     axios
       .get(
@@ -62,7 +64,6 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
 
   const Item = ({ data }) => {
     const { title, name, id, poster_path, profile_path, character } = data;
-    console.log(data);
     return (
       <Box sx={boxSx}>
         <Link to={`/${linkMediaType}/${name || title}/${id}`}>

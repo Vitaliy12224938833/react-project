@@ -13,6 +13,7 @@ export const CustomList = ({ data, mediaType }) => {
       boxShadow: 10,
     },
   };
+
   const CustomLink = ({ mediaType, id, name, img }) => (
     <Link to={`/${mediaType}/${name}/${id}`}>
       <CustomImg src={`https://image.tmdb.org/t/p/w200${img}`} alt={name} />

@@ -4,6 +4,7 @@ import { Box } from '@mui/system';
 export const VideoTrailler = ({ data, autoplay }) => {
   if (!data) return;
   const { key } = data;
+
   const opts = {
     width: '100%',
     height: '900px',
@@ -16,6 +17,7 @@ export const VideoTrailler = ({ data, autoplay }) => {
       modestbranding: 1,
     },
   };
+
   return (
     <Box
       sx={{
