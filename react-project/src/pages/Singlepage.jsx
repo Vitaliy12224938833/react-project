@@ -15,25 +15,32 @@ import axios from 'axios';
 
 export const Singlepage = () => {
   const { id, mediaType } = useParams();
-  console.log(useParams());
-
-  const [pageList, setPageList] = useState(null);
+  const [pageData, setPageData] = useState(null);
   const [videosList, setVideosList] = useState([]);
+  const [isLoad, setIsLoad] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setIsLoad(false);
+  }, [id]);
 
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${API_KEY}&language=en-US`
-      )
-      .then((res) => setPageList(res.data));
-    axios
-      .get(
         `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${API_KEY}&language=en-US`
       )
-      .then((res) => setVideosList(res.data.results));
+      .then((res) => setVideosList(res.data.results))
+      .then(() => {
+        axios
+          .get(
+            `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${API_KEY}&language=en-US`
+          )
+          .then((res) => setPageData(res.data))
+          .finally(() => setIsLoad(true));
+      });
   }, [id]);
 
-  if (!videosList || !pageList || !videosList) return <Loader />;
+  if (!isLoad) return <Loader />;
 
   return (
     <Box sx={{ marginTop: 10 }}>
@@ -43,7 +50,8 @@ export const Singlepage = () => {
           .pop()}
       />
       <Container maxWidth='xl'>
-        <Desciprion data={pageList} />
+        <Desciprion data={pageData} />
+
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}

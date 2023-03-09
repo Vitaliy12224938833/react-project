@@ -4,7 +4,7 @@ import { useInfinityList } from '../HOOKs/useInfinityList';
 import { CustomList } from '../components/List/List';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
-import { LinearLoadr } from '../components/Loader/LinearLoader';
+// import { LinearLoadr } from '../components/Loader/LinearLoader';
 import { Loader } from '../components/Loader/Loader';
 let i = 1;
 export const Listpage = () => {

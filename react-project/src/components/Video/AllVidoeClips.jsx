@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 import { Container } from '@mui/material';
 
 export const AllVidoeClips = ({ data }) => {
-  if (DataTransferItem)
+  if (DataTransferItem && data.length !== 0)
     return (
       <Box>
         <Container maxWidth='xl'>

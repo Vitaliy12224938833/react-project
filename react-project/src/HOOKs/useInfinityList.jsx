@@ -16,8 +16,6 @@ export const useInfinityList = (url, page, setPage, content, category) => {
     axios.get(url).then((res) => setTotalPage(res.data.total_pages));
   }, [content, category]);
 
-  console.log(totalPage);
-
   useEffect(() => {
     if (fetching && page <= totalPage) {
       setLoader(true);

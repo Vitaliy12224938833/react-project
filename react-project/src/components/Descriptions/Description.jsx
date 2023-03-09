@@ -8,14 +8,14 @@ import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
 
 export const Desciprion = ({ data }) => {
-  const getRuntime = (min) => {
+  const transformRuntime = (min) => {
     if (!min) return null;
     const hours = Math.floor(min / 60);
     const lastMin = min - hours * 60;
     return `${hours} hours ${lastMin} min`;
   };
 
-  const makeMoney = (n) => {
+  const transformMoney = (n) => {
     if (!n) return null;
     return (
       parseFloat(n)
@@ -31,25 +31,25 @@ export const Desciprion = ({ data }) => {
     return StrList.slice(0, -2);
   };
 
-  const cahangeDate = (date) => data && date.split('-').reverse().join(' ');
+  const transfomrDate = (date) => data && date.split('-').reverse().join(' ');
 
   const dataArray = [
-    { description: getRuntime(data.runtime), caption: 'Runetime:' },
+    { description: transformRuntime(data.runtime), caption: 'Runetime:' },
     {
       description: createStrFromObj(data.production_countries),
       caption: 'Contry:',
     },
     {
-      description: cahangeDate(data.release_date || data.first_air_date),
+      description: transfomrDate(data.release_date || data.first_air_date),
       caption: 'Relis:',
     },
     { description: data.status, caption: 'Status:' },
     { description: data.vote_average, caption: 'Rating:' },
-    { description: makeMoney(data.budget), caption: 'Budget:' },
-    { description: makeMoney(data.revenue), caption: 'Revenue:' },
+    { description: transformMoney(data.budget), caption: 'Budget:' },
+    { description: transformMoney(data.revenue), caption: 'Revenue:' },
     { description: createStrFromObj(data.genres), caption: 'Genres:' },
   ];
-  console.log(data);
+
   return (
     <Box sx={{ marginTop: 20 }}>
       <Box sx={{ display: 'flex', maxHeight: 1000 }}>

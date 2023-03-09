@@ -11,11 +11,11 @@ import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoR
 export const PersonDerscription = ({ data }) => {
   const createLink = (link) => link && <Link href={link}>{link}</Link>;
 
-  const cahangeDate = (date) => date && date.split('-').reverse().join(' ');
+  const transformDate = (date) => date && date.split('-').reverse().join(' ');
 
   const dataArray = [
-    { description: cahangeDate(data.birthday), caption: 'Birthday:' },
-    { description: cahangeDate(data.deathday), caption: 'Deathday:' },
+    { description: transformDate(data.birthday), caption: 'Birthday:' },
+    { description: transformDate(data.deathday), caption: 'Deathday:' },
     { description: data.place_of_birth, caption: 'Place of birth:' },
     { description: createLink(data.homepage), caption: 'Homepage:' },
   ];

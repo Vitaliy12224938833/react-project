@@ -14,7 +14,6 @@ export const Review = ({ data }) => {
   const avatarStyle = { width: 100, height: 100, marginRight: 5 };
 
   const buildAvatar = (url) => {
-    console.log(url);
     if (url === null) return setIsDefaulsAvatar(true);
     if (url.slice(0, 6) === '/https') return url.slice(1);
     return `https://image.tmdb.org/t/p/w185${url}`;
