@@ -32,6 +32,26 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
     },
   };
 
+  const captionSx = (locatino, value) => ({
+    position: 'absolute',
+    [locatino]: value,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    width: '100%',
+    border: 'solid 2px #f27405',
+    color: 'black',
+    opacity: 0,
+  });
+  const boxSx = {
+    margin: 1,
+    position: 'relative',
+    '&:hover': {
+      '& .css-f2pgy-MuiTypography-root, .css-1409lhc-MuiTypography-root': {
+        opacity: 1,
+        transition: 'all 0.2s',
+      },
+    },
+  };
   useEffect(() => {
     axios
       .get(
@@ -41,14 +61,22 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   }, [id]);
 
   const Item = ({ data }) => {
+    const { title, name, id, poster_path, profile_path, character } = data;
+    console.log(data);
     return (
-      <Box sx={{ margin: 1 }}>
-        <Link to={`/${linkMediaType}/${data.name || data.title}/${data.id}`}>
+      <Box sx={boxSx}>
+        <Link to={`/${linkMediaType}/${name || title}/${id}`}>
+          <Typography sx={captionSx('top', '-0.5%')} variant='caption'>
+            {character}
+          </Typography>
+          <Typography sx={captionSx('bottom', '1%')} variant='caption'>
+            {name}
+          </Typography>
           <CustomImg
             src={`https://image.tmdb.org/t/p/w200${
-              data.poster_path || data.profile_path
+              poster_path || profile_path
             }`}
-            alt={data.name || data.title}
+            alt={name || title}
           ></CustomImg>
         </Link>
       </Box>

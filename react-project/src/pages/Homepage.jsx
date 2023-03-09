@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { CustomList } from '../components/List/List';
-import { ListItem } from '../components/ListItem/ListItem';
 
 export const Homepage = ({}) => {
   const [popularList, setPupularList] = useState([]);
