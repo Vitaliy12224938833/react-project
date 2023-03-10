@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CustomList } from '../components/List/List';
+import { CustomList } from '../components/CustomList/CustomList';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';

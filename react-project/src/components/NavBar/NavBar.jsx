@@ -82,6 +82,47 @@ export const NavBar = () => {
     },
   ];
 
+  const CustomMenuItem = ({ item, page }) => (
+    <Link to={`/${page.route}/${item.route}`}>
+      <MenuItem
+        sx={{ color: 'black' }}
+        onClick={(e) => handleCloseCategoryMenu(e, page.setState)}
+      >
+        <Typography textAlign='center'>
+          <Typography color={'primary'} textAlign='center'>
+            {item.alert}
+          </Typography>
+        </Typography>
+      </MenuItem>
+    </Link>
+  );
+
+  const CastomeMenu = ({ page }) => (
+    <Menu
+      id='menu-appbar'
+      anchorEl={page.state}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+        handleCloseCategoryMenu,
+      }}
+      open={Boolean(page.state)}
+      onClose={(e) => handleCloseCategoryMenu(e, page.setState)}
+      sx={{
+        display: { xs: 'block' },
+      }}
+    >
+      {page.categories.map((item, i) => (
+        <CustomMenuItem key={i} item={item} page={page} />
+      ))}
+    </Menu>
+  );
+
   return (
     <Box
       sx={{
@@ -124,21 +165,28 @@ export const NavBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page, i) => (
-                <MenuItem
-                  key={i}
-                  sx={{ color: 'black' }}
-                  onClick={handleCloseNavMenu}
-                >
-                  <Typography textAlign='center'>
-                    {page.alert}
-                    <Typography
-                      color={'primary'}
-                      textAlign='center'
-                    ></Typography>
-                  </Typography>
-                </MenuItem>
-              ))}
+              {pages.map(
+                (page, i) =>
+                  (page.route === 'home' && (
+                    <MenuItem
+                      key={i}
+                      sx={{ color: 'black' }}
+                      onClick={handleCloseNavMenu}
+                    >
+                      <Link to={`/${page.route}`}>
+                        <Typography textAlign='center'>{page.alert}</Typography>
+                      </Link>
+                    </MenuItem>
+                  )) || (
+                    <MenuItem
+                      key={i}
+                      sx={{ color: 'black' }}
+                      onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
+                    >
+                      <Typography textAlign='center'>{page.alert}</Typography>
+                    </MenuItem>
+                  )
+              )}
             </Menu>
           </Box>
           <Box
@@ -149,58 +197,26 @@ export const NavBar = () => {
           >
             {pages.map((page, i) => (
               <Box key={i}>
-                <Button
-                  onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {(page.route === 'home' && (
+                {(page.route === 'home' && (
+                  <Button sx={{ my: 2, color: 'white', display: 'block' }}>
                     <Link to={`/${page.route}`}>
                       <Typography sx={{ color: 'white' }} textAlign='center'>
                         {page.alert}
                       </Typography>
                     </Link>
-                  )) || (
+                  </Button>
+                )) || (
+                  <Button
+                    onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
                     <Typography sx={{ color: 'white' }} textAlign='center'>
                       {page.alert}
                     </Typography>
-                  )}
-                </Button>
-                <Menu
-                  id='menu-appbar'
-                  anchorEl={page.state}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                    handleCloseCategoryMenu,
-                  }}
-                  open={Boolean(page.state)}
-                  onClose={(e) => handleCloseCategoryMenu(e, page.setState)}
-                  sx={{
-                    display: { xs: 'block' },
-                  }}
-                >
-                  {page.categories.map((item, j) => (
-                    <Link key={j} to={`/${page.route}/${item.route}`}>
-                      <MenuItem
-                        sx={{ color: 'black' }}
-                        onClick={(e) =>
-                          handleCloseCategoryMenu(e, page.setState)
-                        }
-                      >
-                        <Typography textAlign='center'>
-                          <Typography color={'primary'} textAlign='center'>
-                            {item.alert}
-                          </Typography>
-                        </Typography>
-                      </MenuItem>
-                    </Link>
-                  ))}
-                </Menu>
+                  </Button>
+                )}
+
+                <CastomeMenu page={page} />
               </Box>
             ))}
           </Box>

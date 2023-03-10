@@ -25,7 +25,7 @@ export const CustomList = ({ data, mediaType }) => {
     if (idx >= 1) idsArray.push(data[idx - 1].id);
     if ((poster_path || profile_path) && !idsArray.includes(id))
       return (
-        <ImageListItem key={id} sx={imageListItemSx}>
+        <ImageListItem sx={imageListItemSx}>
           <CustomLink
             mediaType={mediaType || media_type}
             img={poster_path || profile_path}
@@ -39,7 +39,7 @@ export const CustomList = ({ data, mediaType }) => {
   return (
     <ImageList gap={50} variant='quilted' cols={6} sx={{ overflow: 'inherit' }}>
       {data.map((item, idx) => (
-        <Item item={item} idx={idx} />
+        <Item ket={item.id} item={item} idx={idx} />
       ))}
     </ImageList>
   );
