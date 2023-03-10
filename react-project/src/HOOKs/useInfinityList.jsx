@@ -5,26 +5,24 @@ export const useInfinityList = (url, page, setPage, content, category) => {
   const [list, setList] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [isStatList, setStartlist] = useState(true);
-  const [loader, setLoader] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     setPage(1);
     setFetching(true);
     setStartlist(true);
-    setLoader(true);
+    setLoad(false);
     axios.get(url).then((res) => setTotalPage(res.data.total_pages));
   }, [content, category]);
 
   useEffect(() => {
     if (fetching && page <= totalPage) {
-      setLoader(true);
       axios
         .get(url)
         .then((res) => {
           if (!isStatList) {
             setList([...list, ...res.data.results]);
-            setLoader(false);
           } else {
             setList(res.data.results);
           }
@@ -33,6 +31,7 @@ export const useInfinityList = (url, page, setPage, content, category) => {
         .finally(() => {
           setStartlist(false);
           setFetching(false);
+          setLoad(true);
         });
     }
   }, [fetching, url]);
@@ -55,5 +54,5 @@ export const useInfinityList = (url, page, setPage, content, category) => {
     };
   }, []);
 
-  return [list, loader];
+  return [list, load];
 };

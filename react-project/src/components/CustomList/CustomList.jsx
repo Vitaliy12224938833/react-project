@@ -16,7 +16,6 @@ export const CustomList = ({ data, mediaType }) => {
       boxShadow: 10,
     },
   };
-  console.log(data);
 
   const transformDate = (date) => date && date.slice(0, 4);
 
@@ -26,7 +25,7 @@ export const CustomList = ({ data, mediaType }) => {
     </Link>
   );
 
-  const RelizAndRaiting = ({ data }) =>
+  const ReleaseAndRating = ({ data }) =>
     data.vote_average && (
       <Box
         sx={{
@@ -63,7 +62,7 @@ export const CustomList = ({ data, mediaType }) => {
             name={title || name}
             id={id}
           />
-          <RelizAndRaiting data={item} />
+          <ReleaseAndRating data={item} />
         </ImageListItem>
       );
   };
@@ -71,7 +70,7 @@ export const CustomList = ({ data, mediaType }) => {
   return (
     <ImageList gap={50} variant='quilted' cols={6} sx={{ overflow: 'inherit' }}>
       {data.map((item, idx) => (
-        <Item ket={item.id} item={item} idx={idx} />
+        <Item key={item.id} item={item} idx={idx} />
       ))}
     </ImageList>
   );
