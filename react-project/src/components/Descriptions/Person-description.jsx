@@ -9,7 +9,12 @@ import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
 
 export const PersonDerscription = ({ data }) => {
-  const createLink = (link) => link && <Link href={link}>{link}</Link>;
+  const createLink = (link) =>
+    link && (
+      <Link href={link} target='_blank'>
+        {link}
+      </Link>
+    );
 
   const transformDate = (date) => date && date.split('-').reverse().join(' ');
 

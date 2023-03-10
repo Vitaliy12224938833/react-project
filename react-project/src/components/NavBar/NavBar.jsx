@@ -82,6 +82,14 @@ export const NavBar = () => {
     },
   ];
 
+  const NavBarBoxSx = {
+    flexGrow: 1,
+    position: 'fixed',
+    width: '100%',
+    maxWidth: '1601px',
+    zIndex: '999999',
+  };
+
   const CustomMenuItem = ({ item, page }) => (
     <Link to={`/${page.route}/${item.route}`}>
       <MenuItem
@@ -124,15 +132,7 @@ export const NavBar = () => {
   );
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        position: 'fixed',
-        width: '100%',
-        maxWidth: '1601px',
-        zIndex: '999999',
-      }}
-    >
+    <Box sx={NavBarBoxSx}>
       <AppBar position='static'>
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -229,6 +229,7 @@ export const NavBar = () => {
                 onChange={searhcHandlerChange}
                 placeholder='Search…'
                 inputProps={{ 'aria-label': 'search' }}
+                value={searchRow}
               />
             </Search>
           </form>
