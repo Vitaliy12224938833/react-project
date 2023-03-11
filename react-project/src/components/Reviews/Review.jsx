@@ -34,7 +34,7 @@ export const Review = ({ data }) => {
       <Box>
         <Rating name='customized-10' value={rating} max={10} readOnly />
         <Typography variant='h6'>{username}</Typography>{' '}
-        <Typography variant='subtitle2' color='primary'>
+        <Typography variant='caption' color='primary'>
           {transformDate(updated_at)}
         </Typography>
         <Typography variant='body2'>{content}</Typography>

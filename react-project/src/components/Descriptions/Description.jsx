@@ -67,7 +67,7 @@ export const Desciprion = ({ data }) => {
               <TableBody>
                 {dataArray.map(
                   (item, i) =>
-                    item.description && (
+                    !!item.description && (
                       <CustomDescriptionRow
                         key={i}
                         caption={item.caption}

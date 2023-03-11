@@ -26,7 +26,7 @@ export const CustomList = ({ data, mediaType }) => {
   );
 
   const ReleaseAndRating = ({ data }) =>
-    data.vote_average && (
+    (!!data.vote_average || data.release_date || data.first_air_date) && (
       <Box
         sx={{
           display: 'flex',

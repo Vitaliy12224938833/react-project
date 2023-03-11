@@ -32,9 +32,9 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
     },
   };
 
-  const captionSx = (locatino, value) => ({
+  const captionSx = (locatino) => ({
     position: 'absolute',
-    [locatino]: value,
+    [locatino]: 0,
     textAlign: 'center',
     backgroundColor: 'white',
     width: '100%',
@@ -43,11 +43,15 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
     opacity: 0,
   });
 
-  const boxSx = {
+  const itemSx = {
     margin: 1,
     position: 'relative',
+    height: '300px',
+    borderRadius: '2%',
+    transition: 'all .2s',
     '&:hover': {
-      '& .css-f2pgy-MuiTypography-root, .css-1409lhc-MuiTypography-root': {
+      boxShadow: 8,
+      '& .css-161k366-MuiTypography-root, .css-1jxoego-MuiTypography-root': {
         opacity: 1,
         transition: 'all 0.2s',
       },
@@ -65,14 +69,18 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   const Item = ({ data }) => {
     const { title, name, id, poster_path, profile_path, character } = data;
     return (
-      <Box sx={boxSx}>
+      <Box sx={itemSx}>
         <Link to={`/${linkMediaType}/${name || title}/${id}`}>
-          <Typography sx={captionSx('top', '-0.5%')} variant='caption'>
-            {character}
-          </Typography>
-          <Typography sx={captionSx('bottom', '1%')} variant='caption'>
-            {name}
-          </Typography>
+          {!!character && (
+            <Typography sx={captionSx('top')} variant='caption'>
+              {character}
+            </Typography>
+          )}
+          {!!profile_path && (
+            <Typography sx={captionSx('bottom')} variant='caption'>
+              {name}
+            </Typography>
+          )}
           <CustomImg
             src={`https://image.tmdb.org/t/p/w200${
               poster_path || profile_path

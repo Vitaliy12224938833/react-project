@@ -42,7 +42,7 @@ export const PersonDerscription = ({ data }) => {
               <TableBody>
                 {dataArray.map(
                   (item, i) =>
-                    item.description !== null && (
+                    !!item.description !== null && (
                       <CustomDescriptionRow
                         key={i}
                         caption={item.caption}
