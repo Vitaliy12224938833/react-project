@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { Accordion } from '@mui/material';
 import { AccordionDetails } from '@mui/material';
 import { AccordionSummary } from '@mui/material';
 import { Typography } from '@mui/material';
@@ -10,20 +8,20 @@ import { Button } from '@mui/material';
 import { RouteContext } from '../../Context/Context';
 import { DataContext } from '../../Context/Context';
 import { useContext } from 'react';
+import { CustomAccordion } from './CustomAccordion';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const SeasonsAccordions = ({ list }) => {
-  const Summary = () => {
+  const CustomAccordionSummary = () => {
     const { name, episode_count, air_date } = useContext(DataContext);
     return (
-      <>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls='panel1bh-content'
+        id='panel1bh-header'
+      >
         <Typography sx={{ width: '33%', flexShrink: 0 }}>{name}</Typography>
-        <Box
-          sx={{
-            marginLeft: 'auto',
-            display: 'flex',
-          }}
-        >
+        <Box sx={{ marginLeft: 'auto', display: 'flex' }}>
           <Typography variant='caption' sx={{ color: 'text.secondary' }}>
             {`${air_date.split('-').reverse().join(' ')}`}
           </Typography>
@@ -34,19 +32,9 @@ export const SeasonsAccordions = ({ list }) => {
             {`Episodes: ${episode_count}`}
           </Typography>
         </Box>
-      </>
+      </AccordionSummary>
     );
   };
-
-  const CustomAccordionSummary = () => (
-    <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
-      aria-controls='panel1bh-content'
-      id='panel1bh-header'
-    >
-      <Summary />
-    </AccordionSummary>
-  );
 
   const CustomAccordionDetails = () => {
     const { poster_path } = useContext(DataContext);
@@ -94,31 +82,16 @@ export const SeasonsAccordions = ({ list }) => {
     );
   };
 
-  const CustomAccordion = ({ idx }) => {
-    const [expanded, setExpanded] = useState(false);
-
-    const handleChange = (panel) => (event, isExpanded) => {
-      setExpanded(isExpanded ? panel : false);
-    };
-
-    return (
-      !(idx === 0) && (
-        <Accordion
-          expanded={expanded === 'panel1'}
-          onChange={handleChange('panel1')}
-        >
-          <CustomAccordionSummary />
-          <CustomAccordionDetails />
-        </Accordion>
-      )
-    );
-  };
-
   return (
     <div>
       {list.map((item, i) => (
         <DataContext.Provider value={item}>
-          <CustomAccordion key={item.id} idx={i} />
+          <CustomAccordion
+            key={item.id}
+            summary={<CustomAccordionSummary />}
+            details={<CustomAccordionDetails />}
+            idx={i}
+          />
         </DataContext.Provider>
       ))}
     </div>

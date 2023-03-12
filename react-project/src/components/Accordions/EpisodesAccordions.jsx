@@ -1,33 +1,64 @@
-import { useState } from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { AccordionDetails } from '@mui/material';
+import { AccordionSummary } from '@mui/material';
+import { Typography } from '@mui/material';
 import { CustomImg } from '../CustomImg/CustomImg';
 import { Rating } from '@mui/material';
 import { Box } from '@mui/system';
 import { Paper } from '@mui/material';
+import { DataContext } from '../../Context/Context';
+import { useContext } from 'react';
+import { CustomAccordion } from './CustomAccordion';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const EpisodesAccordions = ({ list }) => {
-  const ReleaseAndRating = ({ item }) => {
+  const CustomAccordionSummary = () => {
+    const { name } = useContext(DataContext);
     return (
-      (!!item.vote_average || item.air_date) && (
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls='panel1bh-content'
+        id='panel1bh-header'
+      >
+        <Typography sx={{ width: '33%', flexShrink: 0 }}>{name}</Typography>
+        <ReleaseAndRating />
+      </AccordionSummary>
+    );
+  };
+  const CustomAccordionDetails = () => {
+    const { still_path, overview } = useContext(DataContext);
+    return (
+      <AccordionDetails>
+        <Box sx={{ display: 'flex' }}>
+          <Box sx={{ minWidth: 200, height: 300, margin: 3 }}>
+            <CustomImg src={`https://image.tmdb.org/t/p/w400${still_path}`} />
+          </Box>
+          <Paper sx={{ padding: 5 }}>
+            <Typography>{overview}</Typography>
+          </Paper>
+        </Box>
+      </AccordionDetails>
+    );
+  };
+
+  const ReleaseAndRating = () => {
+    const { air_date, vote_average } = useContext(DataContext);
+    return (
+      (!!vote_average || air_date) && (
         <Box sx={{ marginLeft: 'auto', display: 'flex' }}>
           <Typography
+            variant='caption'
             sx={{
               color: 'text.secondary',
               marginRight: 1,
               alignItems: 'center',
             }}
-            variant='caption'
           >
-            {item.air_date.split('-').reverse().join(' ')}
+            {air_date.split('-').reverse().join(' ')}
           </Typography>
           <Rating
             size='small'
             name='half-rating-read'
-            value={item.vote_average / 2}
+            value={vote_average / 2}
             precision={0.5}
             readOnly
           />
@@ -38,43 +69,15 @@ export const EpisodesAccordions = ({ list }) => {
 
   return (
     <div>
-      {list.map((item, i) => {
-        const [expanded, setExpanded] = useState(false);
-
-        const handleChange = (panel) => (event, isExpanded) => {
-          setExpanded(isExpanded ? panel : false);
-        };
-        return (
-          <Accordion
+      {list.map((item) => (
+        <DataContext.Provider value={item}>
+          <CustomAccordion
             key={item.id}
-            expanded={expanded === 'panel1'}
-            onChange={handleChange('panel1')}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls='panel1bh-content'
-              id='panel1bh-header'
-            >
-              <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                {item.name}
-              </Typography>
-              <ReleaseAndRating item={item} />
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box sx={{ display: 'flex' }}>
-                <Box sx={{ minWidth: 200, height: 300, margin: 3 }}>
-                  <CustomImg
-                    src={`https://image.tmdb.org/t/p/w400${item.still_path}`}
-                  />
-                </Box>
-                <Paper sx={{ padding: 5 }}>
-                  <Typography>{item.overview}</Typography>
-                </Paper>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-        );
-      })}
+            summary={<CustomAccordionSummary />}
+            details={<CustomAccordionDetails />}
+          />
+        </DataContext.Provider>
+      ))}
     </div>
   );
 };
