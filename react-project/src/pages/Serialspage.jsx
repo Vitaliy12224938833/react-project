@@ -12,6 +12,7 @@ import { Container } from '@mui/material';
 import { Box } from '@mui/system';
 import { Loader } from '../components/Loader/Loader';
 import { SeasonsAccordions } from '../components/Accordions/SeasonsAccordions';
+import { RouteContext } from '../Context/Context';
 import axios from 'axios';
 
 export const Serialspage = () => {
@@ -52,7 +53,10 @@ export const Serialspage = () => {
       />
       <Container maxWidth='xl'>
         <Desciprion data={pageData} />
-        <SeasonsAccordions list={pageData.seasons} id={id} name={name} />
+        <RouteContext.Provider value={{ id, name }}>
+          <SeasonsAccordions list={pageData.seasons} />
+        </RouteContext.Provider>
+
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}

@@ -3,6 +3,8 @@ import { createContext } from 'react';
 export const MediaTypeForLinkContext = createContext(null);
 export const SearcMediaTypeContext = createContext(null);
 export const ItemClassNameContext = createContext(null);
+export const DataContext = createContext(null);
+export const RouteContext = createContext(null);
 
 import { createTheme } from '@mui/material/styles';
 
