@@ -5,17 +5,16 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { VideoTrailler } from '../components/Video/YouTobeVideo';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
-import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Container } from '@mui/material';
 import { Box } from '@mui/system';
 import { Loader } from '../components/Loader/Loader';
+import { EpisodesAccordions } from '../components/Accordions/EpisodesAccordions';
 import axios from 'axios';
 
-export const Moviespage = () => {
-  const { id } = useParams();
-
+export const Seasonpage = () => {
+  const { id, seasonNum } = useParams();
   const [pageData, setPageData] = useState(null);
   const [videosList, setVideosList] = useState([]);
   const [isLoad, setIsLoad] = useState(false);
@@ -28,13 +27,13 @@ export const Moviespage = () => {
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setVideosList(res.data.results))
       .then(() => {
         axios
           .get(
-            `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+            `https://api.themoviedb.org/3/tv/${id}/season/${seasonNum}?api_key=${API_KEY}&language=en-US`
           )
           .then((res) => setPageData(res.data))
           .finally(() => setIsLoad(true));
@@ -51,37 +50,20 @@ export const Moviespage = () => {
           .pop()}
       />
       <Container maxWidth='xl'>
-        <Desciprion data={pageData} />
+        <Desciprion data={pageData} isSeason={true} />
+        <EpisodesAccordions list={pageData.episodes} />
 
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}
-            mediaType='movie'
+            mediaType='tv'
             category={'credits'}
             title='Cast'
+            seasonNum={seasonNum}
           />
         </MediaTypeForLinkContext.Provider>
       </Container>
-
       <AllVidoeClips data={videosList} />
-
-      <Container maxWidth='xl'>
-        <MediaTypeForLinkContext.Provider value='movie'>
-          <HorizontalList
-            id={id}
-            mediaType='movie'
-            category={'recommendations'}
-            title='Recommendations'
-          />
-          <HorizontalList
-            id={id}
-            mediaType='movie'
-            category={'similar'}
-            title='Similar'
-          />
-        </MediaTypeForLinkContext.Provider>
-        <Reviews id={id} mediaType='movie' />
-      </Container>
     </Box>
   );
 };

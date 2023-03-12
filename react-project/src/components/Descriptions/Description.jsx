@@ -7,7 +7,7 @@ import { Paper } from '@mui/material/';
 import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
 
-export const Desciprion = ({ data }) => {
+export const Desciprion = ({ data, isSeason = false }) => {
   const transformRuntime = (min) => {
     if (!min) return null;
     const hours = Math.floor(min / 60);
@@ -25,13 +25,13 @@ export const Desciprion = ({ data }) => {
   };
 
   const createStrFromObj = (list) => {
-    if (list.length === 0) return null;
+    if (!list) return null;
     let StrList = '';
     list.forEach((item) => (StrList += item.name + ', '));
     return StrList.slice(0, -2);
   };
 
-  const transfomrDate = (date) => data && date.split('-').reverse().join(' ');
+  const transfomrDate = (date) => !!data && date.split('-').reverse().join(' ');
 
   const dataArray = [
     { description: transformRuntime(data.runtime), caption: 'Runetime:' },
@@ -40,7 +40,9 @@ export const Desciprion = ({ data }) => {
       caption: 'Contry:',
     },
     {
-      description: transfomrDate(data.release_date || data.first_air_date),
+      description: transfomrDate(
+        data.release_date || data.first_air_date || data.air_date
+      ),
       caption: 'Relis:',
     },
     { description: data.status, caption: 'Status:' },
@@ -49,6 +51,19 @@ export const Desciprion = ({ data }) => {
     { description: transformMoney(data.revenue), caption: 'Revenue:' },
     { description: createStrFromObj(data.genres), caption: 'Genres:' },
   ];
+
+  const Overview = ({ overview }) => (
+    <Paper
+      sx={{
+        padding: 5,
+        marginTop: 5,
+        marginBottom: 5,
+      }}
+      variant='elevation'
+    >
+      <Typography variant='body1'>{overview}</Typography>
+    </Paper>
+  );
 
   return (
     <Box sx={{ marginTop: 20 }}>
@@ -78,14 +93,10 @@ export const Desciprion = ({ data }) => {
               </TableBody>
             </Table>
           </TableContainer>
+          {isSeason && <Overview overview={data.overview} />}
         </Box>
       </Box>
-      <Paper
-        sx={{ padding: 5, marginTop: 5, marginBottom: 5 }}
-        variant='elevation'
-      >
-        <Typography variant='body1'>{data.overview}</Typography>
-      </Paper>
+      {!isSeason && <Overview overview={data.overview} />}
     </Box>
   );
 };

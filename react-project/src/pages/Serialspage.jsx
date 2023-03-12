@@ -41,8 +41,6 @@ export const Serialspage = () => {
       });
   }, [id]);
 
-  console.log(pageData);
-
   if (!isLoad) return <Loader />;
 
   return (

@@ -5,9 +5,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { CustomImg } from '../CustomImg/CustomImg';
-import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import { Paper } from '@mui/material';
+import { Button } from '@mui/material';
+
 export const SeasonsAccordions = ({ list, id, name }) => {
   return (
     <div>
@@ -20,6 +21,7 @@ export const SeasonsAccordions = ({ list, id, name }) => {
         return (
           !(i === 0) && (
             <Accordion
+              key={item.id}
               expanded={expanded === 'panel1'}
               onChange={handleChange('panel1')}
             >
@@ -38,17 +40,32 @@ export const SeasonsAccordions = ({ list, id, name }) => {
                   {`Number of episodes: ${item.episode_count}`}
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails>
-                <Box sx={{ width: 200, height: 300, margin: 3 }}>
-                  <Link to={`/season/${name}/${id}/${item.season_number}`}>
+              <AccordionDetails sx={{ display: 'relative' }}>
+                <Box sx={{ display: 'flex' }}>
+                  <Box sx={{ minWidth: 200, height: 300, margin: 3 }}>
                     <CustomImg
                       src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
                     />
-                  </Link>
-                </Box>
-                <Paper sx={{ padding: 5 }}>
-                  <Typography>{item.overview}</Typography>
-                </Paper>
+                  </Box>
+                  <Paper
+                    sx={{
+                      padding: 3,
+                      height: '100%',
+                      maxHeight: '280px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Typography>{item.overview}</Typography>
+                  </Paper>
+                </Box>{' '}
+                <Button
+                  sx={{ position: 'absolute', right: 10, bottom: 15 }}
+                  size='large'
+                  variant='outlined'
+                  href={`/season/${name}/${id}/${item.season_number}`}
+                >
+                  More...
+                </Button>
               </AccordionDetails>
             </Accordion>
           )

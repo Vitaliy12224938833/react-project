@@ -10,7 +10,13 @@ import axios from 'axios';
 
 import 'react-multi-carousel/lib/styles.css';
 
-export const HorizontalList = ({ id, mediaType, category, title }) => {
+export const HorizontalList = ({
+  id,
+  mediaType,
+  category,
+  title,
+  seasonNum,
+}) => {
   const linkMediaType = useContext(MediaTypeForLinkContext);
   const [listData, setListData] = useState([]);
 
@@ -46,6 +52,7 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   const itemSx = {
     margin: 1,
     position: 'relative',
+    maxWidth: '200px',
     height: '300px',
     borderRadius: '2%',
     transition: 'all .2s',
@@ -61,7 +68,9 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${mediaType}/${id}/${category}?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${id}/${
+          seasonNum ? `season/${seasonNum}/` : ''
+        }${category}?api_key=${API_KEY}&language=en-US`
       )
       .then((res) => setListData(res.data.cast || res.data.results));
   }, [id]);
