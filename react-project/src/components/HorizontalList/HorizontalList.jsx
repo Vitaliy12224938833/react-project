@@ -1,36 +1,33 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import { API_KEY } from '../../data';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { MediaTypeForLinkContext } from '../../Context/Context';
 import { CustomImg } from '../CustomImg/CustomImg';
 import { Box } from '@mui/system';
+import { useFetchData } from '../../HOOKs/useFetchData';
+import { responsive } from './responsive';
 import Carousel from 'react-multi-carousel';
-import axios from 'axios';
-
 import 'react-multi-carousel/lib/styles.css';
 
-export const HorizontalList = ({ id, mediaType, category, title }) => {
-  const linkMediaType = useContext(MediaTypeForLinkContext);
-  const [listData, setListData] = useState([]);
+export const HorizontalList = ({
+  id,
+  mediaType,
+  category,
+  title,
+  seasonNum,
+}) => {
+  const routeMeduatype = useContext(MediaTypeForLinkContext);
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 6,
-      slidesToSlide: 5, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 4,
-      slidesToSlide: 4, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 3,
-      slidesToSlide: 3, // optional, default to 1.
-    },
-  };
+  const season = seasonNum ? `season/${seasonNum}/` : '';
+  const url = `https://api.themoviedb.org/3/${mediaType}/${id}/${season}${category}?api_key=${API_KEY}&language=en-US`;
+  const [data, isLoading] = useFetchData(url, null);
+
+  if (!isLoading) return <h1>loading....</h1>;
+
+  const list = data.results ? data.results : data.cast;
+
+  if (!list.length) return;
 
   const captionSx = (locatino) => ({
     position: 'absolute',
@@ -46,6 +43,7 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   const itemSx = {
     margin: 1,
     position: 'relative',
+    maxWidth: '200px',
     height: '300px',
     borderRadius: '2%',
     transition: 'all .2s',
@@ -58,19 +56,11 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
     },
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/${mediaType}/${id}/${category}?api_key=${API_KEY}&language=en-US`
-      )
-      .then((res) => setListData(res.data.cast || res.data.results));
-  }, [id]);
-
   const Item = ({ data }) => {
     const { title, name, id, poster_path, profile_path, character } = data;
     return (
       <Box sx={itemSx}>
-        <Link to={`/${linkMediaType}/${name || title}/${id}`}>
+        <Link to={`/${routeMeduatype}/${name || title}/${id}`}>
           {!!character && (
             <Typography sx={captionSx('top')} variant='caption'>
               {character}
@@ -93,28 +83,26 @@ export const HorizontalList = ({ id, mediaType, category, title }) => {
   };
 
   return (
-    listData.length !== 0 && (
-      <Box sx={{ marginTop: 10, marginBottom: 10 }}>
-        <Typography variant='h4'>{title}</Typography>
-        <Carousel
-          swipeable={false}
-          draggable={false}
-          responsive={responsive}
-          ssr={true} // means to render carousel on server-side.
-          infinite={true}
-          keyBoardControl={true}
-          customTransition='all .5s'
-          transitionDuration={500}
-          containerClass='carousel-container'
-          removeArrowOnDeviceType={['tablet', 'mobile']}
-          itemClass='carousel-item-padding-40-px'
-        >
-          {listData.map((item) => {
-            if (item.poster_path || item.profile_path)
-              return <Item key={item.id} data={item} />;
-          })}
-        </Carousel>
-      </Box>
-    )
+    <Box sx={{ marginTop: 10, marginBottom: 10 }}>
+      <Typography variant='h4'>{title}</Typography>
+      <Carousel
+        swipeable={false}
+        draggable={false}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        keyBoardControl={true}
+        customTransition='all .5s'
+        transitionDuration={500}
+        containerClass='carousel-container'
+        removeArrowOnDeviceType={['tablet', 'mobile']}
+        itemClass='carousel-item-padding-40-px'
+      >
+        {list.map((item) => {
+          if (item.poster_path || item.profile_path)
+            return <Item key={item.id} data={item} />;
+        })}
+      </Carousel>
+    </Box>
   );
 };

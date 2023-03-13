@@ -96,10 +96,8 @@ export const NavBar = () => {
         sx={{ color: 'black' }}
         onClick={(e) => handleCloseCategoryMenu(e, page.setState)}
       >
-        <Typography textAlign='center'>
-          <Typography color={'primary'} textAlign='center'>
-            {item.alert}
-          </Typography>
+        <Typography color={'primary'} textAlign='center'>
+          {item.alert}
         </Typography>
       </MenuItem>
     </Link>

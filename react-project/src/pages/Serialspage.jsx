@@ -2,8 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Desciprion } from '../components/Descriptions/Description';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { useEffect } from 'react';
-import { useState } from 'react';
-import { VideoTrailler } from '../components/Video/YouTobeVideo';
+import { VideoTrailler } from '../components/Video/VideoTrailler';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
@@ -11,36 +10,31 @@ import { MediaTypeForLinkContext } from '../Context/Context';
 import { Container } from '@mui/material';
 import { Box } from '@mui/system';
 import { Loader } from '../components/Loader/Loader';
-import axios from 'axios';
+import { SeasonsAccordions } from '../components/Accordions/SeasonsAccordions';
+import { RouteContext } from '../Context/Context';
+import { useFetchData } from '../HOOKs/useFetchData';
 
-export const Singlepage = () => {
-  const { id, mediaType } = useParams();
-  const [pageData, setPageData] = useState(null);
-  const [videosList, setVideosList] = useState([]);
-  const [isLoad, setIsLoad] = useState(false);
+export const Serialspage = () => {
+  const { id, name } = useParams();
+
+  const pageDataUrl = `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US`;
+  const videosDataUrl = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=en-US`;
+
+  const [pageData, isPageLoading, setPageDataUrl, setPageLoading] =
+    useFetchData(pageDataUrl, null);
+  const [videosData, isVideosLoading, setVideosDataUrl, setVideosLoading] =
+    useFetchData(videosDataUrl, null);
 
   useEffect(() => {
+    setPageDataUrl(pageDataUrl);
+    setVideosDataUrl(videosDataUrl);
+    setPageLoading(false);
+    setVideosLoading(false);
     window.scrollTo(0, 0);
-    setIsLoad(false);
   }, [id]);
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${API_KEY}&language=en-US`
-      )
-      .then((res) => setVideosList(res.data.results))
-      .then(() => {
-        axios
-          .get(
-            `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${API_KEY}&language=en-US`
-          )
-          .then((res) => setPageData(res.data))
-          .finally(() => setIsLoad(true));
-      });
-  }, [id]);
-
-  if (!isLoad) return <Loader />;
+  if (!isPageLoading || !isVideosLoading) return <Loader />;
+  const videosList = videosData.results;
 
   return (
     <Box sx={{ marginTop: 10 }}>
@@ -51,11 +45,14 @@ export const Singlepage = () => {
       />
       <Container maxWidth='xl'>
         <Desciprion data={pageData} />
+        <RouteContext.Provider value={{ id, name }}>
+          <SeasonsAccordions list={pageData.seasons} />
+        </RouteContext.Provider>
 
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}
-            mediaType={mediaType}
+            mediaType='tv'
             category={'credits'}
             title='Cast'
           />
@@ -65,23 +62,21 @@ export const Singlepage = () => {
       <AllVidoeClips data={videosList} />
 
       <Container maxWidth='xl'>
-        <MediaTypeForLinkContext.Provider value={mediaType}>
+        <MediaTypeForLinkContext.Provider value='tv'>
           <HorizontalList
             id={id}
-            mediaType={mediaType}
+            mediaType='tv'
             category={'recommendations'}
             title='Recommendations'
           />
-        </MediaTypeForLinkContext.Provider>
-        <MediaTypeForLinkContext.Provider value={mediaType}>
           <HorizontalList
             id={id}
-            mediaType={mediaType}
+            mediaType='tv'
             category={'similar'}
             title='Similar'
           />
         </MediaTypeForLinkContext.Provider>
-        <Reviews id={id} mediaType={mediaType} />
+        <Reviews id={id} mediaType='tv' />
       </Container>
     </Box>
   );

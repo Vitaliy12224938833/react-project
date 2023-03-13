@@ -1,5 +1,5 @@
 import { Slider } from '../Sliders/Slider';
-import { VideoTrailler } from './YouTobeVideo';
+import { VideoTrailler } from './VideoTrailler';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import { Container } from '@mui/material';
