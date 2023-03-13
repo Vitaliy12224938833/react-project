@@ -1,12 +1,12 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import { API_KEY } from '../../data';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { MediaTypeForLinkContext } from '../../Context/Context';
 import { CustomImg } from '../CustomImg/CustomImg';
 import { Box } from '@mui/system';
+import { useFetchData } from '../../HOOKs/useFetchData';
 import Carousel from 'react-multi-carousel';
-import axios from 'axios';
 
 import 'react-multi-carousel/lib/styles.css';
 
@@ -17,8 +17,14 @@ export const HorizontalList = ({
   title,
   seasonNum,
 }) => {
+  const season = seasonNum ? `season/${seasonNum}/` : '';
+  const url = `https://api.themoviedb.org/3/${mediaType}/${id}/${season}${category}?api_key=${API_KEY}&language=en-US`;
+  const [data, isLoading] = useFetchData(url, null);
+  
+  if (!isLoading) return <h1>loading....</h1>;
+
+  const list = data.results ? data.results : data.cast;
   const linkMediaType = useContext(MediaTypeForLinkContext);
-  const [listData, setListData] = useState([]);
 
   const responsive = {
     desktop: {
@@ -65,16 +71,6 @@ export const HorizontalList = ({
     },
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/${mediaType}/${id}/${
-          seasonNum ? `season/${seasonNum}/` : ''
-        }${category}?api_key=${API_KEY}&language=en-US`
-      )
-      .then((res) => setListData(res.data.cast || res.data.results));
-  }, [id]);
-
   const Item = ({ data }) => {
     const { title, name, id, poster_path, profile_path, character } = data;
     return (
@@ -102,28 +98,26 @@ export const HorizontalList = ({
   };
 
   return (
-    listData.length !== 0 && (
-      <Box sx={{ marginTop: 10, marginBottom: 10 }}>
-        <Typography variant='h4'>{title}</Typography>
-        <Carousel
-          swipeable={false}
-          draggable={false}
-          responsive={responsive}
-          ssr={true} // means to render carousel on server-side.
-          infinite={true}
-          keyBoardControl={true}
-          customTransition='all .5s'
-          transitionDuration={500}
-          containerClass='carousel-container'
-          removeArrowOnDeviceType={['tablet', 'mobile']}
-          itemClass='carousel-item-padding-40-px'
-        >
-          {listData.map((item) => {
-            if (item.poster_path || item.profile_path)
-              return <Item key={item.id} data={item} />;
-          })}
-        </Carousel>
-      </Box>
-    )
+    <Box sx={{ marginTop: 10, marginBottom: 10 }}>
+      <Typography variant='h4'>{title}</Typography>
+      <Carousel
+        swipeable={false}
+        draggable={false}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        keyBoardControl={true}
+        customTransition='all .5s'
+        transitionDuration={500}
+        containerClass='carousel-container'
+        removeArrowOnDeviceType={['tablet', 'mobile']}
+        itemClass='carousel-item-padding-40-px'
+      >
+        {list.map((item) => {
+          if (item.poster_path || item.profile_path)
+            return <Item key={item.id} data={item} />;
+        })}
+      </Carousel>
+    </Box>
   );
 };
