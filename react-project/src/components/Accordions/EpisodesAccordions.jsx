@@ -8,24 +8,27 @@ import { Paper } from '@mui/material';
 import { DataContext } from '../../Context/Context';
 import { useContext } from 'react';
 import { CustomAccordion } from './CustomAccordion';
+import { transformDate } from '../Descriptions/src/description-src';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const EpisodesAccordions = ({ list }) => {
   const CustomAccordionSummary = () => {
-    const { name } = useContext(DataContext);
+    const [{ name }, idx] = useContext(DataContext);
     return (
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls='panel1bh-content'
         id='panel1bh-header'
       >
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>{name}</Typography>
+        <Typography sx={{ width: '33%', flexShrink: 0 }}>{`${
+          idx + 1
+        }. ${name}`}</Typography>
         <ReleaseAndRating />
       </AccordionSummary>
     );
   };
   const CustomAccordionDetails = () => {
-    const { still_path, overview } = useContext(DataContext);
+    const [{ still_path, overview }] = useContext(DataContext);
     return (
       <AccordionDetails>
         <Box sx={{ display: 'flex' }}>
@@ -41,7 +44,7 @@ export const EpisodesAccordions = ({ list }) => {
   };
 
   const ReleaseAndRating = () => {
-    const { air_date, vote_average } = useContext(DataContext);
+    const [{ air_date, vote_average }] = useContext(DataContext);
     return (
       (!!vote_average || air_date) && (
         <Box sx={{ marginLeft: 'auto', display: 'flex' }}>
@@ -53,7 +56,7 @@ export const EpisodesAccordions = ({ list }) => {
               alignItems: 'center',
             }}
           >
-            {air_date.split('-').reverse().join(' ')}
+            {transformDate(air_date)}
           </Typography>
           <Rating
             size='small'
@@ -69,10 +72,9 @@ export const EpisodesAccordions = ({ list }) => {
 
   return (
     <div>
-      {list.map((item) => (
-        <DataContext.Provider value={item}>
+      {list.map((item, idx) => (
+        <DataContext.Provider key={item.id} value={[item, idx]}>
           <CustomAccordion
-            key={item.id}
             summary={<CustomAccordionSummary />}
             details={<CustomAccordionDetails />}
           />

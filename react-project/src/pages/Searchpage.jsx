@@ -10,23 +10,15 @@ import { Box } from '@mui/system';
 
 export const Searchpage = () => {
   const { query } = useParams();
-  const [page, setPage] = useState(1);
+  const url = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=`;
 
-  const [isLoad, setIsLoad] = useState(false);
+  const [list, isLoading, setUrl] = useInfinityList(url);
 
   useEffect(() => {
-    setIsLoad(false);
+    setUrl(url);
   }, [query]);
 
-  const url = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
-
-  const [list, load] = useInfinityList(url, page, setPage, query);
-
-  useEffect(() => {
-    if (load) setIsLoad(true);
-  }, [load]);
-
-  if (!isLoad) return <Loader />;
+  if (!isLoading) return <Loader />;
 
   return (
     <Box sx={{ marginTop: 20 }}>

@@ -8,14 +8,12 @@ export const CustomAccordion = ({ summary, details, idx }) => {
     setExpanded(isExpanded ? panel : false);
   };
   return (
-    !(idx === 0) && (
-      <Accordion
-        expanded={expanded === 'panel1'}
-        onChange={handleChange('panel1')}
-      >
-        {summary}
-        {details}
-      </Accordion>
-    )
+    <Accordion
+      expanded={expanded === 'panel1'}
+      onChange={handleChange('panel1')}
+    >
+      {summary}
+      {details}
+    </Accordion>
   );
 };

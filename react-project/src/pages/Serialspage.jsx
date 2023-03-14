@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Desciprion } from '../components/Descriptions/Description';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { useEffect } from 'react';
-import { VideoTrailler } from '../components/Video/YouTobeVideo';
+import { VideoTrailler } from '../components/Video/VideoTrailler';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';

@@ -4,20 +4,13 @@ import { Table } from '@mui/material/';
 import { TableBody } from '@mui/material/';
 import { TableContainer } from '@mui/material/';
 import { Paper } from '@mui/material/';
-import { Link } from '@mui/material';
+
 import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
+import { createLink } from './src/description-src';
+import { transformDate } from './src/description-src';
 
 export const PersonDerscription = ({ data }) => {
-  const createLink = (link) =>
-    link && (
-      <Link href={link} target='_blank'>
-        {link}
-      </Link>
-    );
-
-  const transformDate = (date) => date && date.split('-').reverse().join(' ');
-
   const dataArray = [
     { description: transformDate(data.birthday), caption: 'Birthday:' },
     { description: transformDate(data.deathday), caption: 'Deathday:' },
@@ -42,7 +35,7 @@ export const PersonDerscription = ({ data }) => {
               <TableBody>
                 {dataArray.map(
                   (item, i) =>
-                    !!item.description !== null && (
+                    !!item.description && (
                       <CustomDescriptionRow
                         key={i}
                         caption={item.caption}

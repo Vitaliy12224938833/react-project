@@ -20,7 +20,7 @@ export const Review = ({ data }) => {
   };
 
   const transformDate = (date) =>
-    date.slice(0, 10).split('-').reverse().join(' ');
+    date ? date.slice(0, 10).split('-').reverse().join(' ') : null;
 
   return (
     <Box sx={{ display: 'flex', marginTop: 5, marginBottom: 5 }}>

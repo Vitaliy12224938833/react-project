@@ -9,6 +9,7 @@ import { RouteContext } from '../../Context/Context';
 import { DataContext } from '../../Context/Context';
 import { useContext } from 'react';
 import { CustomAccordion } from './CustomAccordion';
+import { transformDate } from '../Descriptions/src/description-src';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const SeasonsAccordions = ({ list }) => {
@@ -23,7 +24,7 @@ export const SeasonsAccordions = ({ list }) => {
         <Typography sx={{ width: '33%', flexShrink: 0 }}>{name}</Typography>
         <Box sx={{ marginLeft: 'auto', display: 'flex' }}>
           <Typography variant='caption' sx={{ color: 'text.secondary' }}>
-            {`${air_date.split('-').reverse().join(' ')}`}
+            {`${transformDate(air_date)}`}
           </Typography>
           <Typography
             variant='caption'
@@ -84,16 +85,17 @@ export const SeasonsAccordions = ({ list }) => {
 
   return (
     <div>
-      {list.map((item, i) => (
-        <DataContext.Provider value={item}>
-          <CustomAccordion
-            key={item.id}
-            summary={<CustomAccordionSummary />}
-            details={<CustomAccordionDetails />}
-            idx={i}
-          />
-        </DataContext.Provider>
-      ))}
+      {list.map((item, i) =>
+        item.name !== 'Specials' ? (
+          <DataContext.Provider key={item.id} value={item}>
+            <CustomAccordion
+              summary={<CustomAccordionSummary />}
+              details={<CustomAccordionDetails />}
+              idx={i}
+            />
+          </DataContext.Provider>
+        ) : null
+      )}
     </div>
   );
 };
