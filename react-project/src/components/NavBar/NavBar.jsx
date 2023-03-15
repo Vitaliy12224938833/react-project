@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-
 import { AppBar } from '@mui/material';
 import { Box } from '@mui/material';
 import { Toolbar } from '@mui/material';
@@ -10,13 +12,12 @@ import { Typography } from '@mui/material';
 import { Menu } from '@mui/material';
 import { Button } from '@mui/material';
 import { MenuItem } from '@mui/material';
+
 import { Search } from '../Search/Search';
 import { StyledInputBase } from '../Search/Search';
 import { SearchIconWrapper } from '../Search/Search';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
-export const NavBar = () => {
+export const NavBar = React.memo(() => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [searchRow, setSearchRow] = useState('');
   const [movie, setMovie] = useState(null);
@@ -235,4 +236,4 @@ export const NavBar = () => {
       </AppBar>
     </Box>
   );
-};
+});

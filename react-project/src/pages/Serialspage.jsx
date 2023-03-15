@@ -1,18 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { Desciprion } from '../components/Descriptions/Description';
-import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { useEffect } from 'react';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
-import { AllVidoeClips } from '../components/Video/AllVidoeClips';
-import { Reviews } from '../components/Reviews/Reviews';
-import { API_KEY } from '../data';
-import { MediaTypeForLinkContext } from '../Context/Context';
 import { Container } from '@mui/material';
 import { Box } from '@mui/system';
-import { Loader } from '../components/Loader/Loader';
+
 import { SeasonsAccordions } from '../components/Accordions/SeasonsAccordions';
+import { HorizontalList } from '../components/HorizontalList/HorizontalList';
+import { Desciprion } from '../components/Descriptions/Description';
+import { VideoTrailler } from '../components/Video/VideoTrailler';
+import { AllVidoeClips } from '../components/Video/AllVidoeClips';
+import { MediaTypeForLinkContext } from '../Context/Context';
+import { Reviews } from '../components/Reviews/Reviews';
+import { Loader } from '../components/Loader/Loader';
 import { RouteContext } from '../Context/Context';
 import { useFetchData } from '../HOOKs/useFetchData';
+import { API_KEY } from '../data';
 
 export const Serialspage = () => {
   const { id, name } = useParams();

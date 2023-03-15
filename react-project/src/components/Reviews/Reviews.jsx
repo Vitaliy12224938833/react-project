@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Review } from './Review';
+import axios from 'axios';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
+
+import { Review } from './Review';
 import { API_KEY } from '../../data';
-import axios from 'axios';
 
 export const Reviews = ({ id, mediaType }) => {
   const [reviewsList, setReviewsList] = useState([]);

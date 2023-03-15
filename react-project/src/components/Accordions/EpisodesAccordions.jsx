@@ -1,15 +1,16 @@
+import { useContext } from 'react';
 import { AccordionDetails } from '@mui/material';
 import { AccordionSummary } from '@mui/material';
 import { Typography } from '@mui/material';
-import { CustomImg } from '../CustomImg/CustomImg';
 import { Rating } from '@mui/material';
 import { Box } from '@mui/system';
 import { Paper } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import { DataContext } from '../../Context/Context';
-import { useContext } from 'react';
 import { CustomAccordion } from './CustomAccordion';
 import { transformDate } from '../Descriptions/src/description-src';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { CustomImg } from '../CustomImg/CustomImg';
 
 export const EpisodesAccordions = ({ list }) => {
   const CustomAccordionSummary = () => {

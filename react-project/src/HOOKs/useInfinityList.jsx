@@ -1,5 +1,6 @@
+import {  useEffect, useState } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { fathcData } from './featchData';
 
 export const useInfinityList = (initialUrl) => {
   const [page, setPage] = useState(1);
@@ -11,6 +12,25 @@ export const useInfinityList = (initialUrl) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    if (fetching && page <= totalPage) {
+      (async () => {
+        const data = await fathcData(`${url}${page}`);
+        if (data) {
+          if (!isStatList) {
+            setList([...list, ...data.results]);
+          } else {
+            setList(data.results);
+          }
+          setPage(page + 1);
+          setStartlist(false);
+          setFetching(false);
+          setIsLoading(true);
+        }
+      })();
+    }
+  }, [fetching, page]);
+
+  useEffect(() => {
     setPage(1);
     setFetching(true);
     setStartlist(true);
@@ -20,33 +40,12 @@ export const useInfinityList = (initialUrl) => {
       .then((res) => setTotalPage(res.data.total_pages));
   }, [url]);
 
-  useEffect(() => {
-    if (fetching && page <= totalPage) {
-      axios
-        .get(`${url}${page}`)
-        .then((res) => {
-          if (!isStatList) {
-            setList([...list, ...res.data.results]);
-          } else {
-            setList(res.data.results);
-          }
-          setPage(page + 1);
-        })
-        .finally(() => {
-          setStartlist(false);
-          setFetching(false);
-          setIsLoading(true);
-        });
-    }
-  }, [fetching]);
-
   const scrollHandler = (e) => {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
-      100
+      200
     ) {
-      setStartlist(false);
       setFetching(true);
     }
   };

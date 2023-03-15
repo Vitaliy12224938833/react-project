@@ -1,8 +1,9 @@
-import { Slider } from '../Sliders/Slider';
-import { VideoTrailler } from './VideoTrailler';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import { Container } from '@mui/material';
+
+import { Slider } from '../Sliders/Slider';
+import { VideoTrailler } from './VideoTrailler';
 
 export const AllVidoeClips = ({ data }) => {
   if (DataTransferItem && data.length !== 0)

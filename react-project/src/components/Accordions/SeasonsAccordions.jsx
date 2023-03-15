@@ -1,16 +1,17 @@
+import { useContext } from 'react';
 import { AccordionDetails } from '@mui/material';
 import { AccordionSummary } from '@mui/material';
 import { Typography } from '@mui/material';
-import { CustomImg } from '../CustomImg/CustomImg';
 import { Box } from '@mui/system';
 import { Paper } from '@mui/material';
 import { Button } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import { CustomImg } from '../CustomImg/CustomImg';
 import { RouteContext } from '../../Context/Context';
 import { DataContext } from '../../Context/Context';
-import { useContext } from 'react';
 import { CustomAccordion } from './CustomAccordion';
 import { transformDate } from '../Descriptions/src/description-src';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const SeasonsAccordions = ({ list }) => {
   const CustomAccordionSummary = () => {

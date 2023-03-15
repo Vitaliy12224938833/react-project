@@ -1,15 +1,16 @@
 import { useParams } from 'react-router-dom';
-import { Desciprion } from '../components/Descriptions/Description';
-import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
-import { AllVidoeClips } from '../components/Video/AllVidoeClips';
-import { API_KEY } from '../data';
-import { MediaTypeForLinkContext } from '../Context/Context';
 import { Container } from '@mui/material';
 import { Box } from '@mui/system';
-import { Loader } from '../components/Loader/Loader';
+
 import { EpisodesAccordions } from '../components/Accordions/EpisodesAccordions';
+import { HorizontalList } from '../components/HorizontalList/HorizontalList';
+import { Desciprion } from '../components/Descriptions/Description';
+import { VideoTrailler } from '../components/Video/VideoTrailler';
+import { AllVidoeClips } from '../components/Video/AllVidoeClips';
+import { MediaTypeForLinkContext } from '../Context/Context';
+import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
+import { API_KEY } from '../data';
 
 export const Seasonpage = () => {
   const { id, seasonNum } = useParams();

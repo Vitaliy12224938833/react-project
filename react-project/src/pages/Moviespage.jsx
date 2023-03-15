@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Container } from '@mui/material';
+import { Box } from '@mui/system';
+
 import { Desciprion } from '../components/Descriptions/Description';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { VideoTrailler } from '../components/Video/VideoTrailler';
@@ -7,8 +10,6 @@ import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
-import { Container } from '@mui/material';
-import { Box } from '@mui/system';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 

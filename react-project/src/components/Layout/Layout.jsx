@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { NavBar } from '../NavBar/NavBar';
 import { Box } from '@mui/material';
+import { NavBar } from '../NavBar/NavBar';
 
 const globalConteinerStyle = {
   maxWidth: '1600px',

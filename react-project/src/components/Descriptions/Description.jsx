@@ -4,9 +4,9 @@ import { Table } from '@mui/material/';
 import { TableBody } from '@mui/material/';
 import { TableContainer } from '@mui/material/';
 import { Paper } from '@mui/material/';
+
 import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
-
 import { transformDate } from './src/description-src';
 import { transformRuntime } from './src/description-src';
 import { transformMoney } from './src/description-src';

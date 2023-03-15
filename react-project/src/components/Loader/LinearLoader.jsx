@@ -1,5 +1,6 @@
 import { LinearProgress } from '@mui/material';
 import { Box } from '@mui/system';
+
 export const LinearLoadr = ({ loader }) => (
   <Box>
     {loader && (

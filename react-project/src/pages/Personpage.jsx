@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
+import { Container } from '@mui/material';
+
 import { PersonDerscription } from '../components/Descriptions/Person-description';
 import { API_KEY } from '../data';
-import { Container } from '@mui/material';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 
