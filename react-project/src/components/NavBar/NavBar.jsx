@@ -36,12 +36,19 @@ export const NavBar = React.memo(() => {
     setAnchorElNav(null);
   };
 
+  // const handleCloseCategoryMenu = (e, callback) => {
+  //   callback(null);
+  // };
   const handleOpenCategoryMenu = (event, callback) => {
     callback(event.currentTarget);
+    if (callback !== setMovie) setMovie(null);
+    if (callback !== setActors) setActors(null);
+    if (callback !== setTv) setTv(null);
   };
-
-  const handleCloseCategoryMenu = (e, callback) => {
-    callback(null);
+  const handleCloseAllMenu = () => {
+    setMovie(null);
+    setActors(null);
+    setTv(null);
   };
 
   const pages = [
@@ -83,27 +90,15 @@ export const NavBar = React.memo(() => {
     },
   ];
 
-  const NavBarBoxSx = {
-    flexGrow: 1,
-    position: 'fixed',
-    width: '100%',
-    maxWidth: '1601px',
-    zIndex: '999999',
-  };
-
   const CustomMenuItem = ({ item, page }) => (
     <Link to={`/${page.route}/${item.route}`}>
-      <MenuItem
-        sx={{ color: 'black' }}
-        onClick={(e) => handleCloseCategoryMenu(e, page.setState)}
-      >
+      <MenuItem sx={{ color: 'black' }} onClick={handleCloseAllMenu}>
         <Typography color={'primary'} textAlign='center'>
           {item.alert}
         </Typography>
       </MenuItem>
     </Link>
   );
-
   const CastomeMenu = ({ page }) => (
     <Menu
       id='menu-appbar'
@@ -116,10 +111,10 @@ export const NavBar = React.memo(() => {
       transformOrigin={{
         vertical: 'top',
         horizontal: 'left',
-        handleCloseCategoryMenu,
+        handleCloseAllMenu,
       }}
       open={Boolean(page.state)}
-      onClose={(e) => handleCloseCategoryMenu(e, page.setState)}
+      onClose={handleCloseAllMenu}
       sx={{
         display: { xs: 'block' },
       }}
@@ -130,17 +125,25 @@ export const NavBar = React.memo(() => {
     </Menu>
   );
 
+  const NavBarBoxSx = {
+    flexGrow: 1,
+    position: 'fixed',
+    width: '100%',
+    maxWidth: '1601px',
+    zIndex: '999999',
+  };
   return (
     <Box sx={NavBarBoxSx}>
       <AppBar position='static'>
         <Toolbar>
+          {/* Movile Version */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
               aria-label='account of current user'
               aria-controls='menu-appbar'
               aria-haspopup='true'
-              onClick={handleOpenNavMenu}
+              onClick={anchorElNav ? handleCloseNavMenu : handleOpenNavMenu}
               color='inherit'
             >
               <MenuIcon />
@@ -156,10 +159,10 @@ export const NavBar = React.memo(() => {
               transformOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
-                handleCloseNavMenu,
+                handleCloseAllMenu,
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={handleCloseAllMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
@@ -170,7 +173,7 @@ export const NavBar = React.memo(() => {
                     <MenuItem
                       key={i}
                       sx={{ color: 'black' }}
-                      onClick={handleCloseNavMenu}
+                      onClick={handleCloseAllMenu}
                     >
                       <Link to={`/${page.route}`}>
                         <Typography textAlign='center'>{page.alert}</Typography>
@@ -188,6 +191,8 @@ export const NavBar = React.memo(() => {
               )}
             </Menu>
           </Box>
+          {/* Movile Version */}
+          {/* Desctop Version */}
           <Box
             sx={{
               flexGrow: 1,
@@ -219,6 +224,7 @@ export const NavBar = React.memo(() => {
               </Box>
             ))}
           </Box>
+          {/* Desctop Version */}
           <form action={searchRow ? `/search/multi/${searchRow}` : null}>
             <Search>
               <SearchIconWrapper>

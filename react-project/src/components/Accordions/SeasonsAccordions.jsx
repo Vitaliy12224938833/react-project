@@ -3,19 +3,19 @@ import { AccordionDetails } from '@mui/material';
 import { AccordionSummary } from '@mui/material';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { Paper } from '@mui/material';
 import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { CustomImg } from '../CustomImg/CustomImg';
 import { RouteContext } from '../../Context/Context';
 import { DataContext } from '../../Context/Context';
-import { CustomAccordion } from './CustomAccordion';
+import { CustomAccordion } from './components/CustomAccordion';
 import { transformDate } from '../Descriptions/src/description-src';
+import { Overview } from './components/Overview';
 
 export const SeasonsAccordions = ({ list }) => {
   const CustomAccordionSummary = () => {
-    const { name, episode_count, air_date } = useContext(DataContext);
+    const [{ name, episode_count, air_date }] = useContext(DataContext);
     return (
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
@@ -39,12 +39,12 @@ export const SeasonsAccordions = ({ list }) => {
   };
 
   const CustomAccordionDetails = () => {
-    const { poster_path } = useContext(DataContext);
+    const [{ poster_path }] = useContext(DataContext);
     return (
-      <AccordionDetails sx={{ display: 'relative' }}>
+      <AccordionDetails>
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ minWidth: 200, height: 300, margin: 3 }}>
-            <CustomImg src={`https://image.tmdb.org/t/p/w200${poster_path}`} />
+            <CustomImg src={`https://image.tmdb.org/t/p/w400${poster_path}`} />
           </Box>
           <Overview />
         </Box>
@@ -55,32 +55,17 @@ export const SeasonsAccordions = ({ list }) => {
 
   const CustomButton = () => {
     const { name, id } = useContext(RouteContext);
-    const { season_number } = useContext(DataContext);
+    const [{ season_number }] = useContext(DataContext);
     return (
-      <Button
-        sx={{ position: 'absolute', right: 10, bottom: 15 }}
-        size='large'
-        variant='outlined'
-        href={`/season/${name}/${id}/${season_number}`}
-      >
-        More...
-      </Button>
-    );
-  };
-
-  const Overview = () => {
-    const { overview } = useContext(DataContext);
-    return (
-      <Paper
-        sx={{
-          padding: 3,
-          height: '100%',
-          maxHeight: '280px',
-          overflow: 'hidden',
-        }}
-      >
-        <Typography>{overview}</Typography>
-      </Paper>
+      <Box sx={{ textAlign: 'right' }}>
+        <Button
+          size='large'
+          variant='outlined'
+          href={`/season/${name}/${id}/${season_number}`}
+        >
+          More...
+        </Button>
+      </Box>
     );
   };
 
@@ -88,7 +73,7 @@ export const SeasonsAccordions = ({ list }) => {
     <div>
       {list.map((item, i) =>
         item.name !== 'Specials' ? (
-          <DataContext.Provider key={item.id} value={item}>
+          <DataContext.Provider key={item.id} value={[item]}>
             <CustomAccordion
               summary={<CustomAccordionSummary />}
               details={<CustomAccordionDetails />}

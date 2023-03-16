@@ -8,9 +8,10 @@ import { Paper } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { DataContext } from '../../Context/Context';
-import { CustomAccordion } from './CustomAccordion';
+import { CustomAccordion } from './components/CustomAccordion';
 import { transformDate } from '../Descriptions/src/description-src';
 import { CustomImg } from '../CustomImg/CustomImg';
+import { Overview } from './components/Overview';
 
 export const EpisodesAccordions = ({ list }) => {
   const CustomAccordionSummary = () => {
@@ -29,16 +30,25 @@ export const EpisodesAccordions = ({ list }) => {
     );
   };
   const CustomAccordionDetails = () => {
-    const [{ still_path, overview }] = useContext(DataContext);
+    const [{ still_path }] = useContext(DataContext);
     return (
       <AccordionDetails>
         <Box sx={{ display: 'flex' }}>
-          <Box sx={{ minWidth: 200, height: 300, margin: 3 }}>
-            <CustomImg src={`https://image.tmdb.org/t/p/w400${still_path}`} />
+          <Box
+            sx={{
+              minWidth: 200,
+              width: '60%',
+              height: 300,
+              margin: 3,
+            }}
+          >
+            <CustomImg
+              src={`https://image.tmdb.org/t/p/original${still_path}`}
+              radiusX='5%'
+              radiusY='3%'
+            />
           </Box>
-          <Paper sx={{ padding: 5 }}>
-            <Typography>{overview}</Typography>
-          </Paper>
+          <Overview />
         </Box>
       </AccordionDetails>
     );

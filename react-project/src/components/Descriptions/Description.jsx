@@ -1,3 +1,4 @@
+import React from 'react';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { Table } from '@mui/material/';
@@ -6,13 +7,13 @@ import { TableContainer } from '@mui/material/';
 import { Paper } from '@mui/material/';
 
 import { CustomImg } from '../CustomImg/CustomImg';
-import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
+import { CustomDescriptionRow } from './CustomDescriptinoRow';
 import { transformDate } from './src/description-src';
 import { transformRuntime } from './src/description-src';
 import { transformMoney } from './src/description-src';
 import { createStrFromObj } from './src/description-src';
 
-export const Desciprion = ({ data, isSeason = false }) => {
+export const Desciprion = React.memo(({ data, isSeason = false }) => {
   const dataArray = [
     { description: transformRuntime(data.runtime), caption: 'Runetime:' },
     {
@@ -49,8 +50,8 @@ export const Desciprion = ({ data, isSeason = false }) => {
     <Box sx={{ marginTop: 20 }}>
       <Box sx={{ display: 'flex', maxHeight: 1000 }}>
         <CustomImg
-          width={'auto'}
-          src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+          width='500px'
+          src={`https://image.tmdb.org/t/p/original${data.poster_path}`}
           alt={data.title}
         />
         <Box sx={{ marginLeft: 20 }}>
@@ -79,4 +80,4 @@ export const Desciprion = ({ data, isSeason = false }) => {
       {!isSeason && <Overview overview={data.overview} />}
     </Box>
   );
-};
+});

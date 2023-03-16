@@ -6,7 +6,7 @@ import { TableContainer } from '@mui/material/';
 import { Paper } from '@mui/material/';
 
 import { CustomImg } from '../CustomImg/CustomImg';
-import { CustomDescriptionRow } from '../CustomDescriptionRow/CustomDescriptinoRow';
+import { CustomDescriptionRow } from './CustomDescriptinoRow';
 import { createLink } from './src/description-src';
 import { transformDate } from './src/description-src';
 
