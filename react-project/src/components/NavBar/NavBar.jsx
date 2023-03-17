@@ -2,20 +2,20 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AppBar } from '@mui/material';
 import { Box } from '@mui/material';
 import { Toolbar } from '@mui/material';
-import { IconButton } from '@mui/material';
 import { Typography } from '@mui/material';
-import { Menu } from '@mui/material';
-import { Button } from '@mui/material';
 import { MenuItem } from '@mui/material';
 
 import { Search } from '../Search/Search';
 import { StyledInputBase } from '../Search/Search';
 import { SearchIconWrapper } from '../Search/Search';
+import { NavBarButton } from './commponents/NuvBarButton';
+import { GoHomeLink } from './commponents/GoHomeLink';
+import { NavBarMenu } from './commponents/NavBarMenu';
+import { CustomMenuIcon } from './commponents/CustomMenuIcon';
 
 export const NavBar = React.memo(() => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -36,9 +36,6 @@ export const NavBar = React.memo(() => {
     setAnchorElNav(null);
   };
 
-  // const handleCloseCategoryMenu = (e, callback) => {
-  //   callback(null);
-  // };
   const handleOpenCategoryMenu = (event, callback) => {
     callback(event.currentTarget);
     if (callback !== setMovie) setMovie(null);
@@ -100,32 +97,20 @@ export const NavBar = React.memo(() => {
     </Link>
   );
   const CastomeMenu = ({ page }) => (
-    <Menu
-      id='menu-appbar'
-      anchorEl={page.state}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
-        handleCloseAllMenu,
-      }}
-      open={Boolean(page.state)}
-      onClose={handleCloseAllMenu}
-      sx={{
+    <NavBarMenu
+      style={{
         display: { xs: 'block' },
       }}
+      closeMenu={handleCloseAllMenu}
+      menu={page.state}
     >
       {page.categories.map((item, i) => (
         <CustomMenuItem key={i} item={item} page={page} />
       ))}
-    </Menu>
+    </NavBarMenu>
   );
 
-  const NavBarBoxSx = {
+  const NavBarBoxStyle = {
     flexGrow: 1,
     position: 'fixed',
     width: '100%',
@@ -133,39 +118,22 @@ export const NavBar = React.memo(() => {
     zIndex: '999999',
   };
   return (
-    <Box sx={NavBarBoxSx}>
+    <Box sx={NavBarBoxStyle}>
       <AppBar position='static'>
         <Toolbar>
           {/* Movile Version */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={anchorElNav ? handleCloseNavMenu : handleOpenNavMenu}
-              color='inherit'
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-                handleCloseAllMenu,
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseAllMenu}
-              sx={{
+            <CustomMenuIcon
+              openMenu={handleOpenNavMenu}
+              closeMenu={handleCloseNavMenu}
+              state={anchorElNav}
+            />
+            <NavBarMenu
+              style={{
                 display: { xs: 'block', md: 'none' },
               }}
+              closeMenu={handleCloseAllMenu}
+              menu={anchorElNav}
             >
               {pages.map(
                 (page, i) =>
@@ -175,9 +143,7 @@ export const NavBar = React.memo(() => {
                       sx={{ color: 'black' }}
                       onClick={handleCloseAllMenu}
                     >
-                      <Link to={`/${page.route}`}>
-                        <Typography textAlign='center'>{page.alert}</Typography>
-                      </Link>
+                      <GoHomeLink />
                     </MenuItem>
                   )) || (
                     <MenuItem
@@ -189,7 +155,7 @@ export const NavBar = React.memo(() => {
                     </MenuItem>
                   )
               )}
-            </Menu>
+            </NavBarMenu>
           </Box>
           {/* Movile Version */}
           {/* Desctop Version */}
@@ -202,22 +168,17 @@ export const NavBar = React.memo(() => {
             {pages.map((page, i) => (
               <Box key={i}>
                 {(page.route === 'home' && (
-                  <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                    <Link to={`/${page.route}`}>
-                      <Typography sx={{ color: 'white' }} textAlign='center'>
-                        {page.alert}
-                      </Typography>
-                    </Link>
-                  </Button>
+                  <NavBarButton>
+                    <GoHomeLink />
+                  </NavBarButton>
                 )) || (
-                  <Button
+                  <NavBarButton
                     onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
                   >
                     <Typography sx={{ color: 'white' }} textAlign='center'>
                       {page.alert}
                     </Typography>
-                  </Button>
+                  </NavBarButton>
                 )}
 
                 <CastomeMenu page={page} />
