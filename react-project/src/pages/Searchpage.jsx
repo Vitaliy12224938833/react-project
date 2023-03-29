@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box } from '@mui/system';
 
 import { CustomList } from '../components/CustomList/CustomList';
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { API_KEY } from '../data';
 import { Container } from '@mui/material';
 import { Loader } from '../components/Loader/Loader';
-import { LinearLoadr } from '../components/Loader/LinearLoader';
+
 
 export const Searchpage = () => {
   const { query } = useParams();
@@ -22,10 +21,8 @@ export const Searchpage = () => {
   if (!isLoading) return <Loader />;
 
   return (
-    <Box sx={{ marginTop: 20 }}>
-      <Container sx={{ marginTop: '40px' }} maxWidth='xl'>
-        <CustomList data={list} />
-      </Container>
-    </Box>
+    <Container sx={{ marginTop: '40px' }} maxWidth='xl'>
+      <CustomList data={list} />
+    </Container>
   );
 };

@@ -1,17 +1,27 @@
-import { Typography } from '@mui/material';
+import React from 'react';
 import { Box } from '@mui/system';
-import { Table } from '@mui/material/';
-import { TableBody } from '@mui/material/';
-import { TableContainer } from '@mui/material/';
-import { Paper } from '@mui/material/';
+import { Table, TableBody, TableContainer, styled } from '@mui/material';
 
 import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from './CustomDescriptinoRow';
-import { createLink } from './src/description-src';
-import { transformDate } from './src/description-src';
+import { createLink, transformDate } from './src/description-src';
+import { DescriptionOverview } from './components/DescriptionOverview';
+import { DescriptionTitle } from './components/DescriptionTitle';
+import { CustomDescriptionBox } from './components/CustomDescriptionBox';
+import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
 
-export const PersonDerscription = ({ data }) => {
-  const dataArray = [
+const PersonDescriptionTable = styled(Table)({
+  marginTop: 1,
+});
+
+const PersonDescriptionTableRow = styled(CustomDescriptionRow)({
+  '&:nth-of-type(even)': {
+    backgroundColor: '#f9f9f9',
+  },
+});
+
+export const PersonDescription = ({ data }) => {
+  const descriptionData = [
     { description: transformDate(data.birthday), caption: 'Birthday:' },
     { description: transformDate(data.deathday), caption: 'Deathday:' },
     { description: data.place_of_birth, caption: 'Place of birth:' },
@@ -19,24 +29,22 @@ export const PersonDerscription = ({ data }) => {
   ];
 
   return (
-    <Box sx={{ marginTop: 20 }}>
-      <Box sx={{ display: 'flex', maxHeight: 1000 }}>
+    <ComponentWrapper>
+      <CustomDescriptionBox>
         <CustomImg
           src={`https://image.tmdb.org/t/p/w500${data.profile_path}`}
           alt={data.name}
-          width='auto'
+          maxWidth='500px'
         />
-        <Box sx={{ marginLeft: 20 }}>
-          <Typography variant='h4' sx={{ marginBottom: 10 }}>
-            {data.name}
-          </Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <DescriptionTitle>{data.name}</DescriptionTitle>
           <TableContainer>
-            <Table>
+            <PersonDescriptionTable>
               <TableBody>
-                {dataArray.map(
+                {descriptionData.map(
                   (item, i) =>
                     !!item.description && (
-                      <CustomDescriptionRow
+                      <PersonDescriptionTableRow
                         key={i}
                         caption={item.caption}
                         description={item.description}
@@ -44,18 +52,16 @@ export const PersonDerscription = ({ data }) => {
                     )
                 )}
               </TableBody>
-            </Table>
+            </PersonDescriptionTable>
           </TableContainer>
         </Box>
-      </Box>
-      <Paper
-        sx={{ padding: 5, marginTop: 5, marginBottom: 5 }}
-        variant='elevation'
-      >
-        <Typography variant='body1'>
-          {data.biography || `Don't have any information about ${data.name}.`}
-        </Typography>
-      </Paper>
-    </Box>
+      </CustomDescriptionBox>
+      {data.biography && <DescriptionOverview overview={data.biography} />}
+      {!data.biography && (
+        <DescriptionOverview
+          overview={`Don't have any information about ${data.name}.`}
+        />
+      )}
+    </ComponentWrapper>
   );
 };

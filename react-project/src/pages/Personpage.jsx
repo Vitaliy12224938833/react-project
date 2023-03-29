@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
 
-import { PersonDerscription } from '../components/Descriptions/Person-description';
+import { PersonDescription } from '../components/Descriptions/Person-description';
 import { API_KEY } from '../data';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
@@ -16,8 +16,8 @@ export const Personpage = () => {
   if (!isPageDataLoading) return <Loader />;
 
   return (
-    <Container maxWidth='xl' sx={{ marginTop: '150px' }}>
-      <PersonDerscription data={pageData} />
+    <Container maxWidth='xl'>
+      <PersonDescription data={pageData} />
     </Container>
   );
 };

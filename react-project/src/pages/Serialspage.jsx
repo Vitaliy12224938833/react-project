@@ -5,18 +5,17 @@ import { Box } from '@mui/system';
 
 import { SeasonsAccordions } from '../components/Accordions/SeasonsAccordions';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { Desciprion } from '../components/Descriptions/Description';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
+import { Description } from '../components/Descriptions/Description';
+import { VideoTrailer } from '../components/Video/VideoTrailler';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Reviews } from '../components/Reviews/Reviews';
 import { Loader } from '../components/Loader/Loader';
-import { RouteContext } from '../Context/Context';
 import { useFetchData } from '../HOOKs/useFetchData';
 import { API_KEY } from '../data';
-
+import { TrailerWrapper } from '../components/Wrappers/TrailerWrapper';
 export const Serialspage = () => {
-  const { id, name } = useParams();
+  const { id } = useParams();
 
   const pageDataUrl = `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US`;
   const videosDataUrl = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=en-US`;
@@ -38,18 +37,18 @@ export const Serialspage = () => {
   const videosList = videosData.results;
 
   return (
-    <Box sx={{ marginTop: 10 }}>
-      <VideoTrailler
-        data={videosList
-          .filter((item) => item.type === 'Trailer' && item.official)
-          .pop()}
-      />
-      <Container maxWidth='xl'>
-        <Desciprion data={pageData} />
-        <RouteContext.Provider value={{ id, name }}>
-          <SeasonsAccordions list={pageData.seasons} />
-        </RouteContext.Provider>
+    <>
+      <TrailerWrapper>
+        <VideoTrailer
+          data={videosList
+            .filter((item) => item.type === 'Trailer' && item.official)
+            .pop()}
+        />
+      </TrailerWrapper>
 
+      <Container maxWidth='xl'>
+        <Description data={pageData} />
+        <SeasonsAccordions list={pageData.seasons} />
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}
@@ -79,6 +78,6 @@ export const Serialspage = () => {
         </MediaTypeForLinkContext.Provider>
         <Reviews id={id} mediaType='tv' />
       </Container>
-    </Box>
+    </>
   );
 };

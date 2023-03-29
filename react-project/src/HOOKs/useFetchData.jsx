@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fathcData } from './featchData';
+import { fetchData } from './fetchData';
 
 export const useFetchData = (initialUrl, initialData) => {
   const [data, setData] = useState(initialData);
@@ -8,7 +8,7 @@ export const useFetchData = (initialUrl, initialData) => {
 
   useEffect(() => {
     (async () => {
-      const data = await fathcData(url);
+      const data = await fetchData(url);
       setData(data);
       setIsLoading(true);
     })();

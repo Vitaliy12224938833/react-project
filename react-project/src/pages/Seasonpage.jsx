@@ -2,16 +2,16 @@ import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { Box } from '@mui/system';
 
-import { EpisodesAccordions } from '../components/Accordions/EpisodesAccordions';
+import { EpisodesAccordionList } from '../components/Accordions/EpisodesAccordions';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { Desciprion } from '../components/Descriptions/Description';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
+import { Description } from '../components/Descriptions/Description';
+import { VideoTrailer } from '../components/Video/VideoTrailler';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 import { API_KEY } from '../data';
-
+import { TrailerWrapper } from '../components/Wrappers/TrailerWrapper';
 export const Seasonpage = () => {
   const { id, seasonNum } = useParams();
 
@@ -25,15 +25,18 @@ export const Seasonpage = () => {
   const videosList = videosData.results;
 
   return (
-    <Box sx={{ marginTop: 10 }}>
-      <VideoTrailler
-        data={videosList
-          .filter((item) => item.type === 'Trailer' && item.official)
-          .pop()}
-      />
+    <>
+      <TrailerWrapper>
+        <VideoTrailer
+          data={videosList
+            .filter((item) => item.type === 'Trailer' && item.official)
+            .pop()}
+        />
+      </TrailerWrapper>
+
       <Container maxWidth='xl'>
-        <Desciprion data={pageData} isSeason={true} />
-        <EpisodesAccordions list={pageData.episodes} />
+        <Description data={pageData} isSeason={true} />
+        <EpisodesAccordionList list={pageData.episodes} />
 
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
@@ -46,6 +49,6 @@ export const Seasonpage = () => {
         </MediaTypeForLinkContext.Provider>
       </Container>
       <AllVidoeClips data={videosList} />
-    </Box>
+    </>
   );
 };

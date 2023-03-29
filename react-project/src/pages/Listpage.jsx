@@ -8,7 +8,7 @@ import { API_KEY } from '../data';
 import { Container } from '@mui/material';
 import { Loader } from '../components/Loader/Loader';
 import { RouteContext } from '../Context/Context';
-
+import { ListWrapper } from '../components/Wrappers/ListWrpapper';
 export const Listpage = () => {
   const { mediaType, category } = useParams();
 
@@ -21,13 +21,12 @@ export const Listpage = () => {
   if (!isLoading) return <Loader />;
 
   return (
-    <>
-      <Container sx={{ marginTop: 20, paddingBottom: 20 }} maxWidth='xl'>
+    <Container maxWidth='xl'>
+      <ListWrapper>
         <RouteContext.Provider value={mediaType}>
           <CustomList data={list}></CustomList>
         </RouteContext.Provider>
-      </Container>
-      {/* <LinearLoadr loader={loader} /> */}
-    </>
+      </ListWrapper>
+    </Container>
   );
 };

@@ -5,26 +5,37 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-
+import { styled } from '@mui/material';
 import 'react-multi-carousel/lib/styles.css';
+
+const StyledArrowIcon = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  zIndex: 666,
+  opacity: 0,
+  borderRadius: 3,
+  padding: '10% 0',
+  top: '45%',
+  transform: 'translateY(-50%)',
+  '&:hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  [theme.breakpoints.down('sm')]: {
+    top: '30%',
+  },
+}));
+
+const StyledLeftBtn = styled(StyledArrowIcon)({
+  left: '-3%',
+});
+
+const StyledRightBtn = styled(StyledArrowIcon)({
+  right: '-3%',
+});
 
 export const Slider = ({ data, children }) => {
   if (!data.length) return;
 
   const [currIdx, setCurrIdx] = useState(0);
-
-  const switchBtnSx = (side) => ({
-    position: 'absolute',
-    zIndex: 666,
-    height: 300,
-    [side]: -20,
-    bottom: '39%',
-    opacity: 0,
-    borderRadius: 5,
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0,  0.3)',
-    },
-  });
 
   const dotsSx = {
     textAlign: 'center',
@@ -41,41 +52,81 @@ export const Slider = ({ data, children }) => {
     },
   };
 
-  const prevSlide = () => {
-    currIdx >= 1 ? setCurrIdx(currIdx - 1) : setCurrIdx(data.length - 1);
-  };
+  const prevSlide = () => setCurrIdx((currIdx - 1 + data.length) % data.length);
 
-  const nextSlide = () => {
-    currIdx < data.length - 1 ? setCurrIdx(currIdx + 1) : setCurrIdx(0);
-  };
+  const nextSlide = () => setCurrIdx((currIdx + 1) % data.length);
 
   const goToSlide = (idx) => setCurrIdx(idx);
 
-  const LeftButton = () => (
-    <IconButton sx={switchBtnSx('left')} onClick={prevSlide}>
-      <ArrowBackIosNewIcon color={'primary'} sx={{ fontSize: 150 }} />
-    </IconButton>
-  );
-  const RigthButton = () => (
-    <IconButton sx={switchBtnSx('right')} onClick={nextSlide}>
-      <ArrowForwardIosIcon color={'primary'} sx={{ fontSize: 150 }} />
-    </IconButton>
+  const IconStyle = (theme) => ({
+    fontSize: '10rem',
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '8rem',
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '6rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '2rem',
+    },
+  });
+  const StyledLeftIcon = styled(ArrowBackIosNewIcon)(({ theme }) =>
+    IconStyle(theme)
   );
 
+  const LeftButton = () => (
+    <StyledLeftBtn onClick={prevSlide}>
+      <StyledLeftIcon color={'primary'} />
+    </StyledLeftBtn>
+  );
+  const StyledRigthIcon = styled(ArrowForwardIosIcon)(({ theme }) =>
+    IconStyle(theme)
+  );
+  const RightButton = () => (
+    <StyledRightBtn onClick={nextSlide}>
+      <StyledRigthIcon color={'primary'} />
+    </StyledRightBtn>
+  );
+  const StyledRadioIcon = styled(IconButton)(({ theme }) => ({
+    padding: '0.5rem',
+    [theme.breakpoints.down('md')]: {
+      padding: '0.3rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      padding: '0.1rem',
+    },
+  }));
+
+  const StyledRadioBtn = (theme) => ({
+    fontSize: '1rem',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.7rem',
+      padding: 0,
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.4rem',
+    },
+  });
+  const RadioChecked = styled(RadioButtonCheckedIcon)(({ theme }) =>
+    StyledRadioBtn(theme)
+  );
+  const RadioUnchecked = styled(RadioButtonUncheckedIcon)(({ theme }) =>
+    StyledRadioBtn(theme)
+  );
   return (
     <Box sx={conteinerSx}>
       <LeftButton />
-      <RigthButton />
+      <RightButton />
+
       {children(data[currIdx])}
       <Box sx={dotsSx}>
         {data.map((item, idx) => (
-          <IconButton key={idx} onClick={() => goToSlide(idx)}>
-            {currIdx === idx ? (
-              <RadioButtonCheckedIcon fontSize='small' />
-            ) : (
-              <RadioButtonUncheckedIcon fontSize='small' />
-            )}
-          </IconButton>
+          <StyledRadioIcon key={idx} onClick={() => goToSlide(idx)}>
+            {currIdx === idx ? <RadioChecked /> : <RadioUnchecked />}
+          </StyledRadioIcon>
         ))}
       </Box>
     </Box>

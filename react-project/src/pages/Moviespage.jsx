@@ -1,18 +1,17 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { Box } from '@mui/system';
 
-import { Desciprion } from '../components/Descriptions/Description';
+import { Description } from '../components/Descriptions/Description';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
+import { VideoTrailer } from '../components/Video/VideoTrailler';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
-
+import { TrailerWrapper } from '../components/Wrappers/TrailerWrapper';
 export const Moviespage = () => {
   const { id } = useParams();
 
@@ -36,14 +35,17 @@ export const Moviespage = () => {
   const videosList = videosData.results;
 
   return (
-    <Box sx={{ marginTop: 10 }}>
-      <VideoTrailler
-        data={videosList
-          .filter((item) => item.type === 'Trailer' && item.official)
-          .pop()}
-      />
+    <>
+      <TrailerWrapper>
+        <VideoTrailer
+          data={videosList
+            .filter((item) => item.type === 'Trailer' && item.official)
+            .pop()}
+        />
+      </TrailerWrapper>
+
       <Container maxWidth='xl'>
-        <Desciprion data={pageData} />
+        <Description data={pageData} />
 
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
@@ -74,6 +76,6 @@ export const Moviespage = () => {
         </MediaTypeForLinkContext.Provider>
         <Reviews id={id} mediaType='movie' />
       </Container>
-    </Box>
+    </>
   );
 };

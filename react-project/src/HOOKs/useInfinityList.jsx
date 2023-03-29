@@ -1,6 +1,6 @@
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { fathcData } from './featchData';
+import { fetchData } from './fetchData';
 
 export const useInfinityList = (initialUrl) => {
   const [page, setPage] = useState(1);
@@ -14,7 +14,7 @@ export const useInfinityList = (initialUrl) => {
   useEffect(() => {
     if (fetching && page <= totalPage) {
       (async () => {
-        const data = await fathcData(`${url}${page}`);
+        const data = await fetchData(`${url}${page}`);
         if (data) {
           if (!isStatList) {
             setList([...list, ...data.results]);

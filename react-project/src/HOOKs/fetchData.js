@@ -11,7 +11,7 @@ export const memoize = (callback) => {
   };
 };
 
-export const fathcData = async (url) => {
+export const fetchData = async (url) => {
   const getData = async (url) => {
     const res = await axios.get(url);
     return res.data;

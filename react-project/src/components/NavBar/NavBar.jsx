@@ -1,13 +1,8 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { AppBar } from '@mui/material';
-import { Box } from '@mui/material';
-import { Toolbar } from '@mui/material';
-import { Typography } from '@mui/material';
-import { MenuItem } from '@mui/material';
+import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
 
 import { Search } from '../Search/Search';
 import { StyledInputBase } from '../Search/Search';
@@ -16,6 +11,7 @@ import { NavBarButton } from './commponents/NuvBarButton';
 import { GoHomeLink } from './commponents/GoHomeLink';
 import { NavBarMenu } from './commponents/NavBarMenu';
 import { CustomMenuIcon } from './commponents/CustomMenuIcon';
+import { AuthenticationModal } from './commponents/AuthenticationModal';
 
 export const NavBar = React.memo(() => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -24,7 +20,7 @@ export const NavBar = React.memo(() => {
   const [tv, setTv] = useState(null);
   const [actors, setActors] = useState(null);
 
-  const searhcHandlerChange = (e) => {
+  const searchHandlerChange = (e) => {
     setSearchRow(e.target.value);
   };
 
@@ -42,6 +38,7 @@ export const NavBar = React.memo(() => {
     if (callback !== setActors) setActors(null);
     if (callback !== setTv) setTv(null);
   };
+
   const handleCloseAllMenu = () => {
     setMovie(null);
     setActors(null);
@@ -192,13 +189,14 @@ export const NavBar = React.memo(() => {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                onChange={searhcHandlerChange}
+                onChange={searchHandlerChange}
                 placeholder='Search…'
                 inputProps={{ 'aria-label': 'search' }}
                 value={searchRow}
               />
             </Search>
           </form>
+          <AuthenticationModal />
         </Toolbar>
       </AppBar>
     </Box>

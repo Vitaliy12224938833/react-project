@@ -1,19 +1,25 @@
 import React from 'react';
-import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { Table } from '@mui/material/';
-import { TableBody } from '@mui/material/';
-import { TableContainer } from '@mui/material/';
-import { Paper } from '@mui/material/';
+import { styled, Table, TableBody, TableContainer } from '@mui/material';
 
 import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from './CustomDescriptinoRow';
-import { transformDate } from './src/description-src';
-import { transformRuntime } from './src/description-src';
-import { transformMoney } from './src/description-src';
-import { createStrFromObj } from './src/description-src';
+import {
+  transformDate,
+  transformRuntime,
+  transformMoney,
+  createStrFromObj,
+} from './src/description-src';
+import { DescriptionOverview } from './components/DescriptionOverview';
+import { DescriptionTitle } from './components/DescriptionTitle';
+import { CustomDescriptionBox } from './components/CustomDescriptionBox';
+import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
 
-export const Desciprion = React.memo(({ data, isSeason = false }) => {
+const StyledTableContainer = styled(TableContainer)({
+  maxHeight: 1000,
+});
+
+export const Description = ({ data, isSeason = false }) => {
   const dataArray = [
     { description: transformRuntime(data.runtime), caption: 'Runetime:' },
     {
@@ -33,51 +39,38 @@ export const Desciprion = React.memo(({ data, isSeason = false }) => {
     { description: createStrFromObj(data.genres), caption: 'Genres:' },
   ];
 
-  const Overview = ({ overview }) => (
-    <Paper
-      sx={{
-        padding: 5,
-        marginTop: 5,
-        marginBottom: 5,
-      }}
-      variant='elevation'
-    >
-      <Typography variant='body1'>{overview}</Typography>
-    </Paper>
-  );
-
   return (
-    <Box sx={{ marginTop: 20 }}>
-      <Box sx={{ display: 'flex', maxHeight: 1000 }}>
+    <ComponentWrapper>
+      <CustomDescriptionBox>
         <CustomImg
-          width='500px'
           src={`https://image.tmdb.org/t/p/original${data.poster_path}`}
           alt={data.title}
+          maxWidth='500px'
         />
-        <Box sx={{ marginLeft: 20 }}>
-          <Typography variant='h4' sx={{ marginBottom: 10 }}>
+        <Box>
+          <DescriptionTitle variant='h4'>
             {data.title || data.name}
-          </Typography>
-          <TableContainer>
+          </DescriptionTitle>
+          <StyledTableContainer>
             <Table>
               <TableBody>
                 {dataArray.map(
-                  (item, i) =>
-                    !!item.description && (
+                  ({ description, caption }, i) =>
+                    !!description && (
                       <CustomDescriptionRow
                         key={i}
-                        caption={item.caption}
-                        description={item.description}
+                        caption={caption}
+                        description={description}
                       />
                     )
                 )}
               </TableBody>
             </Table>
-          </TableContainer>
-          {isSeason && <Overview overview={data.overview} />}
+          </StyledTableContainer>
         </Box>
-      </Box>
-      {!isSeason && <Overview overview={data.overview} />}
-    </Box>
+      </CustomDescriptionBox>
+      {isSeason && <DescriptionOverview overview={data.overview} />}
+      {!isSeason && <DescriptionOverview overview={data.overview} />}
+    </ComponentWrapper>
   );
-});
+};
