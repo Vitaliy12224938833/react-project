@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import { NavBarButton } from './NuvBarButton';
-import TextField from '@mui/material/TextField';
-import { BasicModal } from '../../common/BasicModal';
 import axios from 'axios';
+import { styled, Box, TextField } from '@mui/material';
+import { NavBarButton } from './NuvBarButton';
+import { BasicModal } from '../../common/BasicModal';
 import { API_KEY } from '../../../data';
 
 const defaultInputValues = {
@@ -12,22 +11,51 @@ const defaultInputValues = {
   request_token: 'f892e7bf3817c8d34153f61ea6896a8530c949da',
 };
 
+const InputFieldsContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+
+  flexDirection: 'column',
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+  '& .MuiFormControl-root': {
+    marginBottom: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: theme.spacing(4),
+      padding: 0,
+    },
+  },
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+    [theme.breakpoints.down('md')]: {
+      height: '25px', // height for small screens
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: '15px', // height for extra-small screens
+    },
+  },
+  '& *': {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '1rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.7rem',
+    },
+  },
+}));
+
+//MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input
 export const AuthenticationModal = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState(defaultInputValues);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const modalStyles = {
-    inputFields: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginTop: '20px',
-      marginBottom: '15px',
-      '.MuiFormControl-root': {
-        marginBottom: '20px',
-      },
-    },
-  };
 
   const handleSubmit = () => {
     axios
@@ -56,8 +84,9 @@ export const AuthenticationModal = () => {
   }, [open]);
 
   const getContent = () => (
-    <Box sx={modalStyles.inputFields}>
-      <TextField
+    <InputFieldsContainer>
+      <StyledTextField
+        sx={{}}
         placeholder='Name'
         name='name'
         label='Name'
@@ -65,7 +94,7 @@ export const AuthenticationModal = () => {
         required
         onChange={(e) => handleChange(e, 'username')}
       />
-      <TextField
+      <StyledTextField
         placeholder='Password'
         name='password'
         label='Password'
@@ -74,7 +103,7 @@ export const AuthenticationModal = () => {
         value={values.password}
         onChange={(e) => handleChange(e, 'password')}
       />
-    </Box>
+    </InputFieldsContainer>
   );
 
   return (

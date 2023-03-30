@@ -1,35 +1,67 @@
 import React from 'react';
-import { Box } from '@mui/material';
-import { Typography } from '@mui/material';
-import { Modal } from '@mui/material';
-import { Button } from '@mui/material';
+import { Modal, Button, Typography, Box, styled, Paper } from '@mui/material';
 
-export const modalStyles = {
-  wrapper: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+export const Wrapper = styled(Paper)(({ theme }) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  WebkitBoxShadow: '0px 0px 46px 1px rgba(0,0,0,0.75)',
+  MozBoxShadow: '0px 0px 46px 1px rgba(0,0,0,0.75)',
+  boxShadow: '0px 0px 46px 1px rgba(0,0,0,0.75)',
+  [theme.breakpoints.up('xs')]: {
+    width: 270,
+    padding: 15,
+  },
+  [theme.breakpoints.up('sm')]: {
+    width: 350,
+    padding: 20,
+  },
+  [theme.breakpoints.up('md')]: {
     width: 500,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
+    padding: 30,
   },
-  inputFields: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '20px',
-    marginBottom: '15px',
-    '.MuiInput-root': {
-      marginBottom: '20px',
-    },
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'end',
-  },
-};
+}));
 
+const Buttons = styled(Box)({
+  display: 'flex',
+  justifyContent: 'end',
+});
+
+const Title = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.up('xs')]: {
+    fontSize: '1rem',
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '1.2rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.7rem',
+  },
+}));
+
+const Sybtitle = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.up('xs')]: {
+    fontSize: '0.5rem',
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '0.8rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.2rem',
+  },
+}));
+const StyledButton = styled(Button)(({ theme }) => ({
+  [theme.breakpoints.up('xs')]: {
+    fontSize: '0.5rem',
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '0.8rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.2rem',
+  },
+}));
 export const BasicModal = ({
   open,
   onClose,
@@ -40,19 +72,17 @@ export const BasicModal = ({
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={modalStyles.wrapper}>
-        <Typography variant='h6' component='h2'>
-          {title}
-        </Typography>
-        <Typography sx={{ mt: 2 }}>{subTitle}</Typography>
+      <Wrapper>
+        <Title>{title}</Title>
+        <Sybtitle>{subTitle}</Sybtitle>
         {content}
-        <Box sx={modalStyles.buttons}>
-          <Button variant='contained' onClick={onSubmit}>
+        <Buttons>
+          <StyledButton variant='contained' onClick={onSubmit}>
             Submit
-          </Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </Box>
-      </Box>
+          </StyledButton>
+          <StyledButton onClick={onClose}>Cancel</StyledButton>
+        </Buttons>
+      </Wrapper>
     </Modal>
   );
 };

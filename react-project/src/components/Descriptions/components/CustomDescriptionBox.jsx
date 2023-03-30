@@ -9,7 +9,7 @@ export const CustomDescriptionBox = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
   gap: 75,
   marginRight: theme.spacing(20),
-  [theme.breakpoints.down('xl')]: {
+  [theme.breakpoints.up('md')]: {
     marginRight: 0,
     justifyContent: 'center',
   },
