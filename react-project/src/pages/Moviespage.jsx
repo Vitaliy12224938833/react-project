@@ -4,7 +4,6 @@ import { Container } from '@mui/material';
 
 import { Description } from '../components/Descriptions/Description';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { VideoTrailer } from '../components/Video/VideoTrailler';
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { Reviews } from '../components/Reviews/Reviews';
 import { API_KEY } from '../data';
@@ -12,6 +11,8 @@ import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 import { TrailerWrapper } from '../components/Wrappers/TrailerWrapper';
+import { VideoPlayer } from '../components/Video/VideoPlayer';
+
 export const Moviespage = () => {
   const { id } = useParams();
 
@@ -37,11 +38,12 @@ export const Moviespage = () => {
   return (
     <>
       <TrailerWrapper>
-        <VideoTrailer
+        <VideoPlayer
           data={videosList
             .filter((item) => item.type === 'Trailer' && item.official)
             .pop()}
-        />
+          autoplay={true}
+        ></VideoPlayer>
       </TrailerWrapper>
 
       <Container maxWidth='xl'>

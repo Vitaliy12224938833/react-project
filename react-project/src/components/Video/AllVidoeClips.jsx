@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
 import { Slider } from '../Sliders/Slider';
-import { VideoTrailer } from './VideoTrailler';
+import { VideoPlayer } from './VideoPlayer';
 import { BasicTitle } from '../common/BasicTitle';
 export const AllVidoeClips = ({ data }) => {
   if (DataTransferItem && data.length !== 0)
@@ -11,7 +11,7 @@ export const AllVidoeClips = ({ data }) => {
           <BasicTitle>Clips</BasicTitle>
         </Container>
         <Slider data={data}>
-          {(item) => <VideoTrailer data={item} autoplay={0} />}
+          {(item) => <VideoPlayer data={item} autoplay={false} />}
         </Slider>
       </ComponentWrapper>
     );

@@ -5,13 +5,15 @@ import { Box } from '@mui/system';
 import { EpisodesAccordionList } from '../components/Accordions/EpisodesAccordions';
 import { HorizontalList } from '../components/HorizontalList/HorizontalList';
 import { Description } from '../components/Descriptions/Description';
-import { VideoTrailer } from '../components/Video/VideoTrailler';
+
 import { AllVidoeClips } from '../components/Video/AllVidoeClips';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 import { API_KEY } from '../data';
 import { TrailerWrapper } from '../components/Wrappers/TrailerWrapper';
+import { VideoPlayer } from '../components/Video/VideoPlayer';
+
 export const Seasonpage = () => {
   const { id, seasonNum } = useParams();
 
@@ -27,11 +29,12 @@ export const Seasonpage = () => {
   return (
     <>
       <TrailerWrapper>
-        <VideoTrailer
+        <VideoPlayer
           data={videosList
             .filter((item) => item.type === 'Trailer' && item.official)
             .pop()}
-        />
+          autoplay={true}
+        ></VideoPlayer>
       </TrailerWrapper>
 
       <Container maxWidth='xl'>

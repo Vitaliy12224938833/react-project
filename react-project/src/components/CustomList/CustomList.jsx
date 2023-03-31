@@ -31,17 +31,17 @@ const Item = ({ item: { poster_path, profile_path } }) => {
 };
 
 const CustomLink = () => {
-  const [{ name, id, poster_path, profile_path }] = useContext(DataContext);
+  const [{ name, id, poster_path, profile_path, title }] =
+    useContext(DataContext);
   const { pathname } = useResolvedPath();
   const mediaType = pathname.split('/')[1];
-
   const LinkStyled = styled(Link)({
     textDecoration: 'none',
     color: 'inherit',
   });
 
   return (
-    <LinkStyled to={`/${mediaType}/${name}/${id}`}>
+    <LinkStyled to={`/${mediaType}/${name || title}/${id}`}>
       <CustomImg
         src={`https://image.tmdb.org/t/p/w300${poster_path || profile_path}`}
         alt={name}
