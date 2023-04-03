@@ -10,9 +10,7 @@ import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
-import { TrailerWrapper } from '../components/Wrappers/TrailerWrapper';
-import { VideoPlayer } from '../components/Video/VideoPlayer';
-
+import { Trailer } from '../components/Video/Trailer';
 export const Moviespage = () => {
   const { id } = useParams();
 
@@ -37,14 +35,7 @@ export const Moviespage = () => {
 
   return (
     <>
-      <TrailerWrapper>
-        <VideoPlayer
-          data={videosList
-            .filter((item) => item.type === 'Trailer' && item.official)
-            .pop()}
-          autoplay={true}
-        ></VideoPlayer>
-      </TrailerWrapper>
+      <Trailer list={videosList} />
 
       <Container maxWidth='xl'>
         <Description data={pageData} />

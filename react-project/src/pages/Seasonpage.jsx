@@ -11,8 +11,7 @@ import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 import { API_KEY } from '../data';
-import { TrailerWrapper } from '../components/Wrappers/TrailerWrapper';
-import { VideoPlayer } from '../components/Video/VideoPlayer';
+import { Trailer } from '../components/Video/Trailer';
 
 export const Seasonpage = () => {
   const { id, seasonNum } = useParams();
@@ -28,15 +27,7 @@ export const Seasonpage = () => {
 
   return (
     <>
-      <TrailerWrapper>
-        <VideoPlayer
-          data={videosList
-            .filter((item) => item.type === 'Trailer' && item.official)
-            .pop()}
-          autoplay={true}
-        ></VideoPlayer>
-      </TrailerWrapper>
-
+      <Trailer list={videosList} />
       <Container maxWidth='xl'>
         <Description data={pageData} isSeason={true} />
         <EpisodesAccordionList list={pageData.episodes} />
