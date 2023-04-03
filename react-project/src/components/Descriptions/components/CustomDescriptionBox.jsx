@@ -5,19 +5,15 @@ export const CustomDescriptionBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-start',
-  justifyContent: 'space-between',
   flexWrap: 'wrap',
   gap: 75,
   marginRight: theme.spacing(20),
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('xs')]: {
     marginRight: 0,
     justifyContent: 'center',
   },
-  [theme.breakpoints.down('md')]: {
-    marginRight: 0,
-    justifyContent: 'center',
-  },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.up('xl')]: {
+    justifyContent: 'space-between',
     marginRight: 0,
     gap: 50,
   },

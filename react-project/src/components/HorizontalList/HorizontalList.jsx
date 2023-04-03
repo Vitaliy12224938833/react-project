@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import Carousel from 'react-multi-carousel';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
+
 import { MediaTypeForLinkContext } from '../../Context/Context';
 import { CustomImg } from '../CustomImg/CustomImg';
 import { API_KEY } from '../../data';
@@ -47,6 +49,7 @@ const ItemSx = styled(Box)({
   margin: '0 3%',
   borderRadius: '2%',
   transition: 'all .2s',
+
   '&:hover': {
     boxShadow: 8,
     '& *': {
@@ -102,7 +105,7 @@ export const HorizontalList = React.memo(
 
     return (
       <ComponentWrapper>
-        <BasicTitle variant='h4'>{title}</BasicTitle>
+        <BasicTitle>{title}</BasicTitle>
         <Carousel
           swipeable={true}
           draggable={false}

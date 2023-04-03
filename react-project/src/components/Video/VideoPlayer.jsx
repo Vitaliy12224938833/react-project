@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import YouTube from 'react-youtube';
 import { styled } from '@mui/material';
 
@@ -16,27 +16,10 @@ const PlayerWrapper = styled('div')({
     height: '100%',
     zIndex: '1',
   },
-  '&:hover': {
-    '& *': {
-      opacity: 1,
-    },
-  },
-  '&:hover $ControlBar': {
-    opacity: '1',
-    transition: 'opacity 0.3s',
-  },
 });
 
 export const VideoPlayer = ({ data, autoplay }) => {
   const videoId = data.key;
-  const playerRef = useRef(null);
-
-  useEffect(() => {
-    if (playerRef.current) {
-      playerRef.current.internalPlayer.setPlaybackQuality('hd1080');
-      playerRef.current.internalPlayer.setVolume(50);
-    }
-  }, [playerRef]);
 
   const options = {
     width: '100%',
@@ -58,11 +41,8 @@ export const VideoPlayer = ({ data, autoplay }) => {
       <YouTube
         videoId={videoId}
         opts={options}
-        onError={(error) => console.log()}
-        onStateChange={(event) => console.log()}
         containerClassName='player-container'
         className='react-player'
-        ref={playerRef}
       />
     </PlayerWrapper>
   );
