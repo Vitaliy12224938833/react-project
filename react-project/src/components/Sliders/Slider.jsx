@@ -7,6 +7,7 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { styled } from '@mui/material';
 import 'react-multi-carousel/lib/styles.css';
+import React from 'react';
 
 const StyledArrowIcon = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
@@ -32,25 +33,77 @@ const StyledRightBtn = styled(StyledArrowIcon)({
   right: '-3%',
 });
 
-export const Slider = ({ data, children }) => {
+const dotsSx = {
+  textAlign: 'center',
+  opacity: 0,
+};
+
+const conteinerSx = {
+  position: 'relative',
+  '&:hover': {
+    '& .MuiIconButton-root, .css-1ddpyth ': {
+      opacity: 1,
+      transition: 'all .3s',
+    },
+  },
+};
+
+const IconStyle = (theme) => ({
+  fontSize: '10rem',
+  [theme.breakpoints.down('lg')]: {
+    fontSize: '8rem',
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '6rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '3rem',
+  },
+  [theme.breakpoints.down('xs')]: {
+    fontSize: '2rem',
+  },
+});
+
+const StyledLeftIcon = styled(ArrowBackIosNewIcon)(({ theme }) =>
+  IconStyle(theme)
+);
+
+const StyledRigthIcon = styled(ArrowForwardIosIcon)(({ theme }) =>
+  IconStyle(theme)
+);
+
+const StyledRadioIcon = styled(IconButton)(({ theme }) => ({
+  padding: '0.5rem',
+  [theme.breakpoints.down('md')]: {
+    padding: '0.3rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '0.1rem',
+  },
+}));
+
+const StyledRadioBtn = (theme) => ({
+  fontSize: '1rem',
+  [theme.breakpoints.down('md')]: {
+    fontSize: '0.7rem',
+    padding: 0,
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.4rem',
+  },
+});
+
+const RadioChecked = styled(RadioButtonCheckedIcon)(({ theme }) =>
+  StyledRadioBtn(theme)
+);
+const RadioUnchecked = styled(RadioButtonUncheckedIcon)(({ theme }) =>
+  StyledRadioBtn(theme)
+);
+
+export const Slider = React.memo(({ data, children }) => {
   if (!data.length) return;
 
   const [currIdx, setCurrIdx] = useState(0);
-
-  const dotsSx = {
-    textAlign: 'center',
-    opacity: 0,
-  };
-
-  const conteinerSx = {
-    position: 'relative',
-    '&:hover': {
-      '& .MuiIconButton-root, .css-1ddpyth ': {
-        opacity: 1,
-        transition: 'all .3s',
-      },
-    },
-  };
 
   const prevSlide = () => setCurrIdx((currIdx - 1 + data.length) % data.length);
 
@@ -58,64 +111,18 @@ export const Slider = ({ data, children }) => {
 
   const goToSlide = (idx) => setCurrIdx(idx);
 
-  const IconStyle = (theme) => ({
-    fontSize: '10rem',
-    [theme.breakpoints.down('lg')]: {
-      fontSize: '8rem',
-    },
-    [theme.breakpoints.down('md')]: {
-      fontSize: '6rem',
-    },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '3rem',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '2rem',
-    },
-  });
-  const StyledLeftIcon = styled(ArrowBackIosNewIcon)(({ theme }) =>
-    IconStyle(theme)
-  );
-
   const LeftButton = () => (
     <StyledLeftBtn onClick={prevSlide}>
       <StyledLeftIcon color={'primary'} />
     </StyledLeftBtn>
   );
-  const StyledRigthIcon = styled(ArrowForwardIosIcon)(({ theme }) =>
-    IconStyle(theme)
-  );
+
   const RightButton = () => (
     <StyledRightBtn onClick={nextSlide}>
       <StyledRigthIcon color={'primary'} />
     </StyledRightBtn>
   );
-  const StyledRadioIcon = styled(IconButton)(({ theme }) => ({
-    padding: '0.5rem',
-    [theme.breakpoints.down('md')]: {
-      padding: '0.3rem',
-    },
-    [theme.breakpoints.down('sm')]: {
-      padding: '0.1rem',
-    },
-  }));
 
-  const StyledRadioBtn = (theme) => ({
-    fontSize: '1rem',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '0.7rem',
-      padding: 0,
-    },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '0.4rem',
-    },
-  });
-  const RadioChecked = styled(RadioButtonCheckedIcon)(({ theme }) =>
-    StyledRadioBtn(theme)
-  );
-  const RadioUnchecked = styled(RadioButtonUncheckedIcon)(({ theme }) =>
-    StyledRadioBtn(theme)
-  );
   return (
     <Box sx={conteinerSx}>
       <LeftButton />
@@ -131,4 +138,4 @@ export const Slider = ({ data, children }) => {
       </Box>
     </Box>
   );
-};
+});

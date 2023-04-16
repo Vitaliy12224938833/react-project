@@ -13,6 +13,7 @@ import { SymmeryTitel } from './components/SymmeryTitel';
 import { ReleaseDate } from './components/ReleaseDate';
 import { StillImageWrapper } from './components/StillImageWrapper';
 import { DetailsWrapper } from './components/DetailsWrapper';
+import React from 'react';
 
 const ReleaseAndRating = styled(Box)(({ theme }) => ({
   marginLeft: 'auto',
@@ -81,7 +82,7 @@ const Details = () => {
   );
 };
 
-export const EpisodesAccordionList = ({ list }) => {
+export const EpisodesAccordionList = React.memo(({ list }) => {
   return (
     <div>
       {list.map((item, idx) => (
@@ -94,4 +95,4 @@ export const EpisodesAccordionList = ({ list }) => {
       ))}
     </div>
   );
-};
+});

@@ -1,20 +1,32 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { fetchData } from './fetchData';
 
-export const useInfinityList = (initialUrl) => {
+export const useInfinityList = (params) => {
   const [page, setPage] = useState(1);
-  const [url, setUrl] = useState(initialUrl);
   const [list, setList] = useState([]);
+  const [param, setParam] = useState(params);
+
   const [fetching, setFetching] = useState(true);
   const [isStatList, setStartlist] = useState(true);
   const [totalPage, setTotalPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setPage(1);
+    setFetching(true);
+    setStartlist(true);
+    setIsLoading(false);
+    (async () => {
+      const data = await fetchData({ ...param, page: page });
+      setTotalPage(data.total_pages);
+    })();
+  }, [param]);
+
+  useEffect(() => {
     if (fetching && page <= totalPage) {
       (async () => {
-        const data = await fetchData(`${url}${page}`);
+        const data = await fetchData({ ...param, page: page });
+        console.log(data);
         if (data) {
           if (!isStatList) {
             setList([...list, ...data.results]);
@@ -31,14 +43,8 @@ export const useInfinityList = (initialUrl) => {
   }, [fetching, page]);
 
   useEffect(() => {
-    setPage(1);
     setFetching(true);
-    setStartlist(true);
-    setIsLoading(false);
-    axios
-      .get(`${url}${page}`)
-      .then((res) => setTotalPage(res.data.total_pages));
-  }, [url]);
+  }, [param]);
 
   const scrollHandler = (e) => {
     if (
@@ -57,5 +63,5 @@ export const useInfinityList = (initialUrl) => {
     };
   }, []);
 
-  return [list, isLoading, setUrl];
+  return [list, isLoading, setParam];
 };

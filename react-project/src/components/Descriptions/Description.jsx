@@ -19,7 +19,7 @@ const StyledTableContainer = styled(TableContainer)({
   maxHeight: 1000,
 });
 
-export const Description = ({ data, isSeason = false }) => {
+const Description = React.memo(({ data, isSeason = false }) => {
   const dataArray = [
     { description: transformRuntime(data.runtime), caption: 'Runetime:' },
     {
@@ -39,6 +39,10 @@ export const Description = ({ data, isSeason = false }) => {
     { description: createStrFromObj(data.genres), caption: 'Genres:' },
   ];
 
+  const TableWrapper = styled(Box)(({ theme }) => ({
+    [theme.breakpoints.up('lg')]: { maxWidth: '50%' },
+  }));
+
   return (
     <ComponentWrapper>
       <CustomDescriptionBox>
@@ -47,7 +51,7 @@ export const Description = ({ data, isSeason = false }) => {
           alt={data.title}
           maxWidth='500px'
         />
-        <Box>
+        <TableWrapper>
           <DescriptionTitle variant='h4'>
             {data.title || data.name}
           </DescriptionTitle>
@@ -67,10 +71,11 @@ export const Description = ({ data, isSeason = false }) => {
               </TableBody>
             </Table>
           </StyledTableContainer>
-        </Box>
+        </TableWrapper>
       </CustomDescriptionBox>
       {isSeason && <DescriptionOverview overview={data.overview} />}
       {!isSeason && <DescriptionOverview overview={data.overview} />}
     </ComponentWrapper>
   );
-};
+});
+export default Description;

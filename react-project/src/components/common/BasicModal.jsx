@@ -62,27 +62,22 @@ const StyledButton = styled(Button)(({ theme }) => ({
     fontSize: '1.2rem',
   },
 }));
-export const BasicModal = ({
-  open,
-  onClose,
-  title,
-  subTitle,
-  content,
-  onSubmit,
-}) => {
-  return (
-    <Modal open={open} onClose={onClose}>
-      <Wrapper>
-        <Title>{title}</Title>
-        <Sybtitle>{subTitle}</Sybtitle>
-        {content}
-        <Buttons>
-          <StyledButton variant='contained' onClick={onSubmit}>
-            Submit
-          </StyledButton>
-          <StyledButton onClick={onClose}>Cancel</StyledButton>
-        </Buttons>
-      </Wrapper>
-    </Modal>
-  );
-};
+export const BasicModal = React.memo(
+  ({ open, onClose, title, subTitle, content, onSubmit }) => {
+    return (
+      <Modal open={open} onClose={onClose}>
+        <Wrapper>
+          <Title>{title}</Title>
+          <Sybtitle>{subTitle}</Sybtitle>
+          {content}
+          <Buttons>
+            <StyledButton variant='contained' onClick={onSubmit}>
+              Submit
+            </StyledButton>
+            <StyledButton onClick={onClose}>Cancel</StyledButton>
+          </Buttons>
+        </Wrapper>
+      </Modal>
+    );
+  }
+);

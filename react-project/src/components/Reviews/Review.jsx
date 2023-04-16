@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Avatar, Typography, Rating, Box } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { styled } from '@mui/material/styles';
@@ -93,7 +93,7 @@ const ReviewText = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const Review = ({ data }) => {
+export const Review = React.memo(({ data }) => {
   const [isDefaultAvatar, setIsDefaultAvatar] = useState(false);
 
   const { updated_at, content, author_details } = data;
@@ -127,4 +127,4 @@ export const Review = ({ data }) => {
       </ContentContainer>
     </ReviewContainer>
   );
-};
+});

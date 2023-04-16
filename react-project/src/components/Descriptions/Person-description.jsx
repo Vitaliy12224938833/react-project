@@ -20,7 +20,7 @@ const PersonDescriptionTableRow = styled(CustomDescriptionRow)({
   },
 });
 
-export const PersonDescription = ({ data }) => {
+export const PersonDescription = React.memo(({ data }) => {
   const descriptionData = [
     { description: transformDate(data.birthday), caption: 'Birthday:' },
     { description: transformDate(data.deathday), caption: 'Deathday:' },
@@ -64,4 +64,4 @@ export const PersonDescription = ({ data }) => {
       )}
     </ComponentWrapper>
   );
-};
+});

@@ -3,7 +3,8 @@ import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
 import { Slider } from '../Sliders/Slider';
 import { VideoPlayer } from './VideoPlayer';
 import { BasicTitle } from '../common/BasicTitle';
-export const AllVidoeClips = ({ data }) => {
+import React from 'react';
+const AllVidoeClips = React.memo(({ data }) => {
   if (DataTransferItem && data.length !== 0)
     return (
       <ComponentWrapper>
@@ -15,4 +16,6 @@ export const AllVidoeClips = ({ data }) => {
         </Slider>
       </ComponentWrapper>
     );
-};
+});
+
+export default AllVidoeClips;

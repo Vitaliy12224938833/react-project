@@ -1,6 +1,7 @@
 import { Menu } from '@mui/material';
+import React from 'react';
 
-export const NavBarMenu = ({ menu, closeMenu, children, style }) => (
+export const NavBarMenu = React.memo(({ menu, closeMenu, children, style }) => (
   <Menu
     id='menu-appbar'
     anchorEl={menu}
@@ -20,4 +21,4 @@ export const NavBarMenu = ({ menu, closeMenu, children, style }) => (
   >
     {children}
   </Menu>
-);
+));

@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import { Typography, styled, Paper } from '@mui/material';
 
 import { Review } from './Review';
-import { API_KEY } from '../../data';
-
+import { useFetchData } from '../../HOOKs/useFetchData';
+import { Loader } from '../Loader/Loader';
 // create a styled component for the container
 const Container = styled(Box)({
   marginTop: '2rem',
@@ -14,39 +13,28 @@ const Container = styled(Box)({
   borderRadius: '5px',
 });
 
-export const Reviews = ({ id, mediaType }) => {
-  const [reviewsList, setReviewsList] = useState([]);
-  const [error, setError] = useState(null);
+const Reviews = React.memo(({ id, mediaType }) => {
+  const params = {
+    mediaType: mediaType,
+    id: id,
+    dataType: 'reviews',
+    language: 'en-US',
+    page: 1,
+  };
+  const [data, isLoading, setParams] = useFetchData(params);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.themoviedb.org/3/${mediaType}/${id}/reviews?api_key=${API_KEY}&language=en-US&page=1`
-        );
-        setReviewsList(res.data.results);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetchReviews();
-  }, [id, mediaType]);
+    setParams({ ...params, mediaType: mediaType, id: id });
+  }, [mediaType, id]);
 
-  if (error) {
-    return (
-      <Container>
-        <Typography variant='h5'>Error: {error}</Typography>
-      </Container>
-    );
-  }
-
+  if (!isLoading) return <Loader />;
   return (
-    reviewsList.length !== 0 && (
+    data.results.length !== 0 && (
       <Paper>
         <Container>
           <Typography variant='h5'>Reviews</Typography>
           <Box>
-            {reviewsList.map((item) => (
+            {data.results.map((item) => (
               <Review key={item.id} data={item} />
             ))}
           </Box>
@@ -54,4 +42,6 @@ export const Reviews = ({ id, mediaType }) => {
       </Paper>
     )
   );
-};
+});
+
+export default Reviews;

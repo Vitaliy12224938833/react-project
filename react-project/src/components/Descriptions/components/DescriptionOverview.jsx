@@ -1,4 +1,5 @@
 import { styled, Paper, Typography } from '@mui/material';
+import React from 'react';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(5),
@@ -12,8 +13,8 @@ const StyledText = styled(Typography)(({ theme }) => ({
     fontSize: '0.8rem',
   },
 }));
-export const DescriptionOverview = ({ overview }) => (
+export const DescriptionOverview = React.memo(({ overview }) => (
   <StyledPaper variant='elevation'>
     <StyledText>{overview}</StyledText>
   </StyledPaper>
-);
+));

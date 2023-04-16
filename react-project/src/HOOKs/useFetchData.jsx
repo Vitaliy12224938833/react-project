@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 import { fetchData } from './fetchData';
 
-export const useFetchData = (initialUrl, initialData) => {
-  const [data, setData] = useState(initialData);
-  const [url, setUrl] = useState(initialUrl);
+export const useFetchData = (params) => {
+  const [data, setData] = useState(null);
+  const [param, setParam] = useState(params);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const data = await fetchData(url);
+      const data = await fetchData(param);
       setData(data);
       setIsLoading(true);
     })();
-  }, [url]);
-  return [data, isLoading, setUrl, setIsLoading];
+  }, [param]);
+
+  return [data, isLoading, setParam, setIsLoading];
 };

@@ -8,7 +8,6 @@ import { styled } from '@mui/material/styles';
 
 import { MediaTypeForLinkContext } from '../../Context/Context';
 import { CustomImg } from '../CustomImg/CustomImg';
-import { API_KEY } from '../../data';
 import { responsive } from './responsive';
 import { useFetchData } from '../../HOOKs/useFetchData';
 import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
@@ -66,7 +65,7 @@ const NameTypography = styled(InfoTypography)({
   bottom: 0,
 });
 
-const Item = ({ data }) => {
+const Item = React.memo(({ data }) => {
   const routeMeduatype = useContext(MediaTypeForLinkContext);
   const { title, name, id, poster_path, profile_path, character } = data;
   return (
@@ -85,18 +84,24 @@ const Item = ({ data }) => {
       )}
     </ItemSx>
   );
-};
+});
 
 const MemoItem = React.memo(Item, () => true);
 
-export const HorizontalList = React.memo(
+const HorizontalList = React.memo(
   (props) => {
     const { id, mediaType, category, title, seasonNum } = props;
-    const season = seasonNum ? `season/${seasonNum}/` : '';
-    const url = `https://api.themoviedb.org/3/${mediaType}/${id}/${season}${category}?api_key=${API_KEY}&language=en-US`;
 
-    const [data, isLoading] = useFetchData(url, null);
+    const params = {
+      mediaType: mediaType,
+      id: id,
+      language: 'en-US',
+      dataType: category,
+      seasonNum: seasonNum,
+    };
 
+    const [data, isLoading] = useFetchData(params);
+    console.log('render horizontal');
     if (!isLoading) return <h1>loading....</h1>;
 
     const list = data.results ? data.results : data.cast;
@@ -129,3 +134,5 @@ export const HorizontalList = React.memo(
   },
   () => true
 );
+
+export default HorizontalList;

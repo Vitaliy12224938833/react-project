@@ -1,23 +1,27 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useInfinityList } from '../HOOKs/useInfinityList';
 import { CustomList } from '../components/CustomList/CustomList';
-import { API_KEY } from '../data';
 import { Container } from '@mui/material';
 import { Loader } from '../components/Loader/Loader';
 import { RouteContext } from '../Context/Context';
 import { ListWrapper } from '../components/Wrappers/ListWrpapper';
-export const Listpage = () => {
-  const { mediaType, category } = useParams();
 
-  const url = `https://api.themoviedb.org/3/${mediaType}/${category}?api_key=${API_KEY}&language=en-US&page=`;
-  const [list, isLoading, setUrl] = useInfinityList(url);
+export const Listpage = React.memo(() => {
+  const { mediaType, category } = useParams();
+  const params = { mediaType: mediaType, id: category, language: 'en-US' };
+  const [list, isLoading, setParams] = useInfinityList(params);
+  console.log('render Listpage');
+
+  const setParamsCallback = useCallback(() => {
+    setParams({ mediaType: mediaType, id: category, language: 'en-US' });
+  }, [mediaType, category, setParams]);
 
   useEffect(() => {
-    setUrl(url);
-  }, [mediaType, category]);
+    setParamsCallback();
+  }, [setParamsCallback]);
+
   if (!isLoading) return <Loader />;
 
   return (
@@ -29,4 +33,4 @@ export const Listpage = () => {
       </ListWrapper>
     </Container>
   );
-};
+});

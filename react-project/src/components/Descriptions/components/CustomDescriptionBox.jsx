@@ -7,14 +7,12 @@ export const CustomDescriptionBox = styled(Box)(({ theme }) => ({
   alignItems: 'flex-start',
   flexWrap: 'wrap',
   gap: 75,
-  marginRight: theme.spacing(20),
   [theme.breakpoints.up('xs')]: {
-    marginRight: 0,
     justifyContent: 'center',
+    gap: 25,
   },
   [theme.breakpoints.up('xl')]: {
     justifyContent: 'space-between',
-    marginRight: 0,
     gap: 50,
   },
 }));

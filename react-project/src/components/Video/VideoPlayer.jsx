@@ -18,32 +18,34 @@ const PlayerWrapper = styled('div')({
   },
 });
 
-export const VideoPlayer = ({ data, autoplay }) => {
-  const videoId = data.key;
+export const VideoPlayer = React.memo(({ data, autoplay }) => {
+  if (data) {
+    const videoId = data.key;
 
-  const options = {
-    width: '100%',
-    height: '100%',
-    playerVars: {
-      controls: 1,
-      autoplay: autoplay || 0,
-      modestbranding: 1,
-      rel: 0,
-      showinfo: 0,
-      fs: 1,
-      iv_load_policy: 3,
-      loop: 1,
-    },
-  };
+    const options = {
+      width: '100%',
+      height: '100%',
+      playerVars: {
+        controls: 1,
+        autoplay: autoplay || 0,
+        modestbranding: 1,
+        rel: 0,
+        showinfo: 0,
+        fs: 1,
+        iv_load_policy: 3,
+        loop: 1,
+      },
+    };
 
-  return (
-    <PlayerWrapper>
-      <YouTube
-        videoId={videoId}
-        opts={options}
-        containerClassName='player-container'
-        className='react-player'
-      />
-    </PlayerWrapper>
-  );
-};
+    return (
+      <PlayerWrapper>
+        <YouTube
+          videoId={videoId}
+          opts={options}
+          containerClassName='player-container'
+          className='react-player'
+        />
+      </PlayerWrapper>
+    );
+  }
+});

@@ -1,7 +1,8 @@
 import { IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import React from 'react';
 
-export const CustomMenuIcon = ({ openMenu, closeMenu, state }) => (
+export const CustomMenuIcon = React.memo(({ openMenu, closeMenu, state }) => (
   <IconButton
     size='large'
     aria-label='account of current user'
@@ -12,4 +13,4 @@ export const CustomMenuIcon = ({ openMenu, closeMenu, state }) => (
   >
     <MenuIcon />
   </IconButton>
-);
+));

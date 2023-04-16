@@ -1,7 +1,8 @@
+import React from 'react';
 import { TrailerWrapper } from '../Wrappers/TrailerWrapper';
 import { VideoPlayer } from './VideoPlayer';
 
-export const Trailer = ({ list }) => (
+const Trailer = React.memo(({ list }) => (
   <TrailerWrapper>
     <VideoPlayer
       data={list
@@ -10,4 +11,6 @@ export const Trailer = ({ list }) => (
       autoplay={1}
     ></VideoPlayer>
   </TrailerWrapper>
-);
+));
+
+export default Trailer;
