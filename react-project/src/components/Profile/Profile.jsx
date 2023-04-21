@@ -81,7 +81,8 @@ export const Profile = React.memo(({ setOpen }) => {
     if (userId) {
       (async () => {
         const { userData } = await readFromFirestore(userId);
-        if (userData === undefined) {
+        console.log(userData);
+        if (!userData) {
           setIsNewUser(true);
           return;
         }

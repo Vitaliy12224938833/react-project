@@ -1,7 +1,10 @@
+import React, { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { InputBase } from '@mui/material';
 
-export const Search = styled('div')(({ theme }) => ({
+import { SearchIconWrapper } from './SearchIconWrapper';
+import { StyledInputBase } from './StyledInputBase';
+import SearchIcon from '@mui/icons-material/Search';
+const SearchStyled = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -16,29 +19,30 @@ export const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-export const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
+export const Search = () => {
+  const [query, setQuery] = useState('');
+  const searchHandlerChange = (e) => {
+    setQuery(e.target.value);
+  };
+  const searchHandlerSubmit = (e) => {
+    e.preventDefault();
+    if (query) {
+      window.location.href = `/search/multi/${query}`;
+    }
+  };
+  return (
+    <form data-testid='SearchForm' onSubmit={searchHandlerSubmit}>
+      <SearchStyled>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          onChange={searchHandlerChange}
+          placeholder='Search…'
+          inputProps={{ 'aria-label': 'search', 'data-testid': 'SearchInput' }}
+          value={query}
+        />
+      </SearchStyled>
+    </form>
+  );
+};

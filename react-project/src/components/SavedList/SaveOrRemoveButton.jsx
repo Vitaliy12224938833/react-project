@@ -24,9 +24,11 @@ export const SaveOrRemoveButton = React.memo(
       if (userId) {
         (async () => {
           const { userData } = await readFromFirestore(userId);
-          setIsItInList(!!userData.mediaList[mediaType][category][id]);
-          setIsRemove(false);
-          setIsSave(false);
+          if (!!userData) {
+            setIsItInList(!!userData.mediaList[mediaType][category][id]);
+            setIsRemove(false);
+            setIsSave(false);
+          }
         })();
       }
     }, [userId, isSave, isRemove]);

@@ -31,7 +31,8 @@ export const SavedContentTabs = React.memo(({ list }) => {
     if (userId) {
       (async () => {
         const { userData } = await readFromFirestore(userId);
-        setList(Object.keys(userData.mediaList[mediaType] || []));
+        if (userData.mediaList)
+          setList(Object.keys(userData.mediaList[mediaType]));
       })();
     }
   }, [mediaType]);

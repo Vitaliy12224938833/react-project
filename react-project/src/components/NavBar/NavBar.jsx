@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import SearchIcon from '@mui/icons-material/Search';
 import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
 
-import { Search, StyledInputBase, SearchIconWrapper } from '../Search/Search';
+import { Search } from '../Search/Search';
 import { NavBarButton } from './commponents/NuvBarButton';
 import { GoHomeLink } from './commponents/GoHomeLink';
 import { NavBarMenu } from './commponents/NavBarMenu';
@@ -16,14 +15,10 @@ import { UserDataContext } from '../../Context/Context';
 
 export const NavBar = React.memo(() => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [searchRow, setSearchRow] = useState('');
   const [movie, setMovie] = useState(null);
   const [tv, setTv] = useState(null);
   const [actors, setActors] = useState(null);
   const authUser = useContext(UserDataContext);
-  const searchHandlerChange = (e) => {
-    setSearchRow(e.target.value);
-  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -185,19 +180,7 @@ export const NavBar = React.memo(() => {
             ))}
           </Box>
           {/* Desctop Version */}
-          <form action={searchRow ? `/search/multi/${searchRow}` : null}>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                onChange={searchHandlerChange}
-                placeholder='Search…'
-                inputProps={{ 'aria-label': 'search' }}
-                value={searchRow}
-              />
-            </Search>
-          </form>
+          <Search />
           {!authUser ? (
             <>
               <SignIn />

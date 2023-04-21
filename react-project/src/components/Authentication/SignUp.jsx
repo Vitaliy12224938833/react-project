@@ -11,6 +11,7 @@ export const SignUp = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [isUserExist, setIsUserExist] = useState(false);
 
   const handlerOpen = () => setOpen(true);
   const handlerClose = () => setOpen(false);
@@ -27,13 +28,23 @@ export const SignUp = () => {
 
   const handlerSignUp = (e) => {
     e.preventDefault();
-    signUp({ email, password });
+    (async () => {
+      const { success } = await signUp({ email, password });
+      if (success) {
+        setOpen(false);
+        setIsUserExist(false);
+        window.location.reload();
+      } else if (!success) {
+        setIsUserExist(true);
+      }
+    })();
   };
 
   return (
     <>
       <NavBarButton onClick={handlerOpen}>Sign Up</NavBarButton>
       <BasicModal
+        isUserExist={isUserExist}
         open={open}
         onClose={handlerClose}
         title='New user'

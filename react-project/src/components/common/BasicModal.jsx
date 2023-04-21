@@ -51,6 +51,7 @@ const Sybtitle = styled(Typography)(({ theme }) => ({
     fontSize: '1.2rem',
   },
 }));
+
 const StyledButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
     fontSize: '0.5rem',
@@ -62,13 +63,15 @@ const StyledButton = styled(Button)(({ theme }) => ({
     fontSize: '1.2rem',
   },
 }));
+
 export const BasicModal = React.memo(
-  ({ open, onClose, title, subTitle, content, onSubmit }) => {
+  ({ open, onClose, title, subTitle, content, onSubmit, isUserExist }) => {
     return (
       <Modal open={open} onClose={onClose}>
         <Wrapper>
           <Title>{title}</Title>
           <Sybtitle>{subTitle}</Sybtitle>
+          {isUserExist && <Typography>User with this email exist</Typography>}
           {content}
           <Buttons>
             <StyledButton variant='contained' onClick={onSubmit}>

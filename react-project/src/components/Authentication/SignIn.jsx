@@ -28,7 +28,10 @@ export const SignIn = () => {
     e.preventDefault();
     (async () => {
       const { operationType } = await signIn({ email, password });
-      if (operationType === 'signIn') setOpen(false);
+      if (operationType === 'signIn') {
+        setOpen(false);
+        window.location.reload();
+      }
     })();
   };
 

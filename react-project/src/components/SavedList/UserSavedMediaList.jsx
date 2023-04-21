@@ -15,8 +15,10 @@ export const UserSavedMediaList = () => {
     if (userId) {
       (async () => {
         const { userData } = await readFromFirestore(userId);
-        setList(Object.keys(userData.mediaList || []));
-        setIsRead(true);
+        if (!!userData) {
+          setList(Object.keys(userData.mediaList || []));
+          setIsRead(true);
+        }
       })();
     }
   }, []);

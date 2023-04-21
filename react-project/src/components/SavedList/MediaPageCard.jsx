@@ -103,7 +103,7 @@ export const MediaPageCard = React.memo(({ mediaType, id }) => {
     production_countries,
     name,
   } = pageData;
-  
+
   return (
     <StyledCard>
       <Link to={`/${mediaType}/${title || name}/${id}`}>
