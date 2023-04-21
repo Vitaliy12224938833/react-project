@@ -105,9 +105,6 @@ export const Review = React.memo(({ data }) => {
     return `https://image.tmdb.org/t/p/w185${url}`;
   };
 
-  const transformDate = (date) =>
-    date ? date.slice(0, 10).split('-').reverse().join(' ') : null;
-
   return (
     <ReviewContainer>
       <AvatarContainer>

@@ -4,11 +4,12 @@ import { Table, TableBody, TableContainer, styled } from '@mui/material';
 
 import { CustomImg } from '../CustomImg/CustomImg';
 import { CustomDescriptionRow } from './CustomDescriptinoRow';
-import { createLink, transformDate } from './src/description-src';
+import { createLink } from './src/description-src';
 import { DescriptionOverview } from './components/DescriptionOverview';
 import { DescriptionTitle } from './components/DescriptionTitle';
 import { CustomDescriptionBox } from './components/CustomDescriptionBox';
 import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
+import { transformDate } from '../../utils/transformDate.mjs';
 
 const PersonDescriptionTable = styled(Table)({
   marginTop: 1,

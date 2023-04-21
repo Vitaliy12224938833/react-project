@@ -101,7 +101,7 @@ const HorizontalList = React.memo(
     };
 
     const [data, isLoading] = useFetchData(params);
-    console.log('render horizontal');
+   
     if (!isLoading) return <h1>loading....</h1>;
 
     const list = data.results ? data.results : data.cast;

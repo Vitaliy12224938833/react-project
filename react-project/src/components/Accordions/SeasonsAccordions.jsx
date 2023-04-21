@@ -8,23 +8,16 @@ import {
   styled,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import { CustomImg } from '../CustomImg/CustomImg';
 import { DataContext } from '../../Context/Context';
 import { CustomAccordion } from './components/CustomAccordion';
-import { transformDate } from '../Descriptions/src/description-src';
 import { Overview } from './components/Overview';
 import { SymmeryTitel } from './components/SymmeryTitel';
 import { ReleaseDate } from './components/ReleaseDate';
 import { StillImageWrapper } from './components/StillImageWrapper';
 import { DetailsWrapper } from './components/DetailsWrapper';
-
-const updateSeasonUrl = (url, newValue, seasonNum) => {
-  const urlArray = url.split('/');
-  urlArray[1] = newValue;
-  urlArray.push(seasonNum);
-  return urlArray.join('/');
-};
+import { updateSeasonUrl } from '../../utils/updateSeasonUrl';
+import { transformDate } from '../../utils/transformDate.mjs';
 
 const NumeOfEpisodes = styled(Typography)(({ theme }) => ({
   color: 'text.secondary',
