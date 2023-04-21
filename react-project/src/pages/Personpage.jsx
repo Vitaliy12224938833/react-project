@@ -1,23 +1,23 @@
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
 
-import { PersonDerscription } from '../components/Descriptions/Person-description';
-import { API_KEY } from '../data';
+import { PersonDescription } from '../components/Descriptions/Person-description';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
+import React from 'react';
 
-export const Personpage = () => {
+export const Personpage = React.memo(() => {
   const { id } = useParams();
 
-  const pageDataUrl = `https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}&language=en-US`;
+  const params = { mediaType: 'person', id: id, language: 'en-US' };
 
-  const [pageData, isPageDataLoading] = useFetchData(pageDataUrl, null);
+  const [pageData, isPageDataLoading] = useFetchData(params);
 
   if (!isPageDataLoading) return <Loader />;
 
   return (
-    <Container maxWidth='xl' sx={{ marginTop: '150px' }}>
-      <PersonDerscription data={pageData} />
+    <Container maxWidth='xl'>
+      <PersonDescription data={pageData} />
     </Container>
   );
-};
+});

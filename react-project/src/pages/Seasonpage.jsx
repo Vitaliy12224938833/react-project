@@ -1,39 +1,54 @@
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { Box } from '@mui/system';
 
-import { EpisodesAccordions } from '../components/Accordions/EpisodesAccordions';
-import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { Desciprion } from '../components/Descriptions/Description';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
-import { AllVidoeClips } from '../components/Video/AllVidoeClips';
+import { EpisodesAccordionList } from '../components/Accordions/EpisodesAccordions';
+import HorizontalList from '../components/HorizontalList/HorizontalList';
+import Description from '../components/Descriptions/Description';
+
+import AllVidoeClips from '../components/Video/AllVidoeClips';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
-import { API_KEY } from '../data';
+import Trailer from '../components/Video/Trailer';
 
-export const Seasonpage = () => {
+export const Seasonpage = React.memo(() => {
   const { id, seasonNum } = useParams();
 
-  const pageDataUrl = `https://api.themoviedb.org/3/tv/${id}/season/${seasonNum}?api_key=${API_KEY}&language=en-US`;
-  const videosListUrl = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=en-US`;
+  const pageParams = {
+    mediaType: 'tv',
+    id: id,
+    seasonNum: seasonNum,
+    language: 'en-US',
+  };
 
-  const [pageData, isPageDataLoading] = useFetchData(pageDataUrl, null);
-  const [videosData, isVideoListLoading] = useFetchData(videosListUrl, null);
+  const videoParams = {
+    ...pageParams,
+    seasonNum: '',
+    dataType: 'videos',
+  };
+  const [pageData, isPageLoading, setPageParams, setPageLoading] =
+    useFetchData(pageParams);
+  const [videosData, isVideosLoading, setVideosParams, setVideosLoading] =
+    useFetchData(videoParams);
 
-  if (!isPageDataLoading || !isVideoListLoading) return <Loader />;
+  useEffect(() => {
+    setPageParams({ ...pageParams, id: id });
+    setVideosParams({ ...videoParams, id: id });
+    setPageLoading(false);
+    setVideosLoading(false);
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  if (!isPageLoading || !isVideosLoading) return <Loader />;
   const videosList = videosData.results;
 
   return (
-    <Box sx={{ marginTop: 10 }}>
-      <VideoTrailler
-        data={videosList
-          .filter((item) => item.type === 'Trailer' && item.official)
-          .pop()}
-      />
+    <>
+      <Trailer list={videosList} />
       <Container maxWidth='xl'>
-        <Desciprion data={pageData} isSeason={true} />
-        <EpisodesAccordions list={pageData.episodes} />
+        <Description data={pageData} isSeason={true} />
+        <EpisodesAccordionList list={pageData.episodes} />
 
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
@@ -46,6 +61,6 @@ export const Seasonpage = () => {
         </MediaTypeForLinkContext.Provider>
       </Container>
       <AllVidoeClips data={videosList} />
-    </Box>
+    </>
   );
-};
+});

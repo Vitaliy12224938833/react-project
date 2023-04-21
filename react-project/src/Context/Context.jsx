@@ -6,6 +6,7 @@ export const ItemClassNameContext = createContext(null);
 export const DataContext = createContext(null);
 export const RouteContext = createContext(null);
 export const CallbackContext = createContext(null);
+export const UserDataContext = createContext(null);
 
 import { createTheme } from '@mui/material/styles';
 

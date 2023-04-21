@@ -1,7 +1,8 @@
+import React from 'react';
 import { LinearProgress } from '@mui/material';
 import { Box } from '@mui/system';
 
-export const LinearLoadr = ({ loader }) => (
+export const LinearLoadr = React.memo(({ loader }) => (
   <Box>
     {loader && (
       <LinearProgress
@@ -16,4 +17,4 @@ export const LinearLoadr = ({ loader }) => (
       />
     )}
   </Box>
-);
+));

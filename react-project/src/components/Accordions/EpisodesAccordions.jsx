@@ -1,96 +1,98 @@
 import { useContext } from 'react';
-import { AccordionDetails } from '@mui/material';
-import { AccordionSummary } from '@mui/material';
-import { Typography } from '@mui/material';
-import { Rating } from '@mui/material';
 import { Box } from '@mui/system';
-import { Paper } from '@mui/material';
+import { AccordionDetails, AccordionSummary, Rating } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/material/styles';
 
 import { DataContext } from '../../Context/Context';
 import { CustomAccordion } from './components/CustomAccordion';
-import { transformDate } from '../Descriptions/src/description-src';
 import { CustomImg } from '../CustomImg/CustomImg';
 import { Overview } from './components/Overview';
+import { transformDate } from '../Descriptions/src/description-src';
+import { SymmeryTitel } from './components/SymmeryTitel';
+import { ReleaseDate } from './components/ReleaseDate';
+import { StillImageWrapper } from './components/StillImageWrapper';
+import { DetailsWrapper } from './components/DetailsWrapper';
+import React from 'react';
 
-export const EpisodesAccordions = ({ list }) => {
-  const CustomAccordionSummary = () => {
-    const [{ name }, idx] = useContext(DataContext);
-    return (
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls='panel1bh-content'
-        id='panel1bh-header'
-      >
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>{`${
-          idx + 1
-        }. ${name}`}</Typography>
-        <ReleaseAndRating />
-      </AccordionSummary>
-    );
-  };
-  const CustomAccordionDetails = () => {
-    const [{ still_path }] = useContext(DataContext);
-    return (
-      <AccordionDetails>
-        <Box sx={{ display: 'flex' }}>
-          <Box
-            sx={{
-              minWidth: 200,
-              width: '60%',
-              height: 300,
-              margin: 3,
-            }}
-          >
+const ReleaseAndRating = styled(Box)(({ theme }) => ({
+  marginLeft: 'auto',
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    marginTop: theme.spacing(1),
+    fontSize: '10px',
+  },
+}));
+
+const SubTitleWraper = styled(Box)(({ theme }) => ({
+  marginLeft: 'auto',
+}));
+
+const Summary = ({ idx }) => {
+  const { name, air_date, vote_average } = useContext(DataContext);
+  const episodeNumber = idx + 1;
+
+  return (
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls={`panel${episodeNumber}-content`}
+      id={`panel${episodeNumber}-header`}
+      sx={{ width: '100%' }}
+    >
+      <SymmeryTitel>{`${episodeNumber}. ${name}`}</SymmeryTitel>
+      <SubTitleWraper>
+        <ReleaseAndRating>
+          {air_date && <ReleaseDate>{transformDate(air_date)}</ReleaseDate>}
+          {vote_average && (
+            <Rating
+              size='small'
+              name='half-rating-read'
+              value={vote_average / 2}
+              precision={0.5}
+              readOnly
+              sx={{ fontSize: { xs: '0.5rem', sm: 'inherit' } }}
+            />
+          )}
+        </ReleaseAndRating>
+      </SubTitleWraper>
+    </AccordionSummary>
+  );
+};
+
+const Details = () => {
+  const { still_path } = useContext(DataContext);
+
+  return (
+    <AccordionDetails>
+      <DetailsWrapper>
+        <StillImageWrapper>
+          {still_path && (
             <CustomImg
               src={`https://image.tmdb.org/t/p/original${still_path}`}
               radiusX='5%'
               radiusY='3%'
             />
-          </Box>
-          <Overview />
-        </Box>
-      </AccordionDetails>
-    );
-  };
+          )}
+        </StillImageWrapper>
+        <Overview />
+      </DetailsWrapper>
+    </AccordionDetails>
+  );
+};
 
-  const ReleaseAndRating = () => {
-    const [{ air_date, vote_average }] = useContext(DataContext);
-    return (
-      (!!vote_average || air_date) && (
-        <Box sx={{ marginLeft: 'auto', display: 'flex' }}>
-          <Typography
-            variant='caption'
-            sx={{
-              color: 'text.secondary',
-              marginRight: 1,
-              alignItems: 'center',
-            }}
-          >
-            {transformDate(air_date)}
-          </Typography>
-          <Rating
-            size='small'
-            name='half-rating-read'
-            value={vote_average / 2}
-            precision={0.5}
-            readOnly
-          />
-        </Box>
-      )
-    );
-  };
-
+export const EpisodesAccordionList = React.memo(({ list }) => {
   return (
     <div>
       {list.map((item, idx) => (
-        <DataContext.Provider key={item.id} value={[item, idx]}>
+        <DataContext.Provider key={item.id} value={item}>
           <CustomAccordion
-            summary={<CustomAccordionSummary />}
-            details={<CustomAccordionDetails />}
+            summary={<Summary idx={idx} />}
+            details={<Details />}
           />
         </DataContext.Provider>
       ))}
     </div>
   );
-};
+});

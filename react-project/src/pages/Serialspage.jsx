@@ -1,34 +1,39 @@
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { Container } from '@mui/material';
-import { Box } from '@mui/system';
 
 import { SeasonsAccordions } from '../components/Accordions/SeasonsAccordions';
-import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { Desciprion } from '../components/Descriptions/Description';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
-import { AllVidoeClips } from '../components/Video/AllVidoeClips';
+import HorizontalList from '../components/HorizontalList/HorizontalList';
+import Description from '../components/Descriptions/Description';
+
+import AllVidoeClips from '../components/Video/AllVidoeClips';
 import { MediaTypeForLinkContext } from '../Context/Context';
-import { Reviews } from '../components/Reviews/Reviews';
+import Reviews from '../components/Reviews/Reviews';
 import { Loader } from '../components/Loader/Loader';
-import { RouteContext } from '../Context/Context';
 import { useFetchData } from '../HOOKs/useFetchData';
-import { API_KEY } from '../data';
+import Trailer from '../components/Video/Trailer';
+import MediaSaveButtons from '../components/SavedList/MediaSaveButtons';
 
-export const Serialspage = () => {
-  const { id, name } = useParams();
+export const Serialspage = React.memo(() => {
+  const { id } = useParams();
+  const pageParams = {
+    mediaType: 'tv',
+    id: id,
+    language: 'en-US',
+  };
 
-  const pageDataUrl = `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US`;
-  const videosDataUrl = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=en-US`;
-
-  const [pageData, isPageLoading, setPageDataUrl, setPageLoading] =
-    useFetchData(pageDataUrl, null);
-  const [videosData, isVideosLoading, setVideosDataUrl, setVideosLoading] =
-    useFetchData(videosDataUrl, null);
+  const videoParams = {
+    ...pageParams,
+    dataType: 'videos',
+  };
+  const [pageData, isPageLoading, setPageParams, setPageLoading] =
+    useFetchData(pageParams);
+  const [videosData, isVideosLoading, setVideosParams, setVideosLoading] =
+    useFetchData(videoParams);
 
   useEffect(() => {
-    setPageDataUrl(pageDataUrl);
-    setVideosDataUrl(videosDataUrl);
+    setPageParams({ ...pageParams, id: id });
+    setVideosParams({ ...videoParams, id: id });
     setPageLoading(false);
     setVideosLoading(false);
     window.scrollTo(0, 0);
@@ -38,18 +43,12 @@ export const Serialspage = () => {
   const videosList = videosData.results;
 
   return (
-    <Box sx={{ marginTop: 10 }}>
-      <VideoTrailler
-        data={videosList
-          .filter((item) => item.type === 'Trailer' && item.official)
-          .pop()}
-      />
+    <>
+      <Trailer list={videosList} />
       <Container maxWidth='xl'>
-        <Desciprion data={pageData} />
-        <RouteContext.Provider value={{ id, name }}>
-          <SeasonsAccordions list={pageData.seasons} />
-        </RouteContext.Provider>
-
+        <Description data={pageData} />
+        <MediaSaveButtons id={id} mediaType='tv' />
+        <SeasonsAccordions list={pageData.seasons} />
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}
@@ -79,6 +78,6 @@ export const Serialspage = () => {
         </MediaTypeForLinkContext.Provider>
         <Reviews id={id} mediaType='tv' />
       </Container>
-    </Box>
+    </>
   );
-};
+});

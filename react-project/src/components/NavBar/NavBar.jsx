@@ -1,32 +1,24 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import SearchIcon from '@mui/icons-material/Search';
-import { AppBar } from '@mui/material';
-import { Box } from '@mui/material';
-import { Toolbar } from '@mui/material';
-import { Typography } from '@mui/material';
-import { MenuItem } from '@mui/material';
+import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
 
 import { Search } from '../Search/Search';
-import { StyledInputBase } from '../Search/Search';
-import { SearchIconWrapper } from '../Search/Search';
 import { NavBarButton } from './commponents/NuvBarButton';
 import { GoHomeLink } from './commponents/GoHomeLink';
 import { NavBarMenu } from './commponents/NavBarMenu';
 import { CustomMenuIcon } from './commponents/CustomMenuIcon';
+import { SignIn } from '../Authentication/SignIn';
+import { SignUp } from '../Authentication/SignUp';
+import { SignOut } from '../Authentication/SignOut';
+import { UserDataContext } from '../../Context/Context';
 
 export const NavBar = React.memo(() => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [searchRow, setSearchRow] = useState('');
   const [movie, setMovie] = useState(null);
   const [tv, setTv] = useState(null);
   const [actors, setActors] = useState(null);
-
-  const searhcHandlerChange = (e) => {
-    setSearchRow(e.target.value);
-  };
+  const authUser = useContext(UserDataContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,6 +34,7 @@ export const NavBar = React.memo(() => {
     if (callback !== setActors) setActors(null);
     if (callback !== setTv) setTv(null);
   };
+
   const handleCloseAllMenu = () => {
     setMovie(null);
     setActors(null);
@@ -87,7 +80,7 @@ export const NavBar = React.memo(() => {
     },
   ];
 
-  const CustomMenuItem = ({ item, page }) => (
+  const CustomMenuItem = React.memo(({ item, page }) => (
     <Link to={`/${page.route}/${item.route}`}>
       <MenuItem sx={{ color: 'black' }} onClick={handleCloseAllMenu}>
         <Typography color={'primary'} textAlign='center'>
@@ -95,8 +88,9 @@ export const NavBar = React.memo(() => {
         </Typography>
       </MenuItem>
     </Link>
-  );
-  const CastomeMenu = ({ page }) => (
+  ));
+
+  const CastomeMenu = React.memo(({ page }) => (
     <NavBarMenu
       style={{
         display: { xs: 'block' },
@@ -108,7 +102,7 @@ export const NavBar = React.memo(() => {
         <CustomMenuItem key={i} item={item} page={page} />
       ))}
     </NavBarMenu>
-  );
+  ));
 
   const NavBarBoxStyle = {
     flexGrow: 1,
@@ -186,19 +180,15 @@ export const NavBar = React.memo(() => {
             ))}
           </Box>
           {/* Desctop Version */}
-          <form action={searchRow ? `/search/multi/${searchRow}` : null}>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                onChange={searhcHandlerChange}
-                placeholder='Search…'
-                inputProps={{ 'aria-label': 'search' }}
-                value={searchRow}
-              />
-            </Search>
-          </form>
+          <Search />
+          {!authUser ? (
+            <>
+              <SignIn />
+              <SignUp />
+            </>
+          ) : (
+            <SignOut />
+          )}
         </Toolbar>
       </AppBar>
     </Box>

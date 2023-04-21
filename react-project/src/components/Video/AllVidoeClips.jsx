@@ -1,21 +1,21 @@
-import { Box } from '@mui/system';
-import { Typography } from '@mui/material';
 import { Container } from '@mui/material';
-
+import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
 import { Slider } from '../Sliders/Slider';
-import { VideoTrailler } from './VideoTrailler';
-
-export const AllVidoeClips = ({ data }) => {
+import { VideoPlayer } from './VideoPlayer';
+import { BasicTitle } from '../common/BasicTitle';
+import React from 'react';
+const AllVidoeClips = React.memo(({ data }) => {
   if (DataTransferItem && data.length !== 0)
     return (
-      <Box>
+      <ComponentWrapper>
         <Container maxWidth='xl'>
-          <Typography variant='h4'>Clips</Typography>
+          <BasicTitle>Clips</BasicTitle>
         </Container>
-
         <Slider data={data}>
-          {(item) => <VideoTrailler data={item} autoplay={0} />}
+          {(item) => <VideoPlayer data={item} autoplay={false} />}
         </Slider>
-      </Box>
+      </ComponentWrapper>
     );
-};
+});
+
+export default AllVidoeClips;

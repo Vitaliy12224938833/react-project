@@ -1,50 +1,73 @@
-import { useEffect } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
+import { lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { Box } from '@mui/system';
-
-import { Desciprion } from '../components/Descriptions/Description';
-import { HorizontalList } from '../components/HorizontalList/HorizontalList';
-import { VideoTrailler } from '../components/Video/VideoTrailler';
-import { AllVidoeClips } from '../components/Video/AllVidoeClips';
-import { Reviews } from '../components/Reviews/Reviews';
-import { API_KEY } from '../data';
 import { MediaTypeForLinkContext } from '../Context/Context';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 
-export const Moviespage = () => {
+const Description = lazy(() =>
+  import('../components/Descriptions/Description')
+);
+const HorizontalList = lazy(() =>
+  import('../components/HorizontalList/HorizontalList')
+);
+const AllVidoeClips = lazy(() => import('../components/Video/AllVidoeClips'));
+const Reviews = lazy(() => import('../components/Reviews/Reviews'));
+const Trailer = lazy(() => import('../components/Video/Trailer'));
+const MediaSaveButtons = lazy(() =>
+  import('../components/SavedList/MediaSaveButtons')
+);
+
+export const Moviespage = React.memo(() => {
   const { id } = useParams();
 
-  const pageDataUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
-  const videosDataUrl = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`;
+  const pageParams = {
+    mediaType: 'movie',
+    id: id,
+    language: 'en-US',
+  };
 
-  const [pageData, isPageLoading, setPageDataUrl, setPageLoading] =
-    useFetchData(pageDataUrl, null);
-  const [videosData, isVideosLoading, setVideosDataUrl, setVideosLoading] =
-    useFetchData(videosDataUrl, null);
+  const videoParams = {
+    ...pageParams,
+    dataType: 'videos',
+  };
+
+  console.log('render movei page ');
+
+  const [pageData, isPageLoading, setPageParams, setPageLoading] =
+    useFetchData(pageParams);
+
+  const [videosData, isVideosLoading, setVideosParams, setVideosLoading] =
+    useFetchData(videoParams);
+
+  const handlePageParams = useCallback(() => {
+    setPageParams({ ...pageParams, id: id });
+  }, [id]);
+
+  const handleVideosParams = useCallback(() => {
+    setVideosParams({ ...videoParams, id: id });
+  }, [id]);
 
   useEffect(() => {
-    setPageDataUrl(pageDataUrl);
-    setVideosDataUrl(videosDataUrl);
+    handlePageParams();
+    handleVideosParams();
     setPageLoading(false);
     setVideosLoading(false);
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [handlePageParams, handleVideosParams]);
 
   if (!isPageLoading || !isVideosLoading) return <Loader />;
+
   const videosList = videosData.results;
 
   return (
-    <Box sx={{ marginTop: 10 }}>
-      <VideoTrailler
-        data={videosList
-          .filter((item) => item.type === 'Trailer' && item.official)
-          .pop()}
-      />
-      <Container maxWidth='xl'>
-        <Desciprion data={pageData} />
+    <>
+      <Trailer list={videosList} />
 
+      <Container maxWidth='xl'>
+        <Description data={pageData} />
+        <MediaSaveButtons id={id} mediaType='movie' />
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList
             id={id}
@@ -74,6 +97,6 @@ export const Moviespage = () => {
         </MediaTypeForLinkContext.Provider>
         <Reviews id={id} mediaType='movie' />
       </Container>
-    </Box>
+    </>
   );
-};
+});
