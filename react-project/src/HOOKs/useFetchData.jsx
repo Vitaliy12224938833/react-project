@@ -10,6 +10,7 @@ export const useFetchData = (params) => {
     (async () => {
       const data = await fetchData(param);
       setData(data);
+      console.log(data);
       setIsLoading(true);
     })();
   }, [param]);

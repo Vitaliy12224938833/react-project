@@ -14,7 +14,7 @@ const StyledText = styled(Typography)(({ theme }) => ({
   },
 }));
 export const DescriptionOverview = React.memo(({ overview }) => (
-  <StyledPaper variant='elevation'>
+  <StyledPaper data-testid='description-overview-paper' variant='elevation'>
     <StyledText>{overview}</StyledText>
   </StyledPaper>
 ));

@@ -10,7 +10,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 export const CustomDescriptionRow = React.memo(({ caption, description }) => (
   <TableRow>
-    <StyledTableCell sx={{ fontSize: 25, fontWeight: 'bold' }}>
+    <StyledTableCell sx={{ fontSize: 25, fontWeight: '700' }}>
       {caption}
     </StyledTableCell>
     <StyledTableCell sx={{ fontSize: 25 }}>{description}</StyledTableCell>

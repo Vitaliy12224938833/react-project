@@ -2,28 +2,29 @@ import React from 'react';
 import { Box } from '@mui/system';
 import { styled, Table, TableBody, TableContainer } from '@mui/material';
 
-import { CustomImg } from '../CustomImg/CustomImg';
-import { CustomDescriptionRow } from './CustomDescriptinoRow';
-import {
-  transformDate,
-  transformRuntime,
-  transformMoney,
-  createStrFromObj,
-} from './src/description-src';
+import { CustomImg } from '../common/CustomImg';
+import { CustomDescriptionRow } from './components/CustomDescriptinoRow';
 import { DescriptionOverview } from './components/DescriptionOverview';
 import { DescriptionTitle } from './components/DescriptionTitle';
 import { CustomDescriptionBox } from './components/CustomDescriptionBox';
 import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
-
+import { transformMoney } from '../../utils/transformMoney.mjs';
+import { transformRuntime } from '../../utils/transformRuntime.mjs';
+import { createStrWithNameFromData } from '../../utils/createStrWithNameFromData.mjs';
+import { transformDate } from '../../utils/transformDate.mjs';
 const StyledTableContainer = styled(TableContainer)({
   maxHeight: 1000,
 });
+
+const TableWrapper = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up('lg')]: { maxWidth: '50%' },
+}));
 
 const Description = React.memo(({ data, isSeason = false }) => {
   const dataArray = [
     { description: transformRuntime(data.runtime), caption: 'Runetime:' },
     {
-      description: createStrFromObj(data.production_countries),
+      description: createStrWithNameFromData(data.production_countries),
       caption: 'Contry:',
     },
     {
@@ -36,12 +37,8 @@ const Description = React.memo(({ data, isSeason = false }) => {
     { description: data.vote_average, caption: 'Rating:' },
     { description: transformMoney(data.budget), caption: 'Budget:' },
     { description: transformMoney(data.revenue), caption: 'Revenue:' },
-    { description: createStrFromObj(data.genres), caption: 'Genres:' },
+    { description: createStrWithNameFromData(data.genres), caption: 'Genres:' },
   ];
-
-  const TableWrapper = styled(Box)(({ theme }) => ({
-    [theme.breakpoints.up('lg')]: { maxWidth: '50%' },
-  }));
 
   return (
     <ComponentWrapper>

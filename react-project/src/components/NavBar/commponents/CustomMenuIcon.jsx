@@ -4,6 +4,7 @@ import React from 'react';
 
 export const CustomMenuIcon = React.memo(({ openMenu, closeMenu, state }) => (
   <IconButton
+    data-testid='menu-buttons'
     size='large'
     aria-label='account of current user'
     aria-controls='menu-appbar'

@@ -4,7 +4,7 @@ import { Card, CardContent, Typography, Box } from '@mui/material';
 
 import { useFetchData } from '../../HOOKs/useFetchData';
 import { styled } from '@mui/material/styles';
-import { CustomImg } from '../CustomImg/CustomImg';
+import { CustomImg } from '../common/CustomImg';
 import { Link } from 'react-router-dom';
 import { Loader } from '../Loader/Loader';
 

@@ -1,6 +1,8 @@
 import React from 'react';
-export const CustomImg = React.memo(
-  ({ src, alt, width, radiusX, radiusY, height, maxWidth }) => (
+
+export const CustomImg = (props) => {
+  const { src, alt, width, radiusX, radiusY, height, maxWidth } = props;
+  return (
     <img
       style={{
         maxWidth: maxWidth || 'auto',
@@ -12,7 +14,7 @@ export const CustomImg = React.memo(
       }}
       src={src}
       alt={alt}
-      loading='lazy'
+      data-testid='custom-img'
     />
-  )
-);
+  );
+};

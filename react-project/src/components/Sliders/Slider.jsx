@@ -6,7 +6,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { styled } from '@mui/material';
-import 'react-multi-carousel/lib/styles.css';
+// import 'react-multi-carousel/lib/styles.css';
 import React from 'react';
 
 const StyledArrowIcon = styled(IconButton)(({ theme }) => ({
@@ -112,26 +112,30 @@ export const Slider = React.memo(({ data, children }) => {
   const goToSlide = (idx) => setCurrIdx(idx);
 
   const LeftButton = () => (
-    <StyledLeftBtn onClick={prevSlide}>
+    <StyledLeftBtn data-testid='prev-slide' onClick={prevSlide}>
       <StyledLeftIcon color={'primary'} />
     </StyledLeftBtn>
   );
 
   const RightButton = () => (
-    <StyledRightBtn onClick={nextSlide}>
+    <StyledRightBtn data-testid='next-slide' onClick={nextSlide}>
       <StyledRigthIcon color={'primary'} />
     </StyledRightBtn>
   );
 
   return (
-    <Box sx={conteinerSx}>
+    <Box sx={conteinerSx} data-testid='slider'>
       <LeftButton />
       <RightButton />
 
       {children(data[currIdx])}
       <Box sx={dotsSx}>
         {data.map((item, idx) => (
-          <StyledRadioIcon key={idx} onClick={() => goToSlide(idx)}>
+          <StyledRadioIcon
+            data-testid={`got-to-${idx + 1}-slide`}
+            key={idx}
+            onClick={() => goToSlide(idx)}
+          >
             {currIdx === idx ? <RadioChecked /> : <RadioUnchecked />}
           </StyledRadioIcon>
         ))}

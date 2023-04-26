@@ -1,19 +1,22 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Box } from '@mui/system';
-import { AccordionDetails, AccordionSummary, Rating } from '@mui/material';
+import {
+  AccordionDetails,
+  AccordionSummary,
+  Rating,
+  styled,
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { styled } from '@mui/material/styles';
 
 import { DataContext } from '../../Context/Context';
 import { CustomAccordion } from './components/CustomAccordion';
-import { CustomImg } from '../CustomImg/CustomImg';
+import { CustomImg } from '../common/CustomImg';
 import { Overview } from './components/Overview';
-import { transformDate } from '../Descriptions/src/description-src';
+import { transformDate } from '../../utils/transformDate.mjs';
 import { SymmeryTitel } from './components/SymmeryTitel';
 import { ReleaseDate } from './components/ReleaseDate';
 import { StillImageWrapper } from './components/StillImageWrapper';
 import { DetailsWrapper } from './components/DetailsWrapper';
-import React from 'react';
 
 const ReleaseAndRating = styled(Box)(({ theme }) => ({
   marginLeft: 'auto',
@@ -82,7 +85,7 @@ const Details = () => {
   );
 };
 
-export const EpisodesAccordionList = React.memo(({ list }) => {
+export const EpisodesAccordions = React.memo(({ list }) => {
   return (
     <div>
       {list.map((item, idx) => (

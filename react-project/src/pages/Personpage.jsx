@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
 
-import { PersonDescription } from '../components/Descriptions/Person-description';
+import { PersonDescription } from '../components/Descriptions/PersonDescription';
 import { Loader } from '../components/Loader/Loader';
 import { useFetchData } from '../HOOKs/useFetchData';
 import React from 'react';
