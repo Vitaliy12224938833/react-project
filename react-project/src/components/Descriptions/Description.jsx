@@ -2,8 +2,8 @@ import React from 'react';
 import { Box } from '@mui/system';
 import { styled, Table, TableBody, TableContainer } from '@mui/material';
 
-import { CustomImg } from '../CustomImg/CustomImg';
-import { CustomDescriptionRow } from './CustomDescriptinoRow';
+import { CustomImg } from '../common/CustomImg';
+import { CustomDescriptionRow } from './components/CustomDescriptinoRow';
 import { DescriptionOverview } from './components/DescriptionOverview';
 import { DescriptionTitle } from './components/DescriptionTitle';
 import { CustomDescriptionBox } from './components/CustomDescriptionBox';

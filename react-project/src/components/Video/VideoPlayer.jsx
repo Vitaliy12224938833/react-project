@@ -38,7 +38,7 @@ export const VideoPlayer = React.memo(({ data, autoplay }) => {
     };
 
     return (
-      <PlayerWrapper>
+      <PlayerWrapper data-testid='video-player'>
         <YouTube
           videoId={videoId}
           opts={options}

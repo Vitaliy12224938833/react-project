@@ -66,8 +66,9 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 export const BasicModal = React.memo(
   ({ open, onClose, title, subTitle, content, onSubmit, isUserExist }) => {
+    if (!open) return null;
     return (
-      <Modal open={open} onClose={onClose}>
+      <Modal data-testid='basic-modal' open={open} onClose={onClose}>
         <Wrapper>
           <Title>{title}</Title>
           <Sybtitle>{subTitle}</Sybtitle>

@@ -28,8 +28,10 @@ const Reviews = React.memo(({ id, mediaType }) => {
   }, [mediaType, id]);
 
   if (!isLoading) return <Loader />;
+
   return (
-    data.results.length !== 0 && (
+    data &&
+    !!data.results.length && (
       <Paper>
         <Container>
           <Typography variant='h5'>Reviews</Typography>

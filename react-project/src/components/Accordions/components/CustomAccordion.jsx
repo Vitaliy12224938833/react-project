@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export const CustomAccordion = React.memo(({ summary, details }) => {
+  if (!summary || !details) return null;
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = (event, isExpanded) => {
@@ -12,13 +12,18 @@ export const CustomAccordion = React.memo(({ summary, details }) => {
 
   return (
     <Accordion expanded={expanded} onChange={handleChange}>
-      <AccordionSummary>{summary}</AccordionSummary>
-      <AccordionDetails>{details}</AccordionDetails>
+      <AccordionSummary
+        inpurProps={{ 'data-testid': 'accordion-summary' }}
+        data-testid='accordion-summary'
+      >
+        {summary}
+      </AccordionSummary>
+      <AccordionDetails
+        inpurProps={{ 'data-testid': 'accordion-details' }}
+        data-testid='accordion-details'
+      >
+        {details}
+      </AccordionDetails>
     </Accordion>
   );
 });
-
-CustomAccordion.propTypes = {
-  summary: PropTypes.node.isRequired,
-  details: PropTypes.node.isRequired,
-};

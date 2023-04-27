@@ -3,6 +3,7 @@ import React from 'react';
 
 export const NavBarMenu = React.memo(({ menu, closeMenu, children, style }) => (
   <Menu
+    data-testid='nav-bar-menu'
     id='menu-appbar'
     anchorEl={menu}
     anchorOrigin={{

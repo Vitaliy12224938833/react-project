@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Typography, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -18,16 +18,10 @@ const StyledText = styled(Typography)(({ theme }) => ({
 }));
 export const Overview = () => {
   const { overview } = useContext(DataContext);
-  const [error, setError] = useState(null);
-
-  try {
-    return (
-      <StyledPaper>
-        <StyledText>{overview}</StyledText>
-      </StyledPaper>
-    );
-  } catch (error) {
-    setError(error.message);
-    return <div>{error}</div>;
-  }
+  if (!overview) return null;
+  return (
+    <StyledPaper>
+      <StyledText>{overview}</StyledText>
+    </StyledPaper>
+  );
 };

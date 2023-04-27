@@ -3,7 +3,7 @@ export const transformRuntime = (min) => {
 
   const hours = Math.floor(min / 60);
   const lastMin = min - hours * 60;
-  if (hours && lastMin) return `${hours} hours ${lastMin} min`;
+  if (hours && lastMin) return `${hours}h ${lastMin} min`;
   if (!hours && lastMin) return `${lastMin} min`;
-  if (hours && !lastMin) return `${hours} hours`;
+  if (hours && !lastMin) return `${hours}h`;
 };

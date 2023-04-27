@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { DataContext } from '../../Context/Context';
 import { CustomAccordion } from './components/CustomAccordion';
-import { CustomImg } from '../CustomImg/CustomImg';
+import { CustomImg } from '../common/CustomImg';
 import { Overview } from './components/Overview';
 import { transformDate } from '../../utils/transformDate.mjs';
 import { SymmeryTitel } from './components/SymmeryTitel';
@@ -85,7 +85,7 @@ const Details = () => {
   );
 };
 
-export const EpisodesAccordionList = React.memo(({ list }) => {
+export const EpisodesAccordions = React.memo(({ list }) => {
   return (
     <div>
       {list.map((item, idx) => (

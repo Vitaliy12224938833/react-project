@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 
 import { MediaTypeForLinkContext } from '../../Context/Context';
-import { CustomImg } from '../CustomImg/CustomImg';
+import { CustomImg } from '../common/CustomImg';
 import { responsive } from './responsive';
 import { useFetchData } from '../../HOOKs/useFetchData';
 import { ComponentWrapper } from '../Wrappers/ComponentWrapper';
@@ -101,7 +101,7 @@ const HorizontalList = React.memo(
     };
 
     const [data, isLoading] = useFetchData(params);
-   
+
     if (!isLoading) return <h1>loading....</h1>;
 
     const list = data.results ? data.results : data.cast;

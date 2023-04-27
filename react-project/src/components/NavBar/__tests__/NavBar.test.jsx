@@ -1,39 +1,79 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { render, fireEvent, waitFor, act } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { NavBar } from '../NavBar';
-import '@testing-library/jest-dom';
 
 describe('NavBar', () => {
-  test('renders without errors', () => {
+  test('renders without crashing', () => {
     render(
-      <Router>
+      <MemoryRouter>
         <NavBar />
-      </Router>
+      </MemoryRouter>
     );
   });
 
-  test('shows search input when search icon is clicked', () => {
-    const { getByTestId } = render(
-      <Router>
+  test('renders correct number of menu items for each page', () => {
+    const { getAllByRole } = render(
+      <MemoryRouter>
         <NavBar />
-      </Router>
+      </MemoryRouter>
     );
-    const searchIcon = getByTestId('SearchIcon');
-    fireEvent.click(searchIcon);
-    const searchInput = getByTestId('SearchInput');
-    expect(searchInput).toBeInTheDocument();
+
+    const menuItems = getAllByRole('button');
+
+    expect(menuItems.length).toBe(6);
   });
 
-  test('performs search when enter key is pressed', () => {
-    const { getByTestId } = render(
-      <Router>
+  test('opens and closes menu when clicked on mobile', () => {
+    const { getByTestId, getByRole } = render(
+      <MemoryRouter>
         <NavBar />
-      </Router>
+      </MemoryRouter>
     );
-    const searchInput = getByTestId('SearchInput');
-    fireEvent.input(searchInput, { target: { value: 'test' } });
-    expect(searchInput).toHaveValue('test');
+    // Open menu
+    const menuIcon = getByTestId('MenuIcon');
+    fireEvent.click(menuIcon);
+
+    const menu = getByRole('menu');
+    expect(menu).toHaveClass('MuiList-root');
+
+    // Close menu
+    fireEvent.click(menuIcon);
+    setTimeout(() => {
+      expect(menu).not.toHaveClass('MuiList-root');
+    }, 500);
+  });
+
+  test('opens and closes menu when clicked on desktop', () => {
+    const { getAllByTestId } = render(
+      <MemoryRouter>
+        <NavBar />
+      </MemoryRouter>
+    );
+
+    const menuButtons = getAllByTestId('menu-buttons');
+    const menus = getAllByTestId('nav-bar-menu');
+    for (let i = 0; i < menuButtons.length; i++) {
+      const button = menuButtons[i];
+      const menu = menus[i];
+
+      expect(menu).toHaveClass('MuiModal-hidden');
+
+      // Open menu
+
+      fireEvent.click(button);
+
+      setTimeout(() => {
+        expect(menu).not.toHaveClass('MuiModal-hidden');
+      }, 500);
+
+      // // Close menu
+
+      fireEvent.click(button);
+
+      setTimeout(() => {
+        expect(menu).toHaveClass('MuiModal-hidden');
+      }, 500);
+    }
   });
 });

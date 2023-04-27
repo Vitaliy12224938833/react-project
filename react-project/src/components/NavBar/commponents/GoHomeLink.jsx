@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { NavBarButton } from './NuvBarButton';
 export const GoHomeLink = () => (
   <Link to={`/home`}>
-    <Typography sx={{ color: 'black' }} textAlign='center'>
-      Home
-    </Typography>
+    <NavBarButton sx={{ color: 'black' }}>Home</NavBarButton>
   </Link>
 );

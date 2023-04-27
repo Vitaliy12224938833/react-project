@@ -5,17 +5,16 @@ import { VideoPlayer } from './VideoPlayer';
 import { BasicTitle } from '../common/BasicTitle';
 import React from 'react';
 const AllVidoeClips = React.memo(({ data }) => {
-  if (DataTransferItem && data.length !== 0)
-    return (
-      <ComponentWrapper>
-        <Container maxWidth='xl'>
-          <BasicTitle>Clips</BasicTitle>
-        </Container>
-        <Slider data={data}>
-          {(item) => <VideoPlayer data={item} autoplay={false} />}
-        </Slider>
-      </ComponentWrapper>
-    );
+  return (
+    <ComponentWrapper>
+      <Container maxWidth='xl'>
+        <BasicTitle>Clips</BasicTitle>
+      </Container>
+      <Slider data={data}>
+        {(item) => <VideoPlayer data={item} autoplay={false} />}
+      </Slider>
+    </ComponentWrapper>
+  );
 });
 
 export default AllVidoeClips;

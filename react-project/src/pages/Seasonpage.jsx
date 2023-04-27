@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
 
-import { EpisodesAccordionList } from '../components/Accordions/EpisodesAccordions';
+import { EpisodesAccordions } from '../components/Accordions/EpisodesAccordions';
 import HorizontalList from '../components/HorizontalList/HorizontalList';
 import Description from '../components/Descriptions/Description';
 
@@ -48,7 +48,7 @@ export const Seasonpage = React.memo(() => {
       <Trailer list={videosList} />
       <Container maxWidth='xl'>
         <Description data={pageData} isSeason={true} />
-        <EpisodesAccordionList list={pageData.episodes} />
+        <EpisodesAccordions list={pageData.episodes} />
 
         <MediaTypeForLinkContext.Provider value='person'>
           <HorizontalList

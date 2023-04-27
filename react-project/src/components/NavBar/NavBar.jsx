@@ -12,7 +12,7 @@ import { SignIn } from '../Authentication/SignIn';
 import { SignUp } from '../Authentication/SignUp';
 import { SignOut } from '../Authentication/SignOut';
 import { UserDataContext } from '../../Context/Context';
-
+import { MenuButton } from './commponents/MenuButton';
 export const NavBar = React.memo(() => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [movie, setMovie] = useState(null);
@@ -42,11 +42,11 @@ export const NavBar = React.memo(() => {
   };
 
   const pages = [
-    {
-      route: 'home',
-      alert: 'Home',
-      categories: [],
-    },
+    // {
+    //   route: 'home',
+    //   alert: 'Home',
+    //   categories: [],
+    // },
     {
       route: 'movie',
       alert: 'Movies',
@@ -92,6 +92,7 @@ export const NavBar = React.memo(() => {
 
   const CastomeMenu = React.memo(({ page }) => (
     <NavBarMenu
+      data-testId='nav-bar-menu'
       style={{
         display: { xs: 'block' },
       }}
@@ -112,10 +113,10 @@ export const NavBar = React.memo(() => {
     zIndex: '999999',
   };
   return (
-    <Box sx={NavBarBoxStyle}>
+    <Box data-testid='navbar' sx={NavBarBoxStyle}>
       <AppBar position='static'>
         <Toolbar>
-          {/* Movile Version */}
+          {/* Mobile Version */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <CustomMenuIcon
               openMenu={handleOpenNavMenu}
@@ -129,29 +130,17 @@ export const NavBar = React.memo(() => {
               closeMenu={handleCloseAllMenu}
               menu={anchorElNav}
             >
-              {pages.map(
-                (page, i) =>
-                  (page.route === 'home' && (
-                    <MenuItem
-                      key={i}
-                      sx={{ color: 'black' }}
-                      onClick={handleCloseAllMenu}
-                    >
-                      <GoHomeLink />
-                    </MenuItem>
-                  )) || (
-                    <MenuItem
-                      key={i}
-                      sx={{ color: 'black' }}
-                      onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
-                    >
-                      <Typography textAlign='center'>{page.alert}</Typography>
-                    </MenuItem>
-                  )
-              )}
+              {pages.map((page, i) => (
+                <MenuItem
+                  key={i}
+                  sx={{ color: 'black' }}
+                  onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
+                >
+                  <Typography textAlign='center'>{page.alert}</Typography>
+                </MenuItem>
+              ))}
             </NavBarMenu>
           </Box>
-          {/* Movile Version */}
           {/* Desctop Version */}
           <Box
             sx={{
@@ -161,20 +150,13 @@ export const NavBar = React.memo(() => {
           >
             {pages.map((page, i) => (
               <Box key={i}>
-                {(page.route === 'home' && (
-                  <NavBarButton>
-                    <GoHomeLink />
-                  </NavBarButton>
-                )) || (
-                  <NavBarButton
-                    onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
-                  >
-                    <Typography sx={{ color: 'white' }} textAlign='center'>
-                      {page.alert}
-                    </Typography>
-                  </NavBarButton>
-                )}
-
+                <MenuButton
+                  onClick={(e) => handleOpenCategoryMenu(e, page.setState)}
+                >
+                  <Typography sx={{ color: 'white' }} textAlign='center'>
+                    {page.alert}
+                  </Typography>
+                </MenuButton>
                 <CastomeMenu page={page} />
               </Box>
             ))}
@@ -187,7 +169,10 @@ export const NavBar = React.memo(() => {
               <SignUp />
             </>
           ) : (
-            <SignOut />
+            <>
+              <SignOut />
+              <GoHomeLink />
+            </>
           )}
         </Toolbar>
       </AppBar>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Typography, Rating, Box } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { styled } from '@mui/material/styles';
-
+import { transformDateForReview } from '../../utils/transformDateForReview.mjs';
 const ReviewContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   marginTop: theme.spacing(2),
@@ -94,6 +94,7 @@ const ReviewText = styled(Typography)(({ theme }) => ({
 }));
 
 export const Review = React.memo(({ data }) => {
+  if (!data.author_details) return null;
   const [isDefaultAvatar, setIsDefaultAvatar] = useState(false);
 
   const { updated_at, content, author_details } = data;
@@ -118,7 +119,9 @@ export const Review = React.memo(({ data }) => {
         <StyledRating name='customized-10' value={rating} max={10} readOnly />
         <Typography variant='subtitle1'>
           <Username>{username}</Username>
-          <DateCaption color='primary'>{transformDate(updated_at)}</DateCaption>
+          <DateCaption color='primary'>
+            {transformDateForReview(updated_at)}
+          </DateCaption>
         </Typography>
         <ReviewText>{content}</ReviewText>
       </ContentContainer>

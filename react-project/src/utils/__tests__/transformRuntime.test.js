@@ -18,10 +18,10 @@ describe('transformRuntime', () => {
   test('should return formatted time string when passed a valid number', () => {
     expect(transformRuntime(0)).toBeNull();
     expect(transformRuntime(30)).toBe('30 min');
-    expect(transformRuntime(60)).toBe('1 hours');
-    expect(transformRuntime(90)).toBe('1 hours 30 min');
-    expect(transformRuntime(120)).toBe('2 hours');
-    expect(transformRuntime(150)).toBe('2 hours 30 min');
-    expect(transformRuntime(180)).toBe('3 hours');
+    expect(transformRuntime(60)).toBe('1h');
+    expect(transformRuntime(90)).toBe('1h 30 min');
+    expect(transformRuntime(120)).toBe('2h');
+    expect(transformRuntime(150)).toBe('2h 30 min');
+    expect(transformRuntime(180)).toBe('3h');
   });
 });
